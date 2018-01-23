@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.muuyal.escala.billingmanagement.controller.PaymentController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <AnchorPane prefHeight="493.0" prefWidth="600.0">
+         <children>
+            <Label alignment="CENTER" graphicTextGap="5.0" layoutX="238.0" layoutY="9.0" style="&#10;" text="Nuevo Pago" textAlignment="CENTER" textFill="#2c0404" wrapText="false">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <effect>
+                  <Bloom threshold="0.95" />
+               </effect>
+            </Label>
+            <Label alignment="CENTER" layoutX="43.0" layoutY="154.0" style="&#10;" text="Viaje" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="travel" layoutX="251.0" layoutY="152.0" prefWidth="150.0" />
+            <Label alignment="CENTER" layoutX="43.0" layoutY="95.0" style="&#10;" text="Cliente" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="46.0" layoutY="201.0" style="&#10;" text="Cantidad" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="51.0" layoutY="343.0" style="&#10;" text="Notas" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="46.0" layoutY="258.0" style="&#10;" text="Equipo de venta" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="staff" layoutX="251.0" layoutY="256.0" prefWidth="150.0" />
+            <TextField fx:id="name" layoutX="251.0" layoutY="93.0" promptText="Nombre completo" />
+            <TextField fx:id="amount" layoutX="251.0" layoutY="199.0" promptText="Número de telefono" />
+            <TextArea fx:id="notes" layoutX="245.0" layoutY="343.0" prefHeight="71.0" prefWidth="345.0" />
+            <Button layoutX="371.0" layoutY="440.0" mnemonicParsing="false" onAction="#save" text="Guardar" />
+            <Button layoutX="261.0" layoutY="440.0" mnemonicParsing="false" onAction="#clearScreen" text="Limpiar" />
+            <Button layoutX="146.0" layoutY="440.0" mnemonicParsing="false" onAction="#goToHome" text="Cancelar" />
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>
