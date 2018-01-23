@@ -2,6 +2,7 @@ package com.muuyal.escala.billingmanagement.controller;
 
 import com.muuyal.escala.billingmanagement.dao.impl.LoginDaoImpl;
 import com.muuyal.escala.billingmanagement.dao.interfaces.LoginDao;
+import com.muuyal.escala.billingmanagement.dao.interfaces.TravelDao;
 import com.muuyal.escala.billingmanagement.entities.Travel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,6 +39,9 @@ public class LoginController implements Initializable {
 
     @Autowired
     LoginDao loginDao;
+
+    @Autowired
+    TravelDao travelDao;
 
     @FXML
     private TextField username;

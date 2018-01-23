@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Set;
 
 @Repository
 public class TravelDaoImp extends DBConnection implements TravelDao{
@@ -58,17 +59,22 @@ public class TravelDaoImp extends DBConnection implements TravelDao{
     }
 
     @Override
-    public void findAll(Travel travel) {
+    public Set<Travel> findAll(Travel travel) {
 
     }
 
     @Override
-    public void findOne(Travel travel) {
+    public Travel findOne(Travel travel) {
 
     }
 
     @Override
     public void update(Travel travel) {
+
+    }
+
+    @Override
+    public void delete(Travel travel) {
 
     }
 }

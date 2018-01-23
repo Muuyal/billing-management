@@ -25,7 +25,7 @@ public class HomeController implements Initializable {
     @FXML
     public void goToTravel(ActionEvent actionEvent) throws IOException{
         System.out.println("-- " + this.getClass().getName() + ": go to travels home --");
-        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/travel/travelHome.fxml"));
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/travel/proyectHome.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         appStage.setScene(homePageScene);

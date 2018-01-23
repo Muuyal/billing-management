@@ -21,13 +21,6 @@ public class BillingManagementApplication extends Application {
 	private TravelDao travelDao;
 
 	Stage window;
-//	Scene login;
-//	Scene passengerNew;
-//	Scene staffNew;
-//	Scene travelDetails;
-//	Scene travelList;
-//	Scene travelNew;
-
 
 	@Override
 	public void init() throws Exception {

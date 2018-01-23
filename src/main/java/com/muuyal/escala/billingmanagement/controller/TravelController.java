@@ -1,7 +1,6 @@
 package com.muuyal.escala.billingmanagement.controller;
 
 import com.muuyal.escala.billingmanagement.dao.impl.TravelDaoImp;
-import com.muuyal.escala.billingmanagement.dao.interfaces.LoginDao;
 import com.muuyal.escala.billingmanagement.dao.interfaces.TravelDao;
 import com.muuyal.escala.billingmanagement.entities.Travel;
 import javafx.fxml.FXMLLoader;
@@ -136,7 +135,7 @@ public class TravelController implements Initializable {
     @FXML
     public void goToHome(ActionEvent actionEvent) throws IOException {
         System.out.println("-- " + this.getClass().getName() + ": go to travel home --");
-        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/travel/travelHome.fxml"));
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/travel/proyectHome.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         appStage.setScene(homePageScene);
