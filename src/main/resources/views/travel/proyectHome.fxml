@@ -39,7 +39,7 @@
       </MenuBar>
       <AnchorPane prefHeight="493.0" prefWidth="600.0">
          <children>
-            <Label alignment="CENTER" graphicTextGap="5.0" layoutX="334.0" layoutY="8.0" style="&#10;" text="Proyectos" textAlignment="CENTER" textFill="#9a1083" textOverrun="CENTER_ELLIPSIS" wrapText="false">
+            <Label fx:id="label" alignment="CENTER" graphicTextGap="5.0" layoutX="334.0" layoutY="8.0" style="&#10;" text="Proyectos" textAlignment="CENTER" textFill="#225de8" textOverrun="CENTER_ELLIPSIS" wrapText="false">
                <font>
                   <Font name="AdobeHebrew-Regular" size="32.0" />
                </font>
@@ -53,8 +53,8 @@
                   </font></Button>
                <Button layoutX="260.0" layoutY="413.0" mnemonicParsing="false" onAction="#goBack" text="Regresar" />
                <TextField layoutX="71.0" layoutY="14.0" onAction="#goToFindTravel" promptText="Buscar" />
-               <ListView layoutX="19.0" layoutY="135.0" prefHeight="258.0" prefWidth="287.0" />
-               <ListView layoutX="324.0" layoutY="135.0" prefHeight="258.0" prefWidth="268.0" />
+               <ListView fx:id="projectList" layoutX="19.0" layoutY="135.0" prefHeight="258.0" prefWidth="287.0" />
+               <ListView fx:id="detailList" layoutX="324.0" layoutY="135.0" prefHeight="258.0" prefWidth="268.0" />
          </children>
       </AnchorPane>
    </children>

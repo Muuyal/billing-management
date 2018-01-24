@@ -3,7 +3,8 @@ package com.muuyal.escala.billingmanagement.entities;
 import javax.persistence.*;
 import javax.persistence.Id;
 
-import java.util.Date;
+//import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @Table (name="travel")

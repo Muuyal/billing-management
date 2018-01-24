@@ -7,10 +7,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Repository
@@ -31,6 +29,7 @@ public class TravelDaoImp extends DBConnection implements TravelDao{
                 "','" + travel.getPayments() + "','" + travel.getDeparture() + "','" + travel.getDeadline() + "')" + " ---");
         Connection connection = null;
         Statement statement   = null;
+        PreparedStatement preparedStatement;
 
         try {
 
@@ -39,9 +38,18 @@ public class TravelDaoImp extends DBConnection implements TravelDao{
             statement = connection.createStatement();
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
-            statement.executeUpdate("insert into travel(name, destination, price, payments, departure, deadline) values"  +
-                    "('" + travel.getName() + "','" + travel.getDestination() + "','" + travel.getPrice() +
-                    "','" + travel.getPayments() + "','" + travel.getDeparture() + "','" + travel.getDeadline() + "');");
+//            statement.executeUpdate("insert into travel(name, destination, price, payments, departure, deadline) values"  +
+//                    "('" + travel.getName() + "','" + travel.getDestination() + "','" + travel.getPrice() +
+//                    "','" + travel.getPayments() + "','" + travel.getDeparture() + "','" + travel.getDeadline() + "');");
+
+            preparedStatement = connection.prepareStatement("insert into travel(name, destination, price, payments, departure, deadline) values(?,?,?,?,?,?)");
+            preparedStatement.setString(1, travel.getName());
+            preparedStatement.setString(2, travel.getDestination());
+            preparedStatement.setInt(3, travel.getPrice());
+            preparedStatement.setString(4, travel.getPayments());
+            preparedStatement.setString(5, travel.getDeparture().toString());
+            preparedStatement.setString(6, travel.getDeadline().toString());
+            preparedStatement.executeUpdate();
 
             connection.commit();
             saved = true;
@@ -59,13 +67,20 @@ public class TravelDaoImp extends DBConnection implements TravelDao{
     }
 
     @Override
+    public Set<Travel> findAll() {
+        return null;
+    }
+
+    @Override
     public Set<Travel> findAll(Travel travel) {
 
+        Set<Travel> travelSet = new HashSet<>();
+        return travelSet;
     }
 
     @Override
     public Travel findOne(Travel travel) {
-
+        return travel;
     }
 
     @Override

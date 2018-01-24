@@ -8,6 +8,8 @@ public interface TravelDao {
 
     boolean save(Travel travel);
 
+    Set<Travel> findAll();
+
     Set<Travel> findAll(Travel travel);
 
     Travel findOne(Travel travel);

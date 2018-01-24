@@ -3,21 +3,22 @@ package com.muuyal.escala.billingmanagement.controller;
 import com.muuyal.escala.billingmanagement.dao.impl.TravelDaoImp;
 import com.muuyal.escala.billingmanagement.dao.interfaces.TravelDao;
 import com.muuyal.escala.billingmanagement.entities.Travel;
+import javafx.beans.InvalidationListener;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ResourceBundle;
+import java.util.*;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -53,9 +54,26 @@ public class TravelController implements Initializable {
     private DatePicker deadline;
     @FXML
     private Label message;
+    @FXML
+    private Label label;
+    @FXML
+    private ListView<Travel> projectView;
+    @FXML
+    private ListView projectDetails;
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+//        label.setText("Loaded");
+//
+//       Set<Travel> travelSet = travelDao.findAll();
+//       Travel travel1 = new Travel();
+//       travel1.setId(1);
+//       travel1.setDestination("asdasd");
+
+//       projectView.setItems(observableList);
 
     }
 
