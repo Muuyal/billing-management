@@ -4,8 +4,8 @@ import javax.persistence.*;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
-//import java.util.Date;
-import java.sql.Date;
+import java.util.Date;
+//import java.sql.Date;
 
 @Entity
 @Table (name="travel")
@@ -19,12 +19,20 @@ public class Travel{
     private Date deadline;
     private Integer price;
     private String payments;
+    private String contract;
 
     public Travel(Integer id, String name, String destination, Integer price) {
         this.id = id;
         this.name = name;
         this.destination = destination;
         this.price = price;
+    }
+
+    public Travel(String name, String destination, Integer price, Date departure) {
+        this.name = name;
+        this.destination = destination;
+        this.price = price;
+        this.departure  = departure;
     }
 
     public Travel(){

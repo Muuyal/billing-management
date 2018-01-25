@@ -9,14 +9,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="center" hgap="10" prefHeight="562.0" prefWidth="680.0" vgap="10" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.muuyal.escala.billingmanagement.controller.TravelController">
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="677.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="940.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.muuyal.escala.billingmanagement.controller.TravelController">
    <children>
       <MenuBar>
         <menus>
@@ -37,9 +34,9 @@
           </Menu>
         </menus>
       </MenuBar>
-      <AnchorPane prefHeight="535.0" prefWidth="677.0">
+      <AnchorPane prefHeight="582.0" prefWidth="699.0">
          <children>
-            <Label fx:id="label" alignment="CENTER" graphicTextGap="5.0" layoutX="334.0" layoutY="8.0" style="&#10;" text="Proyectos" textAlignment="CENTER" textFill="#225de8" textOverrun="CENTER_ELLIPSIS" wrapText="false" AnchorPane.topAnchor="8.0">
+            <Label fx:id="label" alignment="CENTER" graphicTextGap="5.0" layoutX="643.0" layoutY="9.0" style="&#10;" text="Proyectos" textAlignment="CENTER" textFill="#225de8" textOverrun="CENTER_ELLIPSIS" wrapText="false" AnchorPane.rightAnchor="144.5" AnchorPane.topAnchor="9.0">
                <font>
                   <Font name="AdobeHebrew-Regular" size="32.0" />
                </font>
@@ -47,23 +44,19 @@
                   <Bloom threshold="0.95" />
                </effect>
             </Label>
-            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToNewTravel" prefHeight="28.0" prefWidth="35.0" text="+" textFill="#4274e1" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
+            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToNewTravel" prefHeight="28.0" prefWidth="35.0" style="-fx-background-color: #1596F3;" text="+" textFill="WHITE" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
                   <font>
                      <Font size="14.0" />
-                  </font></Button>
-               <Button layoutX="304.0" layoutY="489.0" mnemonicParsing="false" onAction="#goBack" text="Regresar" />
-               <TextField layoutX="71.0" layoutY="14.0" onAction="#goToFindTravel" promptText="Buscar" AnchorPane.leftAnchor="71.0" AnchorPane.topAnchor="14.0" />
-               <TableView fx:id="projectList" layoutX="14.0" layoutY="47.0" prefHeight="212.0" prefWidth="277.0" />
-               <TableView fx:id="customerList" layoutX="14.0" layoutY="252.0" prefHeight="228.0" prefWidth="277.0" />
-               <TableView fx:id="customerDetails" layoutX="310.0" layoutY="47.0" prefHeight="433.0" prefWidth="340.0" />
+                  </font>
+               <effect>
+                  <Bloom />
+               </effect></Button>
+               <Button layoutX="436.0" layoutY="533.0" mnemonicParsing="false" onAction="#goBack" text="Regresar" AnchorPane.bottomAnchor="14.0" />
+               <TextField layoutX="71.0" layoutY="14.0" onAction="#goToFindTravel" prefHeight="26.0" prefWidth="277.0" promptText="Buscar por nombre" AnchorPane.leftAnchor="71.0" AnchorPane.topAnchor="14.0" />
+               <TableView fx:id="projectList" layoutX="14.0" layoutY="47.0" onMouseClicked="#showCustomers" prefHeight="212.0" prefWidth="437.0" AnchorPane.leftAnchor="14.0" />
+               <TableView fx:id="customerList" layoutX="14.0" layoutY="252.0" onMouseClicked="#showDetails" prefHeight="228.0" prefWidth="437.0" />
+               <TableView fx:id="customerDetails" layoutX="334.0" layoutY="49.0" prefHeight="457.0" prefWidth="392.0" AnchorPane.rightAnchor="25.0" />
          </children>
       </AnchorPane>
    </children>
 </VBox>
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-   </rowConstraints>
-</GridPane>

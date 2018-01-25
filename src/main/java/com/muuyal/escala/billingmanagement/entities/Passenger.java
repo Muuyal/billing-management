@@ -1,11 +1,12 @@
 package com.muuyal.escala.billingmanagement.entities;
 
 
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@Entity
+@Table(name="contract")
 public class Passenger {
 
 
@@ -16,15 +17,17 @@ public class Passenger {
 
     @NotNull
     private Integer phone;
+    @Id
     @NotNull
+    private String id;
     private String eMail;
     private String addressStreet;
     private String addressCity;
     private String addressColony;
     private Integer addressPC;
     private String notes;
+    private String contract;
 
-    private String id;
 
     Passenger(String name, int phone, String eMail) {
         this.setName(name);
@@ -121,6 +124,8 @@ public class Passenger {
         this.notes = notes;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public String getId() {
         return id;
     }

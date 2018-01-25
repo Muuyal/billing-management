@@ -27,7 +27,7 @@
                </effect>
         </Label>
             <TextField fx:id="username" layoutX="237.0" layoutY="209.0" promptText="Usuario" />
-            <PasswordField fx:id="password" layoutX="237.0" layoutY="250.0" promptText="Contraseña" />
+            <PasswordField fx:id="password" layoutX="237.0" layoutY="250.0" onAction="#login" promptText="Contraseña" />
             <Button layoutX="286.0" layoutY="316.0" mnemonicParsing="false" onAction="#login" text="Entrar" />
             <Circle fill="DODGERBLUE" layoutX="314.0" layoutY="166.0" radius="34.0" stroke="BLACK" strokeType="INSIDE" />
                <Label fx:id="message" layoutX="200.0" layoutY="350.0" prefHeight="23.0" prefWidth="300.0" textFill="#e80c0c" />

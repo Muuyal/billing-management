@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -58,7 +59,7 @@ public class TravelController implements Initializable {
     @FXML
     private Label label;
     @FXML
-    private  TableView<String> projectList = new TableView<String>();
+    private  TableView<Travel> projectList = new TableView<Travel>();
     @FXML
     private TableView<String> customerList = new TableView<String>();
     @FXML
@@ -69,42 +70,59 @@ public class TravelController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-//        label.setText("Loaded");
-//
-//       Set<Travel> travelSet = travelDao.findAll();
-//       Travel travel1 = new Travel();
-//       travel1.setId(1);
-//       travel1.setDestination("asdasd");
-
-//       projectView.setItems(observableList);
-
-        ObservableList<String> projectItems = FXCollections.observableArrayList ("Single", "Double", "Suite", "Family App");
-        ObservableList<String> customerItems = FXCollections.observableArrayList ("Single", "Double", "Suite", "Family App");
-        ObservableList<String> customerDetailsItems = FXCollections.observableArrayList ("Single", "Double", "Suite", "Family App");
+        final ObservableList<Travel> projectItems = FXCollections.observableArrayList(
+                travelDao.findAll()
+        );
+        System.out.println("------- " + projectItems.get(1) + " ----------");
 
         projectList.setEditable(false);
         customerList.setEditable(false);
         customerDetails.setEditable(false);
 
-        TableColumn columnA = new TableColumn("Nombre");
-        TableColumn columnB = new TableColumn("Precio");
-        TableColumn columnC = new TableColumn("Fecha de salida");
-        TableColumn columnD = new TableColumn("");
+        TableColumn columnA = new TableColumn("Nombre"); // project name
+        TableColumn columnB = new TableColumn("Destino"); //project
+        TableColumn columnC = new TableColumn("Salida"); //project
+        TableColumn columnD = new TableColumn("Precio"); //project
+        TableColumn columnE = new TableColumn("Estado"); //customer
+        TableColumn columnF = new TableColumn("Adeudo"); //customer
+        TableColumn columnG = new TableColumn("Pagado"); //customer
+        TableColumn columnH = new TableColumn("Habitación"); //customer
+        TableColumn columnI = new TableColumn("Nombre"); //customer
 
-        projectList.getColumns().addAll(columnA, columnB, columnC);
+        columnA.setCellValueFactory(
+                new PropertyValueFactory<Travel,String>("name")
+        );
+        columnB.setCellValueFactory(
+                new PropertyValueFactory<Travel,String>("destination")
+        );
+        columnC.setCellValueFactory(
+                new PropertyValueFactory<Travel,String>("price")
+        );
+        columnD.setCellValueFactory(
+                new PropertyValueFactory<Travel,String>("departure")
+        );
 
-        columnB.setText("Estado");
-        columnC.setText("Adeudo");
-        customerList.getColumns().addAll(columnA, columnB, columnC);
-
-        columnB.setText("Adeudo");
-        columnC.setText("Pagado");
-        columnD.setText("Habitación");
-        customerDetails.getColumns().addAll(columnA, columnB, columnC, columnD);
+        projectList.getColumns().addAll(columnA, columnB, columnC, columnD);
+        customerList.getColumns().addAll(columnI, columnE, columnF);
+        customerDetails.getColumns().addAll(columnI,columnE, columnF, columnG, columnH );
 
         projectList.setItems(projectItems);
 
+    }
 
+    @FXML
+    public void showCustomers(){
+        System.out.println("-- " + this.getClass().getName() + ": showCustomers clicked--");
+        if (projectList.getSelectionModel().getSelectedItem() != null ) {
+            Travel clickedTravel = projectList.getSelectionModel().getSelectedItem();
+            System.out.println("-- " + this.getClass().getName() + ": item selected is: " + clickedTravel.getId() + "--");
+        }
+
+    }
+
+    @FXML
+    public void showDetails(){
+        System.out.println("-- " + this.getClass().getName() + ": showDetails clicked--");
     }
 
     @FXML
