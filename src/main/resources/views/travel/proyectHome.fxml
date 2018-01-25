@@ -2,10 +2,10 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,8 +15,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.muuyal.escala.billingmanagement.controller.TravelController">
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane alignment="center" hgap="10" prefHeight="562.0" prefWidth="680.0" vgap="10" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.muuyal.escala.billingmanagement.controller.TravelController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="677.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <MenuBar>
         <menus>
@@ -37,9 +37,9 @@
           </Menu>
         </menus>
       </MenuBar>
-      <AnchorPane prefHeight="493.0" prefWidth="600.0">
+      <AnchorPane prefHeight="535.0" prefWidth="677.0">
          <children>
-            <Label fx:id="label" alignment="CENTER" graphicTextGap="5.0" layoutX="334.0" layoutY="8.0" style="&#10;" text="Proyectos" textAlignment="CENTER" textFill="#225de8" textOverrun="CENTER_ELLIPSIS" wrapText="false">
+            <Label fx:id="label" alignment="CENTER" graphicTextGap="5.0" layoutX="334.0" layoutY="8.0" style="&#10;" text="Proyectos" textAlignment="CENTER" textFill="#225de8" textOverrun="CENTER_ELLIPSIS" wrapText="false" AnchorPane.topAnchor="8.0">
                <font>
                   <Font name="AdobeHebrew-Regular" size="32.0" />
                </font>
@@ -47,14 +47,15 @@
                   <Bloom threshold="0.95" />
                </effect>
             </Label>
-            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToNewTravel" prefHeight="28.0" prefWidth="35.0" text="+" textFill="#4274e1">
+            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToNewTravel" prefHeight="28.0" prefWidth="35.0" text="+" textFill="#4274e1" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
                   <font>
                      <Font size="14.0" />
                   </font></Button>
-               <Button layoutX="260.0" layoutY="413.0" mnemonicParsing="false" onAction="#goBack" text="Regresar" />
-               <TextField layoutX="71.0" layoutY="14.0" onAction="#goToFindTravel" promptText="Buscar" />
-               <ListView fx:id="projectList" layoutX="19.0" layoutY="135.0" prefHeight="258.0" prefWidth="287.0" />
-               <ListView fx:id="detailList" layoutX="324.0" layoutY="135.0" prefHeight="258.0" prefWidth="268.0" />
+               <Button layoutX="304.0" layoutY="489.0" mnemonicParsing="false" onAction="#goBack" text="Regresar" />
+               <TextField layoutX="71.0" layoutY="14.0" onAction="#goToFindTravel" promptText="Buscar" AnchorPane.leftAnchor="71.0" AnchorPane.topAnchor="14.0" />
+               <TableView fx:id="projectList" layoutX="14.0" layoutY="47.0" prefHeight="212.0" prefWidth="277.0" />
+               <TableView fx:id="customerList" layoutX="14.0" layoutY="252.0" prefHeight="228.0" prefWidth="277.0" />
+               <TableView fx:id="customerDetails" layoutX="310.0" layoutY="47.0" prefHeight="433.0" prefWidth="340.0" />
          </children>
       </AnchorPane>
    </children>

@@ -2,6 +2,7 @@ package com.muuyal.escala.billingmanagement.entities;
 
 import javax.persistence.*;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 //import java.util.Date;
 import java.sql.Date;
@@ -11,6 +12,7 @@ import java.sql.Date;
 public class Travel{
 
     private Integer id;
+    @NotNull(message = "Nombre no puede ir vacio")
     private String name;
     private String destination;
     private Date departure;

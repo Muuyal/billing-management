@@ -4,6 +4,7 @@ import com.muuyal.escala.billingmanagement.dao.impl.TravelDaoImp;
 import com.muuyal.escala.billingmanagement.dao.interfaces.TravelDao;
 import com.muuyal.escala.billingmanagement.entities.Travel;
 import javafx.beans.InvalidationListener;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -57,9 +58,11 @@ public class TravelController implements Initializable {
     @FXML
     private Label label;
     @FXML
-    private ListView<Travel> projectView;
+    private  TableView<String> projectList = new TableView<String>();
     @FXML
-    private ListView projectDetails;
+    private TableView<String> customerList = new TableView<String>();
+    @FXML
+    private TableView<String> customerDetails =  new TableView<String>();;
 
 
 
@@ -74,6 +77,33 @@ public class TravelController implements Initializable {
 //       travel1.setDestination("asdasd");
 
 //       projectView.setItems(observableList);
+
+        ObservableList<String> projectItems = FXCollections.observableArrayList ("Single", "Double", "Suite", "Family App");
+        ObservableList<String> customerItems = FXCollections.observableArrayList ("Single", "Double", "Suite", "Family App");
+        ObservableList<String> customerDetailsItems = FXCollections.observableArrayList ("Single", "Double", "Suite", "Family App");
+
+        projectList.setEditable(false);
+        customerList.setEditable(false);
+        customerDetails.setEditable(false);
+
+        TableColumn columnA = new TableColumn("Nombre");
+        TableColumn columnB = new TableColumn("Precio");
+        TableColumn columnC = new TableColumn("Fecha de salida");
+        TableColumn columnD = new TableColumn("");
+
+        projectList.getColumns().addAll(columnA, columnB, columnC);
+
+        columnB.setText("Estado");
+        columnC.setText("Adeudo");
+        customerList.getColumns().addAll(columnA, columnB, columnC);
+
+        columnB.setText("Adeudo");
+        columnC.setText("Pagado");
+        columnD.setText("Habitación");
+        customerDetails.getColumns().addAll(columnA, columnB, columnC, columnD);
+
+        projectList.setItems(projectItems);
+
 
     }
 
@@ -96,6 +126,7 @@ public class TravelController implements Initializable {
         Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/travel/travelFind.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        appStage.setTitle("Busqueda");
         appStage.setScene(homePageScene);
         appStage.show();
 
@@ -156,6 +187,7 @@ public class TravelController implements Initializable {
         Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/travel/proyectHome.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        appStage.setTitle("Proyectos");
         appStage.setScene(homePageScene);
         appStage.show();
     }
