@@ -68,7 +68,7 @@
                   <Bloom threshold="0.95" />
                </effect>
         </Label>
-            <DatePicker fx:id="departure" layoutX="263.0" layoutY="163.0" promptText="Fecha de salida" />
+            <DatePicker fx:id="eta" layoutX="263.0" layoutY="163.0" promptText="Fecha de salida" />
             <Label alignment="CENTER" layoutX="31.0" layoutY="165.0" style="&#10;" text="Fecha de partida" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
                <font>
                   <Font size="18.0" />

@@ -1,13 +1,12 @@
 package com.muuyal.escala.billingmanagement.services;
 
-import com.muuyal.escala.billingmanagement.entities.Passenger;
-import com.muuyal.escala.billingmanagement.entities.Travel;
+import com.muuyal.escala.billingmanagement.entities.Project;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TravelService {
 
-    public void save(Travel travel){
+    public void save(Project project){
 
 
     }
@@ -18,17 +17,17 @@ public class TravelService {
 
     }
 
-    public void findById(Travel travel ){
+    public void findById(Project project){
 
-        travel.getId();
-
-    }
-
-    public void delete( Travel travel) {
+        project.getId();
 
     }
 
-    public void update(Travel travel){
+    public void delete( Project project) {
+
+    }
+
+    public void update(Project project){
 
     }
 

@@ -34,8 +34,8 @@ public class PassengerController implements Initializable {
     @FXML
     public void goToNewPassenger(ActionEvent actionEvent) throws IOException{
 
-        System.out.println("-- " + this.getClass().getName() + ": go to new passenger --");
-        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/passenger/passengerNew.fxml"));
+        System.out.println("-- " + this.getClass().getName() + ": go to new customer --");
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/customer/customerNew.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         appStage.setScene(homePageScene);
@@ -46,8 +46,8 @@ public class PassengerController implements Initializable {
     @FXML
     public void goToFindPassenger(ActionEvent actionEvent) throws IOException{
 
-        System.out.println("-- " + this.getClass().getName() + ": go to find passenger --");
-        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/passenger/passengerFind.fxml"));
+        System.out.println("-- " + this.getClass().getName() + ": go to find customer --");
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/customer/passengerFind.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         appStage.setScene(homePageScene);
@@ -59,8 +59,8 @@ public class PassengerController implements Initializable {
     @FXML
     public void goToDetails(ActionEvent actionEvent) throws IOException {
 
-        System.out.println("-- " + this.getClass().getName() + ": go to passenger details --");
-        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/passenger/passengerDetails.fxml"));
+        System.out.println("-- " + this.getClass().getName() + ": go to customer details --");
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/customer/passengerDetails.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         appStage.setScene(homePageScene);
@@ -70,7 +70,7 @@ public class PassengerController implements Initializable {
 
     @FXML
     public void save(ActionEvent actionEvent) {
-        System.out.println("-- " + this.getClass().getName() + ": save passenger --");
+        System.out.println("-- " + this.getClass().getName() + ": save customer --");
 
     }
 
@@ -82,8 +82,8 @@ public class PassengerController implements Initializable {
 
     @FXML
     public void goToHome(ActionEvent actionEvent) throws IOException {
-        System.out.println("-- " + this.getClass().getName() + ": go to passenger home --");
-        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/passenger/passengerHome.fxml"));
+        System.out.println("-- " + this.getClass().getName() + ": go to customer home --");
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/customer/customerHome.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         appStage.setScene(homePageScene);
@@ -92,7 +92,7 @@ public class PassengerController implements Initializable {
 
     @FXML
     public void goBack(ActionEvent actionEvent) throws IOException {
-        System.out.println("-- " + this.getClass().getName() + ": go to passenger home --");
+        System.out.println("-- " + this.getClass().getName() + ": go to customer home --");
         Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/home.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

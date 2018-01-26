@@ -9,33 +9,36 @@ import java.util.Date;
 
 @Entity
 @Table (name="travel")
-public class Travel{
+public class Project {
 
     private Integer id;
     @NotNull(message = "Nombre no puede ir vacio")
     private String name;
     private String destination;
-    private Date departure;
+    private Date eta;
     private Date deadline;
     private Integer price;
-    private String payments;
-    private String contract;
+    private String paymentSchedule;
 
-    public Travel(Integer id, String name, String destination, Integer price) {
+    public Project(Integer id, String name, String destination, Integer price) {
         this.id = id;
         this.name = name;
         this.destination = destination;
         this.price = price;
     }
 
-    public Travel(String name, String destination, Integer price, Date departure) {
+    public Project(String name, String destination, Integer price, Date eta) {
         this.name = name;
         this.destination = destination;
         this.price = price;
-        this.departure  = departure;
+        this.eta = eta;
     }
 
-    public Travel(){
+    public Project(String name, String destination, Date eta, Date deadline, Integer price, String paymentSchedule){
+
+    }
+
+    public Project(){
 
     }
 
@@ -64,12 +67,12 @@ public class Travel{
         this.destination = destination;
     }
 
-    public Date getDeparture() {
-        return departure;
+    public Date getEta() {
+        return eta;
     }
 
-    public void setDeparture(Date departure) {
-        this.departure = departure;
+    public void setEta(Date eta) {
+        this.eta = eta;
     }
 
     public Date getDeadline() {
@@ -88,13 +91,12 @@ public class Travel{
         this.price = price;
     }
 
-    public String getPayments() {
-        return payments;
+    public String getPaymentSchedule() {
+        return paymentSchedule;
     }
 
-    public void setPayments(String payments) {
-        this.payments = payments;
+    public void setPaymentSchedule(String paymentSchedule) {
+        this.paymentSchedule = paymentSchedule;
     }
-
 
 }

@@ -62,7 +62,7 @@
       <children>
             <TextField fx:id="name" layoutX="263.0" layoutY="45.0" promptText="Nombre del proyecto" />
             <TextField fx:id="destination" layoutX="263.0" layoutY="82.0" promptText="producto" />
-            <DatePicker fx:id="departure" layoutX="263.0" layoutY="126.0" promptText="Fecha de salida" />
+            <DatePicker fx:id="eta" layoutX="263.0" layoutY="126.0" promptText="Fecha de salida" />
             <DatePicker fx:id="deadline" layoutX="263.0" layoutY="161.0" promptText="Fecha limite de pago" />
             <TextField fx:id="price" layoutX="263.0" layoutY="200.0" promptText="Precio" />
             <TextField fx:id="paymentSchedule" layoutX="263.0" layoutY="235.0" promptText="Semana, quincenal.." />

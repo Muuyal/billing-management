@@ -1,9 +1,7 @@
 package com.muuyal.escala.billingmanagement.controller;
 
-import com.muuyal.escala.billingmanagement.dao.impl.LoginDaoImpl;
 import com.muuyal.escala.billingmanagement.dao.interfaces.LoginDao;
 import com.muuyal.escala.billingmanagement.dao.interfaces.TravelDao;
-import com.muuyal.escala.billingmanagement.entities.Travel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,7 +13,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.context.annotation.Bean;
@@ -24,10 +21,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ResourceBundle;
 
 @Controller

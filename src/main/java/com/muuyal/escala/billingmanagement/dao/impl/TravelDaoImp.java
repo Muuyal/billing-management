@@ -2,10 +2,8 @@ package com.muuyal.escala.billingmanagement.dao.impl;
 
 import com.muuyal.escala.billingmanagement.dao.DBConnection;
 import com.muuyal.escala.billingmanagement.dao.interfaces.TravelDao;
-import com.muuyal.escala.billingmanagement.entities.Travel;
-import org.springframework.stereotype.Component;
+import com.muuyal.escala.billingmanagement.entities.Project;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -21,13 +19,13 @@ public class TravelDaoImp extends DBConnection implements TravelDao{
     }
 
     @Override
-    public boolean save(Travel travel) {
+    public boolean save(Project project) {
 
         boolean saved = false;
 
-        System.out.println("--- insert into travel(name, destination, price, payments, departure, deadline) values" +
-                " ('" + travel.getName() + "','" + travel.getDestination() + "','" + travel.getPrice() +
-                "','" + travel.getPayments() + "','" + travel.getDeparture() + "','" + travel.getDeadline() + "')" + " ---");
+        System.out.println("--- insert into project(name, destination, price, payments, departure, deadline) values" +
+                " ('" + project.getName() + "','" + project.getDestination() + "','" + project.getPrice() +
+                "','" + project.getPaymentSchedule() + "','" + project.getEta() + "','" + project.getDeadline() + "')" + " ---");
         Connection connection = null;
         Statement statement   = null;
         PreparedStatement preparedStatement;
@@ -40,12 +38,12 @@ public class TravelDaoImp extends DBConnection implements TravelDao{
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
             preparedStatement = connection.prepareStatement("insert into travel(name, destination, price, payments, departure, deadline) values(?,?,?,?,?,?)");
-            preparedStatement.setString(1, travel.getName());
-            preparedStatement.setString(2, travel.getDestination());
-            preparedStatement.setInt(3, travel.getPrice());
-            preparedStatement.setString(4, travel.getPayments());
-            preparedStatement.setString(5, travel.getDeparture().toString());
-            preparedStatement.setString(6, travel.getDeadline().toString());
+            preparedStatement.setString(1, project.getName());
+            preparedStatement.setString(2, project.getDestination());
+            preparedStatement.setInt(3, project.getPrice());
+            preparedStatement.setString(4, project.getPaymentSchedule());
+            preparedStatement.setString(5, project.getEta().toString());
+            preparedStatement.setString(6, project.getDeadline().toString());
             preparedStatement.executeUpdate();
 
             connection.commit();
@@ -64,7 +62,7 @@ public class TravelDaoImp extends DBConnection implements TravelDao{
     }
 
     @Override
-    public Set<Travel> findAll() {
+    public Set<Project> findAll() {
 
         System.out.println("---" + this.getClass().getName() +  " findAll clicked. ---");
         System.out.println("--- select * from travel; ---");
@@ -72,7 +70,7 @@ public class TravelDaoImp extends DBConnection implements TravelDao{
         Statement statement   = null;
         PreparedStatement preparedStatement;
 
-        Set<Travel> result =  new HashSet<Travel>();
+        Set<Project> result =  new HashSet<Project>();
         try {
 
             connection = this.setConnection();
@@ -86,13 +84,13 @@ public class TravelDaoImp extends DBConnection implements TravelDao{
             System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
 
             while (resultSet.next()){
-                Travel temp = new Travel();
+                Project temp = new Project();
                 temp.setId(resultSet.getInt("id"));
                 temp.setName(resultSet.getString("name"));
                 temp.setDestination(resultSet.getString("destination"));
                 temp.setPrice(resultSet.getInt("price"));
-                temp.setPayments(resultSet.getString("payments"));
-                temp.setDeparture(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("departure")));
+                temp.setPaymentSchedule(resultSet.getString("payments"));
+                temp.setEta(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("departure")));
                 temp.setDeadline(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("deadline")));
                 result.add(temp);
             }
@@ -111,24 +109,24 @@ public class TravelDaoImp extends DBConnection implements TravelDao{
     }
 
     @Override
-    public Set<Travel> findAll(Travel travel) {
+    public Set<Project> findAll(Project project) {
 
-        Set<Travel> travelSet = new HashSet<>();
-        return travelSet;
+        Set<Project> projectSet = new HashSet<>();
+        return projectSet;
     }
 
     @Override
-    public Travel findOne(Travel travel) {
-        return travel;
+    public Project findOne(Project project) {
+        return project;
     }
 
     @Override
-    public void update(Travel travel) {
+    public void update(Project project) {
 
     }
 
     @Override
-    public void delete(Travel travel) {
+    public void delete(Project project) {
 
     }
 }

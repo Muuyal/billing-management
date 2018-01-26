@@ -7,34 +7,37 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="contract")
-public class Passenger {
+public class Customer {
 
-
-    @NotNull
-    private String name;
-
-    private String travel;
-
-    @NotNull
-    private Integer phone;
     @Id
     @NotNull
     private String id;
+    @NotNull
+    private String name;
+    @NotNull
+    private String phone;
     private String eMail;
     private String addressStreet;
     private String addressCity;
     private String addressColony;
     private Integer addressPC;
     private String notes;
-    private String contract;
 
-
-    Passenger(String name, int phone, String eMail) {
+    Customer(String name, String phone, String eMail) {
         this.setName(name);
         this.setPhone(phone);
         this.seteMail(eMail);
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
 
@@ -46,20 +49,11 @@ public class Passenger {
         this.name = name;
     }
 
-    public String getTravel() {
-
-        return travel;
-    }
-
-    public void setTravel(String travel) {
-        this.travel = travel;
-    }
-
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
 
         this.phone = phone;
     }
@@ -124,13 +118,4 @@ public class Passenger {
         this.notes = notes;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 }

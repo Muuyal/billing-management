@@ -1,22 +1,22 @@
 package com.muuyal.escala.billingmanagement.dao.interfaces;
 
-import com.muuyal.escala.billingmanagement.entities.Travel;
+import com.muuyal.escala.billingmanagement.entities.Project;
 
 import java.util.Set;
 
 public interface TravelDao {
 
-    boolean save(Travel travel);
+    boolean save(Project project);
 
-    Set<Travel> findAll();
+    Set<Project> findAll();
 
-    Set<Travel> findAll(Travel travel);
+    Set<Project> findAll(Project project);
 
-    Travel findOne(Travel travel);
+    Project findOne(Project project);
 
-    void update(Travel travel);
+    void update(Project project);
 
-    void delete(Travel travel);
+    void delete(Project project);
 
 
 }

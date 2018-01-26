@@ -84,7 +84,7 @@ public class StaffController implements Initializable {
 
     @FXML
     public void goBack(ActionEvent actionEvent) throws IOException {
-        System.out.println("-- " + this.getClass().getName() + ": go to passenger home --");
+        System.out.println("-- " + this.getClass().getName() + ": go to customer home --");
         Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/home.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

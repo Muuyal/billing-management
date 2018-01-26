@@ -2,10 +2,8 @@ package com.muuyal.escala.billingmanagement.controller;
 
 import com.muuyal.escala.billingmanagement.dao.impl.TravelDaoImp;
 import com.muuyal.escala.billingmanagement.dao.interfaces.TravelDao;
-import com.muuyal.escala.billingmanagement.entities.Travel;
-import javafx.beans.InvalidationListener;
+import com.muuyal.escala.billingmanagement.entities.Project;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -37,7 +35,7 @@ public class TravelController implements Initializable {
 
     private Button buttonUpdate;
 
-    private Travel travel =  new Travel();
+    private Project project =  new Project();
 
 
     private TravelDao travelDao = new TravelDaoImp();
@@ -51,7 +49,7 @@ public class TravelController implements Initializable {
     @FXML
     private TextField paymentSchedule;
     @FXML
-    private DatePicker departure;
+    private DatePicker eta;
     @FXML
     private DatePicker deadline;
     @FXML
@@ -59,7 +57,7 @@ public class TravelController implements Initializable {
     @FXML
     private Label label;
     @FXML
-    private  TableView<Travel> projectList = new TableView<Travel>();
+    private  TableView<Project> projectList = new TableView<Project>();
     @FXML
     private TableView<String> customerList = new TableView<String>();
     @FXML
@@ -70,7 +68,7 @@ public class TravelController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        final ObservableList<Travel> projectItems = FXCollections.observableArrayList(
+        final ObservableList<Project> projectItems = FXCollections.observableArrayList(
                 travelDao.findAll()
         );
         System.out.println("------- " + projectItems.get(1) + " ----------");
@@ -81,8 +79,8 @@ public class TravelController implements Initializable {
 
         TableColumn columnA = new TableColumn("Nombre"); // project name
         TableColumn columnB = new TableColumn("Destino"); //project
-        TableColumn columnC = new TableColumn("Salida"); //project
-        TableColumn columnD = new TableColumn("Precio"); //project
+        TableColumn columnC = new TableColumn("Precio"); //project
+        TableColumn columnD = new TableColumn("Salida"); //project
         TableColumn columnE = new TableColumn("Estado"); //customer
         TableColumn columnF = new TableColumn("Adeudo"); //customer
         TableColumn columnG = new TableColumn("Pagado"); //customer
@@ -90,16 +88,16 @@ public class TravelController implements Initializable {
         TableColumn columnI = new TableColumn("Nombre"); //customer
 
         columnA.setCellValueFactory(
-                new PropertyValueFactory<Travel,String>("name")
+                new PropertyValueFactory<Project,String>("name")
         );
         columnB.setCellValueFactory(
-                new PropertyValueFactory<Travel,String>("destination")
+                new PropertyValueFactory<Project,String>("destination")
         );
         columnC.setCellValueFactory(
-                new PropertyValueFactory<Travel,String>("price")
+                new PropertyValueFactory<Project,String>("price")
         );
         columnD.setCellValueFactory(
-                new PropertyValueFactory<Travel,String>("departure")
+                new PropertyValueFactory<Project,String>("eta")
         );
 
         projectList.getColumns().addAll(columnA, columnB, columnC, columnD);
@@ -114,8 +112,8 @@ public class TravelController implements Initializable {
     public void showCustomers(){
         System.out.println("-- " + this.getClass().getName() + ": showCustomers clicked--");
         if (projectList.getSelectionModel().getSelectedItem() != null ) {
-            Travel clickedTravel = projectList.getSelectionModel().getSelectedItem();
-            System.out.println("-- " + this.getClass().getName() + ": item selected is: " + clickedTravel.getId() + "--");
+            Project clickedProject = projectList.getSelectionModel().getSelectedItem();
+            System.out.println("-- " + this.getClass().getName() + ": item selected is: " + clickedProject.getId() + "--");
         }
 
     }
@@ -128,7 +126,7 @@ public class TravelController implements Initializable {
     @FXML
     public void goToNewTravel(ActionEvent actionEvent) throws IOException{
 
-        System.out.println("-- " + this.getClass().getName() + ": go to new travel --");
+        System.out.println("-- " + this.getClass().getName() + ": go to new project --");
         Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/travel/travelNew.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -140,7 +138,7 @@ public class TravelController implements Initializable {
     @FXML
     public void goToFindTravel(ActionEvent actionEvent) throws IOException{
 
-        System.out.println("-- " + this.getClass().getName() + ": go to find travel --");
+        System.out.println("-- " + this.getClass().getName() + ": go to find project --");
         Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/travel/travelFind.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -153,7 +151,7 @@ public class TravelController implements Initializable {
     @FXML
     public void goToDetails(ActionEvent actionEvent) throws IOException {
 
-        System.out.println("-- " + this.getClass().getName() + ": go to travel details --");
+        System.out.println("-- " + this.getClass().getName() + ": go to project details --");
         Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/travel/travelDetails.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -165,16 +163,16 @@ public class TravelController implements Initializable {
     @FXML
     public void save(ActionEvent actionEvent) throws IOException {
 
-        LocalDate localDeparture = departure.getValue();
+        LocalDate localEta = eta.getValue();
         LocalDate localDeadline = deadline.getValue();
-        System.out.println("-- " + this.getClass().getName() + ": save travel with name: " + name.getText() + "price: "+ price.getText() +"--");
-        travel.setName(name.getText());
-        travel.setDestination(destination.getText());
-        travel.setPrice(Integer.valueOf(price.getText()));
-        travel.setPayments(paymentSchedule.getText());
-        travel.setDeparture(Date.valueOf(localDeparture));
-        travel.setDeadline(Date.valueOf(localDeadline));
-        travel.setId(1);
+        System.out.println("-- " + this.getClass().getName() + ": save project with name: " + name.getText() + "price: "+ price.getText() +"--");
+        project.setName(name.getText());
+        project.setDestination(destination.getText());
+        project.setPrice(Integer.valueOf(price.getText()));
+        project.setPaymentSchedule(paymentSchedule.getText());
+        project.setEta(Date.valueOf(localEta));
+        project.setDeadline(Date.valueOf(localDeadline));
+        project.setId(1);
 
 
         System.out.println("-- " + this.getClass().getName() + ": saved clicked --");
@@ -182,12 +180,12 @@ public class TravelController implements Initializable {
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 
-        if  (travelDao.save(travel)){
+        if  (travelDao.save(project)){
             appStage.hide();
             appStage.setScene(homePageScene);
             appStage.show();
         } else {
-            message.setText("Error saving new travel");
+            message.setText("Error saving new project");
         }
 
 
@@ -201,7 +199,7 @@ public class TravelController implements Initializable {
 
     @FXML
     public void goToHome(ActionEvent actionEvent) throws IOException {
-        System.out.println("-- " + this.getClass().getName() + ": go to travel home --");
+        System.out.println("-- " + this.getClass().getName() + ": go to project home --");
         Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/travel/proyectHome.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -212,7 +210,7 @@ public class TravelController implements Initializable {
 
     @FXML
     public void goBack(ActionEvent actionEvent) throws IOException {
-        System.out.println("-- " + this.getClass().getName() + ": go to passenger home --");
+        System.out.println("-- " + this.getClass().getName() + ": go to customer home --");
         Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/home.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

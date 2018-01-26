@@ -2,15 +2,11 @@ package com.muuyal.escala.billingmanagement.dao.impl;
 
 import com.muuyal.escala.billingmanagement.dao.DBConnection;
 import com.muuyal.escala.billingmanagement.dao.interfaces.LoginDao;
-import com.muuyal.escala.billingmanagement.entities.Travel;
 import javafx.scene.control.TextField;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 @Repository
@@ -45,8 +41,7 @@ public class LoginDaoImpl extends DBConnection implements LoginDao {
             }
 
             resultSet.close();
-            statement.close();
-            connection.close();
+//          connection.close();
             this.closeConnection();
 
 

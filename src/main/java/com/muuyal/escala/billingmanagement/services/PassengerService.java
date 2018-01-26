@@ -1,13 +1,13 @@
 package com.muuyal.escala.billingmanagement.services;
 
-import com.muuyal.escala.billingmanagement.entities.Passenger;
+import com.muuyal.escala.billingmanagement.entities.Customer;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PassengerService {
 
 
-    public void save(Passenger passenger){
+    public void save(Customer customer){
 
 
     }
@@ -18,15 +18,15 @@ public class PassengerService {
 
     }
 
-    public void findById(Passenger passenger){
+    public void findById(Customer customer){
 
     }
 
-    public void delete(Passenger passenger) {
+    public void delete(Customer customer) {
 
     }
 
-    public void update(Passenger passenger){
+    public void update(Customer customer){
 
     }
 
