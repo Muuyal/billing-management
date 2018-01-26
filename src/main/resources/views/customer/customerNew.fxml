@@ -40,7 +40,7 @@
       </MenuBar>
       <AnchorPane prefHeight="493.0" prefWidth="600.0">
          <children>
-            <Label alignment="CENTER" graphicTextGap="5.0" layoutX="230.0" layoutY="14.0" style="&#10;" text="Crear Pasajero" textAlignment="CENTER" textFill="#2c0404" wrapText="false">
+            <Label alignment="CENTER" graphicTextGap="5.0" layoutX="230.0" layoutY="14.0" style="&#10;" text="Crear Cliente" textAlignment="CENTER" textFill="#2c0404" wrapText="false">
                <font>
                   <Font size="18.0" />
                </font>
@@ -48,7 +48,7 @@
                   <Bloom threshold="0.95" />
                </effect>
             </Label>
-            <Label alignment="CENTER" layoutX="42.0" layoutY="85.0" style="&#10;" text="Viaje" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+            <Label alignment="CENTER" layoutX="42.0" layoutY="85.0" style="&#10;" text="Proyecto" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
                <font>
                   <Font size="18.0" />
                </font>
@@ -96,6 +96,7 @@
             <Button layoutX="371.0" layoutY="440.0" mnemonicParsing="false" onAction="#save" text="Guardar" />
             <Button layoutX="261.0" layoutY="440.0" mnemonicParsing="false" onAction="#clearScreen" text="Limpiar" />
             <Button layoutX="146.0" layoutY="440.0" mnemonicParsing="false" onAction="#goToHome" text="Cancelar" />
+               <Label fx:id="message" layoutX="269.0" layoutY="470.0" textFill="#e40c0c" />
          </children>
       </AnchorPane>
    </children>

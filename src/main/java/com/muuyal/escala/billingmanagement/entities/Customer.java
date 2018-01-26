@@ -23,10 +23,14 @@ public class Customer {
     private Integer addressPC;
     private String notes;
 
-    Customer(String name, String phone, String eMail) {
+    public Customer(String name, String phone, String eMail) {
         this.setName(name);
         this.setPhone(phone);
         this.seteMail(eMail);
+    }
+
+    public Customer(){
+
     }
 
     @Id

@@ -1,16 +1,21 @@
 package com.muuyal.escala.billingmanagement.controller;
 
 
+import com.muuyal.escala.billingmanagement.entities.Customer;
+import com.muuyal.escala.billingmanagement.entities.Project;
+import com.muuyal.escala.billingmanagement.entities.Staff;
 import com.muuyal.escala.billingmanagement.services.PassengerService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,8 +28,36 @@ public class PassengerController implements Initializable {
 
     public Button buttonUpdate;
 
+    @FXML
+    private TextField name;
+    @FXML
+    private ChoiceBox<Project> project;
+    @FXML
+    private TextField phone;
+    @FXML
+    private TextField email;
+    @FXML
+    private TextField addressStreet;
+    @FXML
+    private TextField addressColony;
+    @FXML
+    private TextField addressCity;
+    @FXML
+    private TextField addressPC;
+    @FXML
+    private ChoiceBox<Staff> staff;
+    @FXML
+    private TextArea notes;
+    @FXML
+    private Label   message;
+
+
     @Autowired
     PassengerService passengerService;
+
+    Customer customer = new Customer();
+
+    CustomerD
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -71,6 +104,22 @@ public class PassengerController implements Initializable {
     @FXML
     public void save(ActionEvent actionEvent) {
         System.out.println("-- " + this.getClass().getName() + ": save customer --");
+
+        customer.setName(name.getText());
+
+
+        System.out.println("-- " + this.getClass().getName() + ": saved clicked --");
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/common/success.fxml"));
+        Scene homePageScene = new Scene(homePageParent);
+        Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+        if  (customerDao.save(project)){
+            appStage.hide();
+            appStage.setScene(homePageScene);
+            appStage.show();
+        } else {
+            message.setText("Error saving new project");
+        }
 
     }
 

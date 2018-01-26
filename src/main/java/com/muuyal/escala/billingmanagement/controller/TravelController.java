@@ -187,8 +187,6 @@ public class TravelController implements Initializable {
         } else {
             message.setText("Error saving new project");
         }
-
-
     }
 
     @FXML
