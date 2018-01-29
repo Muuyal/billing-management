@@ -40,7 +40,7 @@
       </MenuBar>
       <AnchorPane prefHeight="493.0" prefWidth="600.0">
          <children>
-            <Label alignment="CENTER" graphicTextGap="5.0" layoutX="230.0" layoutY="14.0" style="&#10;" text="Crear Cliente" textAlignment="CENTER" textFill="#2c0404" wrapText="false">
+            <Label alignment="CENTER" graphicTextGap="5.0" layoutX="238.0" layoutY="9.0" style="&#10;" text="Crear Pasajero" textAlignment="CENTER" textFill="#2c0404" wrapText="false">
                <font>
                   <Font size="18.0" />
                </font>
@@ -48,11 +48,12 @@
                   <Bloom threshold="0.95" />
                </effect>
             </Label>
-            <Label alignment="CENTER" layoutX="42.0" layoutY="85.0" style="&#10;" text="Proyecto" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+            <Label alignment="CENTER" layoutX="42.0" layoutY="85.0" style="&#10;" text="Viaje" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
+            <ChoiceBox fx:id="project" disable="true" layoutX="250.0" layoutY="83.0" prefWidth="150.0" />
             <Label alignment="CENTER" layoutX="42.0" layoutY="51.0" style="&#10;" text="Nombre" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
                <font>
                   <Font size="18.0" />
@@ -83,20 +84,18 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="name" layoutX="250.0" layoutY="49.0" promptText="Nombre completo" />
-            <ChoiceBox fx:id="project" layoutX="250.0" layoutY="83.0" prefWidth="150.0" />
-            <TextField fx:id="phone" layoutX="250.0" layoutY="121.0" promptText="Número de telefono" />
-            <TextField fx:id="email" layoutX="250.0" layoutY="155.0" promptText="eMail" />
-            <TextField fx:id="addressStreet" layoutX="250.0" layoutY="184.0" promptText="Calle" />
-            <TextField fx:id="addressColony" layoutX="423.0" layoutY="184.0" promptText="Colonia" />
-            <TextField fx:id="addressCity" layoutX="250.0" layoutY="219.0" promptText="Ciudad" />
-            <TextField fx:id="addressPC" layoutX="423.0" layoutY="219.0" promptText="CP" />
-            <ChoiceBox fx:id="staff" layoutX="250.0" layoutY="281.0" prefWidth="150.0" />
-            <TextArea fx:id="notes" layoutX="245.0" layoutY="343.0" prefHeight="71.0" prefWidth="345.0" />
-            <Button layoutX="371.0" layoutY="440.0" mnemonicParsing="false" onAction="#save" text="Guardar" />
-            <Button layoutX="261.0" layoutY="440.0" mnemonicParsing="false" onAction="#clearScreen" text="Limpiar" />
-            <Button layoutX="146.0" layoutY="440.0" mnemonicParsing="false" onAction="#goToHome" text="Cancelar" />
-               <Label fx:id="message" layoutX="269.0" layoutY="470.0" textFill="#e40c0c" />
+            <ChoiceBox fx:id="staff" disable="true" layoutX="250.0" layoutY="281.0" prefWidth="150.0" />
+            <TextField fx:id="name" editable="false" layoutX="250.0" layoutY="49.0" promptText="Nombre completo" />
+            <TextField fx:id="phone" editable="false" layoutX="250.0" layoutY="121.0" promptText="Número de telefono" />
+            <TextField fx:id="email" editable="false" layoutX="250.0" layoutY="155.0" promptText="eMail" />
+            <TextField fx:id="addressStreet" editable="false" layoutX="250.0" layoutY="184.0" promptText="Calle" />
+            <TextArea fx:id="notes" editable="false" layoutX="245.0" layoutY="343.0" prefHeight="71.0" prefWidth="345.0" />
+            <TextField fx:id="addressColony" editable="false" layoutX="423.0" layoutY="184.0" promptText="Colonia" />
+            <TextField fx:id="addressCity" editable="false" layoutX="250.0" layoutY="219.0" promptText="Ciudad" />
+            <TextField fx:id="addressPC" editable="false" layoutX="423.0" layoutY="219.0" promptText="CP" />
+            <Button fx:id="buttonUpdate" disable="true" layoutX="389.0" layoutY="433.0" mnemonicParsing="false" onAction="#save" text="Guardar" />
+            <Button layoutX="273.0" layoutY="433.0" mnemonicParsing="false" onAction="#update" text="Editar" />
+            <Button layoutX="125.0" layoutY="433.0" mnemonicParsing="false" onAction="#goToHome" text="Cancelar" />
          </children>
       </AnchorPane>
    </children>

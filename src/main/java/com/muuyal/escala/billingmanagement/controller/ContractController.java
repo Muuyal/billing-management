@@ -7,27 +7,25 @@ import com.muuyal.escala.billingmanagement.entities.Customer;
 import com.muuyal.escala.billingmanagement.entities.Project;
 import com.muuyal.escala.billingmanagement.entities.Staff;
 import com.muuyal.escala.billingmanagement.services.PassengerService;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.net.URL;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 @Controller
-public class PassengerController implements Initializable {
+public class ContractController implements Initializable {
 
     public Button buttonUpdate;
 
@@ -131,6 +129,11 @@ public class PassengerController implements Initializable {
     @FXML
     public void clearScreen(ActionEvent actionEvent) {
         System.out.println("-- " + this.getClass().getName() + ": clear screen --");
+//        int[] arr = {1,2,3};
+//        for (int x = 0; x == arr.length; x++){
+//            x;
+//        }
+
 
     }
 

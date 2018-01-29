@@ -29,12 +29,8 @@ public class LoginController implements Initializable {
     @Autowired
     private UserDetailsService userDetailsService;
 
-
     @Autowired
     LoginDao loginDao;
-
-    @Autowired
-    TravelDao travelDao;
 
     @FXML
     private TextField username;
@@ -43,7 +39,7 @@ public class LoginController implements Initializable {
     private TextField password;
 
     @FXML
-     private Label message;
+    private Label message;
 
 
     @Override

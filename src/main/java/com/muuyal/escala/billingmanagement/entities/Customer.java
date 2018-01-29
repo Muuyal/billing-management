@@ -20,7 +20,7 @@ public class Customer {
     private String addressStreet;
     private String addressCity;
     private String addressColony;
-    private Integer addressPC;
+    private String addressPC;
     private String notes;
 
     public Customer(String name, String phone, String eMail) {
@@ -103,12 +103,12 @@ public class Customer {
         this.addressColony = addressColony;
     }
 
-    public Integer getAddressPC() {
+    public String getAddressPC() {
 
         return addressPC;
     }
 
-    public void setAddressPC(Integer addressPC) {
+    public void setAddressPC(String addressPC) {
 
         this.addressPC = addressPC;
     }
