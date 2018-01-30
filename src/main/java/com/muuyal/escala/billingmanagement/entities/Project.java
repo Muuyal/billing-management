@@ -15,10 +15,10 @@ public class Project {
     @NotNull(message = "Nombre no puede ir vacio")
     private String name;
     private String destination;
-    private Date eta;
+    private Date eta; //depature
     private Date deadline;
     private Integer price;
-    private String paymentSchedule;
+    private String paymentSchedule; //payment
 
     public Project(Integer id, String name, String destination, Integer price) {
         this.id = id;

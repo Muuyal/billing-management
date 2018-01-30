@@ -9,6 +9,8 @@ public interface ContractDao {
 
     Set<Contract> findAll();
 
+    Set <Contract> findAll(Contract contract);
+
     Set<Contract> findByProject(Integer projectId);
 
     Set<Contract> findByCustomer(Integer customerId);
@@ -18,5 +20,4 @@ public interface ContractDao {
     boolean update(Contract contract);
 
     boolean delete(Contract contract);
-
 }

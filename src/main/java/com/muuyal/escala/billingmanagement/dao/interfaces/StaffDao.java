@@ -1,7 +1,6 @@
 package com.muuyal.escala.billingmanagement.dao.interfaces;
 
 import com.muuyal.escala.billingmanagement.entities.Staff;
-
 import java.util.Set;
 
 public interface StaffDao {
@@ -12,11 +11,9 @@ public interface StaffDao {
 
     Set<Staff> findAll(Staff staff);
 
-    Staff findById(Integer id);
+    Staff findOne(Staff staff);
 
-    boolean update(Staff staff);
+    void update(Staff staff);
 
-    boolean delete(Staff staff);
-
-
+    void delete(Staff staff);
 }

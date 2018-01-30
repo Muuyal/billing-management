@@ -54,4 +54,9 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
     public boolean delete(Contract contract) {
         return false;
     }
+
+    @Override
+    public Set<Contract> findAll(Contract contract) {
+        return null;
+    }
 }

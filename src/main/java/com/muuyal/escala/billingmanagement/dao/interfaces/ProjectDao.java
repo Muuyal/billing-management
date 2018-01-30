@@ -1,7 +1,6 @@
 package com.muuyal.escala.billingmanagement.dao.interfaces;
 
 import com.muuyal.escala.billingmanagement.entities.Project;
-
 import java.util.Set;
 
 public interface ProjectDao {

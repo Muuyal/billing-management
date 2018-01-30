@@ -4,7 +4,6 @@ import com.muuyal.escala.billingmanagement.dao.DBConnection;
 import com.muuyal.escala.billingmanagement.dao.interfaces.ProjectDao;
 import com.muuyal.escala.billingmanagement.entities.Project;
 import org.springframework.stereotype.Repository;
-
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.HashSet;
@@ -122,11 +121,77 @@ public class ProjectDaoImp extends DBConnection implements ProjectDao {
 
     @Override
     public boolean update(Project project) {
-        return true;
+        boolean updated = false;
+        System.out.println("--- UPDATE project " +
+                "SET id="+project.getId()+", name="+project.getName()+", destination="+project.getDestination()+", " +
+                "departure="+project.getEta()+", deadline="+project.getDeadline()+", price="+project.getPrice()+", " +
+                "payments="+project.getPaymentSchedule()+" " +
+                "WHERE id=? ---");
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        try {
+
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("UPDATE travel " +
+                    "SET id=?, name=?, destination=?, departure=?, deadline=?, price=?, payments=? " +
+                    "WHERE id=?");
+            preparedStatement.setInt(1, project.getId());
+            preparedStatement.setString(2, project.getName());
+            preparedStatement.setString(3, project.getDestination());
+            preparedStatement.setString(4, project.getEta().toString());
+            preparedStatement.setString(5, project.getDeadline().toString());
+            preparedStatement.setInt(6, project.getPrice());
+            preparedStatement.setString(7, project.getPaymentSchedule());
+            preparedStatement.setInt(8, project.getId());
+            preparedStatement.executeUpdate();
+
+            connection.commit();
+            statement.close();
+
+        } catch (SQLException e){
+            System.err.println(e.getMessage());
+        } finally {
+            updated = true;
+            this.closeConnection();
+        }
+        return updated;
     }
 
     @Override
     public boolean delete(Project project) {
-        return true;
+
+        boolean deleted = false;
+        System.out.println("--- DELETE FROM project WHERE id="+project.getId()+" ---");
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        try {
+
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("DELETE FROM travel WHERE id=?");
+            preparedStatement.setInt(1, project.getId());
+            preparedStatement.executeUpdate();
+
+            connection.commit();
+            statement.close();
+
+        } catch (SQLException e){
+            System.err.println(e.getMessage());
+        } finally {
+            deleted = true;
+            this.closeConnection();
+        }
+        return deleted;
     }
 }
