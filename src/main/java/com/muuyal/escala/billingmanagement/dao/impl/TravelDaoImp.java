@@ -123,7 +123,9 @@ public class TravelDaoImp extends DBConnection implements TravelDao{
     public void update(Project project) {
 
         System.out.println("--- UPDATE project " +
-                "SET id=?, name=?, destination=?, departure=?, deadline=?, price=?, payments=? " +
+                "SET id="+project.getId()+", name="+project.getName()+", destination="+project.getDestination()+", " +
+                "departure="+project.getEta()+", deadline="+project.getDeadline()+", price="+project.getPrice()+", " +
+                "payments="+project.getPaymentSchedule()+" " +
                 "WHERE id=? ---");
         Connection connection = null;
         Statement statement   = null;
@@ -139,6 +141,14 @@ public class TravelDaoImp extends DBConnection implements TravelDao{
             preparedStatement = connection.prepareStatement("UPDATE travel " +
                     "SET id=?, name=?, destination=?, departure=?, deadline=?, price=?, payments=? " +
                     "WHERE id=?");
+            preparedStatement.setInt(1, project.getId());
+            preparedStatement.setString(2, project.getName());
+            preparedStatement.setString(3, project.getDestination());
+            preparedStatement.setString(4, project.getEta().toString());
+            preparedStatement.setString(5, project.getDeadline().toString());
+            preparedStatement.setInt(6, project.getPrice());
+            preparedStatement.setString(7, project.getPaymentSchedule());
+            preparedStatement.setInt(8, project.getId());
             preparedStatement.executeUpdate();
 
             connection.commit();
@@ -154,7 +164,7 @@ public class TravelDaoImp extends DBConnection implements TravelDao{
     @Override
     public void delete(Project project) {
 
-        System.out.println("---  ---");
+        System.out.println("--- DELETE FROM project WHERE id="+project.getId()+" ---");
         Connection connection = null;
         Statement statement   = null;
         PreparedStatement preparedStatement;
@@ -166,7 +176,8 @@ public class TravelDaoImp extends DBConnection implements TravelDao{
             statement = connection.createStatement();
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
-            preparedStatement = connection.prepareStatement("");
+            preparedStatement = connection.prepareStatement("DELETE FROM travel WHERE id=?");
+            preparedStatement.setInt(1, project.getId());
             preparedStatement.executeUpdate();
 
             connection.commit();
