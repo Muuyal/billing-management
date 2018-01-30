@@ -1,6 +1,6 @@
 package com.muuyal.escala.billingmanagement;
 
-import com.muuyal.escala.billingmanagement.dao.interfaces.TravelDao;
+import com.muuyal.escala.billingmanagement.dao.interfaces.ProjectDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,7 +18,7 @@ public class BillingManagementApplication extends Application {
 	private Parent root;
 
 	@Autowired
-	private TravelDao travelDao;
+	private ProjectDao projectDao;
 
 	Stage window;
 

@@ -68,9 +68,19 @@ public class CustomerDaoImpl extends DBConnection implements CustomerDao {
     }
 
     @Override
-    public Customer findOne(Integer id) {
+    public Customer findById(Integer id) {
 
         return null;
 
+    }
+
+    @Override
+    public boolean update(Customer customer) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(Customer customer) {
+        return false;
     }
 }

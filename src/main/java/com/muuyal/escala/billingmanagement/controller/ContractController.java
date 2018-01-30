@@ -68,7 +68,7 @@ public class ContractController implements Initializable {
     }
 
     @FXML
-    public void goToNewPassenger(ActionEvent actionEvent) throws IOException{
+    public void goToNew(ActionEvent actionEvent) throws IOException{
 
         System.out.println("-- " + this.getClass().getName() + ": go to new customer --");
         Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/customer/customerNew.fxml"));
@@ -80,7 +80,7 @@ public class ContractController implements Initializable {
     }
 
     @FXML
-    public void goToFindPassenger(ActionEvent actionEvent) throws IOException{
+    public void goToFind(ActionEvent actionEvent) throws IOException{
 
         System.out.println("-- " + this.getClass().getName() + ": go to find customer --");
         Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/customer/passengerFind.fxml"));

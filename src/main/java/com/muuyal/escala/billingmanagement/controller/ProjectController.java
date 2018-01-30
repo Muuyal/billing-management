@@ -1,7 +1,7 @@
 package com.muuyal.escala.billingmanagement.controller;
 
-import com.muuyal.escala.billingmanagement.dao.impl.TravelDaoImp;
-import com.muuyal.escala.billingmanagement.dao.interfaces.TravelDao;
+import com.muuyal.escala.billingmanagement.dao.impl.ProjectDaoImp;
+import com.muuyal.escala.billingmanagement.dao.interfaces.ProjectDao;
 import com.muuyal.escala.billingmanagement.entities.Project;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,7 +28,7 @@ import org.springframework.stereotype.Controller;
 
 
 @Controller
-public class TravelController implements Initializable {
+public class ProjectController implements Initializable {
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -38,7 +38,7 @@ public class TravelController implements Initializable {
     private Project project =  new Project();
 
 
-    private TravelDao travelDao = new TravelDaoImp();
+    private ProjectDao projectDao = new ProjectDaoImp();
 
     @FXML
     private TextField name;
@@ -69,7 +69,7 @@ public class TravelController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         final ObservableList<Project> projectItems = FXCollections.observableArrayList(
-                travelDao.findAll()
+                projectDao.findAll()
         );
         System.out.println("------- " + projectItems.get(1) + " ----------");
 
@@ -180,7 +180,7 @@ public class TravelController implements Initializable {
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 
-        if  (travelDao.save(project)){
+        if  (projectDao.save(project)){
             appStage.hide();
             appStage.setScene(homePageScene);
             appStage.show();
@@ -198,7 +198,7 @@ public class TravelController implements Initializable {
     @FXML
     public void goToHome(ActionEvent actionEvent) throws IOException {
         System.out.println("-- " + this.getClass().getName() + ": go to project home --");
-        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/travel/proyectHome.fxml"));
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/travel/projectHome.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         appStage.setTitle("Proyectos");

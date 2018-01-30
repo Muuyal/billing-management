@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.muuyal.escala.billingmanagement.controller.ProjectController">
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.muuyal.escala.billingmanagement.controller.StaffController">
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <MenuBar>
@@ -37,7 +37,7 @@
       </MenuBar>
       <AnchorPane prefHeight="493.0" prefWidth="600.0">
          <children>
-            <Label alignment="CENTER" graphicTextGap="5.0" layoutX="220.0" layoutY="21.0" style="&#10;" text="Proyectos" textAlignment="CENTER" textFill="#9a1083" textOverrun="CENTER_ELLIPSIS" wrapText="false">
+            <Label alignment="CENTER" graphicTextGap="5.0" layoutX="255.0" layoutY="40.0" style="&#10;" text="Staff" textAlignment="CENTER" textFill="#9a1083" textOverrun="CENTER_ELLIPSIS" wrapText="false">
                <font>
                   <Font name="AdobeHebrew-Regular" size="32.0" />
                </font>
@@ -45,9 +45,9 @@
                   <Bloom threshold="0.95" />
                </effect>
             </Label>
-            <Button layoutX="83.0" layoutY="202.0" mnemonicParsing="false" onAction="#goToNewTravel" prefHeight="89.0" prefWidth="173.0" text="Nuevo Viaje" />
-               <Button layoutX="327.0" layoutY="202.0" mnemonicParsing="false" onAction="#goToFindTravel" prefHeight="89.0" prefWidth="173.0" text="Buscar Viajes" />
-               <Button layoutX="260.0" layoutY="413.0" mnemonicParsing="false" onAction="#goBack" text="Regresar" />
+            <Button layoutX="82.0" layoutY="202.0" mnemonicParsing="false" onAction="#goToNewStaff" prefHeight="89.0" prefWidth="173.0" text="Nuevo Staff" />
+               <Button layoutX="328.0" layoutY="202.0" mnemonicParsing="false" onAction="#goToFindStaff" prefHeight="89.0" prefWidth="173.0" text="Buscar Staff" />
+               <Button layoutX="263.0" layoutY="393.0" mnemonicParsing="false" onAction="#goBack" text="Regresar" />
          </children>
       </AnchorPane>
    </children>

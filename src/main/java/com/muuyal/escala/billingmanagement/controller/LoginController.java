@@ -1,7 +1,6 @@
 package com.muuyal.escala.billingmanagement.controller;
 
 import com.muuyal.escala.billingmanagement.dao.interfaces.LoginDao;
-import com.muuyal.escala.billingmanagement.dao.interfaces.TravelDao;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;

@@ -4,7 +4,7 @@ import com.muuyal.escala.billingmanagement.entities.Project;
 
 import java.util.Set;
 
-public interface TravelDao {
+public interface ProjectDao {
 
     boolean save(Project project);
 
@@ -12,11 +12,10 @@ public interface TravelDao {
 
     Set<Project> findAll(Project project);
 
-    Project findOne(Project project);
+    Project findById(Integer id);
 
-    void update(Project project);
+    boolean update(Project project);
 
-    void delete(Project project);
-
+    boolean delete(Project project);
 
 }

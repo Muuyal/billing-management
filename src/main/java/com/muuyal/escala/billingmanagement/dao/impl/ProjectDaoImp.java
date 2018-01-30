@@ -1,7 +1,7 @@
 package com.muuyal.escala.billingmanagement.dao.impl;
 
 import com.muuyal.escala.billingmanagement.dao.DBConnection;
-import com.muuyal.escala.billingmanagement.dao.interfaces.TravelDao;
+import com.muuyal.escala.billingmanagement.dao.interfaces.ProjectDao;
 import com.muuyal.escala.billingmanagement.entities.Project;
 import org.springframework.stereotype.Repository;
 
@@ -11,10 +11,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Repository
-public class TravelDaoImp extends DBConnection implements TravelDao{
+public class ProjectDaoImp extends DBConnection implements ProjectDao {
 
 
-    public TravelDaoImp(){
+    public ProjectDaoImp(){
 
     }
 
@@ -116,17 +116,17 @@ public class TravelDaoImp extends DBConnection implements TravelDao{
     }
 
     @Override
-    public Project findOne(Project project) {
-        return project;
+    public Project findById(Integer id) {
+        return null;
     }
 
     @Override
-    public void update(Project project) {
-
+    public boolean update(Project project) {
+        return true;
     }
 
     @Override
-    public void delete(Project project) {
-
+    public boolean delete(Project project) {
+        return true;
     }
 }

@@ -24,7 +24,7 @@ public class PaymentController implements Initializable {
     }
 
     @FXML
-    public void goToNewPayment(ActionEvent actionEvent) throws IOException {
+    public void goToNew(ActionEvent actionEvent) throws IOException {
 
         System.out.println("-- " + this.getClass().getName() + ": go to new payment --");
         Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/payment/paymentNew.fxml"));
@@ -36,7 +36,7 @@ public class PaymentController implements Initializable {
     }
 
     @FXML
-    public void goToFindPayment(ActionEvent actionEvent) throws IOException{
+    public void goToFind(ActionEvent actionEvent) throws IOException{
 
         System.out.println("-- " + this.getClass().getName() + ": go to find payment --");
         Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/payment/paymentFind.fxml"));

@@ -24,7 +24,7 @@ public class StaffController implements Initializable {
     }
 
     @FXML
-    public void goToNewStaff(ActionEvent actionEvent) throws IOException {
+    public void goToNew(ActionEvent actionEvent) throws IOException {
 
         System.out.println("-- " + this.getClass().getName() + ": go to new staff --");
         Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/staff/staffNew.fxml"));
@@ -36,7 +36,7 @@ public class StaffController implements Initializable {
     }
 
     @FXML
-    public void goToFindStaff(ActionEvent actionEvent) throws IOException{
+    public void goToFind(ActionEvent actionEvent) throws IOException{
 
         System.out.println("-- " + this.getClass().getName() + ": go to find staff --");
         Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/staff/staffFind.fxml"));
