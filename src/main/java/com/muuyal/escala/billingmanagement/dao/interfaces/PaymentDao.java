@@ -9,11 +9,13 @@ public interface PaymentDao {
 
     Set<Payment> findAll();
 
-    Set <Payment> findAll(Payment payment);
+    Set<Payment> findByProject(Integer projectId);
 
-    Payment findOne(Payment payment);
+    Set<Payment> findByCustomer(Integer customerId);
 
-    void update(Payment payment);
+    Payment findById(Integer id);
 
-    void delete(Payment payment);
+    boolean update(Payment payment);
+
+    boolean delete(Payment payment);
 }

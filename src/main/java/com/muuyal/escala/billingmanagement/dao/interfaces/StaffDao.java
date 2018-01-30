@@ -11,9 +11,9 @@ public interface StaffDao {
 
     Set<Staff> findAll(Staff staff);
 
-    Staff findOne(Staff staff);
+    Staff findById(Integer Id);
 
-    void update(Staff staff);
+    boolean update(Staff staff);
 
-    void delete(Staff staff);
+    boolean delete(Staff staff);
 }
