@@ -1,7 +1,6 @@
 package com.muuyal.escala.billingmanagement.dao.interfaces;
 
 import com.muuyal.escala.billingmanagement.entities.Project;
-
 import java.util.Set;
 
 public interface TravelDao {
@@ -17,6 +16,5 @@ public interface TravelDao {
     void update(Project project);
 
     void delete(Project project);
-
 
 }

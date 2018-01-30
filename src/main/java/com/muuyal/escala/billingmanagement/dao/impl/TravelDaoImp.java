@@ -123,10 +123,56 @@ public class TravelDaoImp extends DBConnection implements TravelDao{
     @Override
     public void update(Project project) {
 
+        System.out.println("---  ---");
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        try {
+
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("");
+            preparedStatement.executeUpdate();
+
+            connection.commit();
+            statement.close();
+
+        } catch (SQLException e){
+            System.err.println(e.getMessage());
+        } finally {
+            this.closeConnection();
+        }
     }
 
     @Override
     public void delete(Project project) {
 
+        System.out.println("---  ---");
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        try {
+
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("");
+            preparedStatement.executeUpdate();
+
+            connection.commit();
+            statement.close();
+
+        } catch (SQLException e){
+            System.err.println(e.getMessage());
+        } finally {
+            this.closeConnection();
+        }
     }
 }
