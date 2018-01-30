@@ -4,7 +4,6 @@ import com.muuyal.escala.billingmanagement.dao.DBConnection;
 import com.muuyal.escala.billingmanagement.dao.interfaces.TravelDao;
 import com.muuyal.escala.billingmanagement.entities.Project;
 import org.springframework.stereotype.Repository;
-
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.HashSet;
@@ -123,7 +122,9 @@ public class TravelDaoImp extends DBConnection implements TravelDao{
     @Override
     public void update(Project project) {
 
-        System.out.println("---  ---");
+        System.out.println("--- UPDATE project " +
+                "SET id=?, name=?, destination=?, departure=?, deadline=?, price=?, payments=? " +
+                "WHERE id=? ---");
         Connection connection = null;
         Statement statement   = null;
         PreparedStatement preparedStatement;
@@ -135,7 +136,9 @@ public class TravelDaoImp extends DBConnection implements TravelDao{
             statement = connection.createStatement();
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
-            preparedStatement = connection.prepareStatement("");
+            preparedStatement = connection.prepareStatement("UPDATE travel " +
+                    "SET id=?, name=?, destination=?, departure=?, deadline=?, price=?, payments=? " +
+                    "WHERE id=?");
             preparedStatement.executeUpdate();
 
             connection.commit();
