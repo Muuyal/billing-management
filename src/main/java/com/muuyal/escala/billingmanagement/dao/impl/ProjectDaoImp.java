@@ -12,9 +12,7 @@ import java.util.Set;
 @Repository
 public class ProjectDaoImp extends DBConnection implements ProjectDao {
 
-
     public ProjectDaoImp(){
-
     }
 
     @Override
@@ -54,9 +52,6 @@ public class ProjectDaoImp extends DBConnection implements ProjectDao {
         } finally {
             this.closeConnection();
         }
-
-
-
         return saved;
     }
 
