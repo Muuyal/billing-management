@@ -20,7 +20,7 @@ public class ProjectDaoImp extends DBConnection implements ProjectDao {
 
         boolean saved = false;
 
-        System.out.println("--- insert into project(name, destination, price, payments, departure, deadline) values" +
+        System.out.println("--- INSERT INTO project(name, destination, price, payments, departure, deadline) VALUES" +
                 " ('" + project.getName() + "','" + project.getDestination() + "','" + project.getPrice() +
                 "','" + project.getPaymentSchedule() + "','" + project.getEta() + "','" + project.getDeadline() + "')" + " ---");
         Connection connection = null;
@@ -34,7 +34,9 @@ public class ProjectDaoImp extends DBConnection implements ProjectDao {
             statement = connection.createStatement();
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
-            preparedStatement = connection.prepareStatement("insert into travel(name, destination, price, payments, departure, deadline) values(?,?,?,?,?,?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO travel" +
+                    "(name, destination, price, payments, departure, deadline) " +
+                    "VALUES(?,?,?,?,?,?)");
             preparedStatement.setString(1, project.getName());
             preparedStatement.setString(2, project.getDestination());
             preparedStatement.setInt(3, project.getPrice());
@@ -59,7 +61,7 @@ public class ProjectDaoImp extends DBConnection implements ProjectDao {
     public Set<Project> findAll() {
 
         System.out.println("---" + this.getClass().getName() +  " findAll clicked. ---");
-        System.out.println("--- select * from travel; ---");
+        System.out.println("--- SELECT * FROM project; ---");
         Connection connection = null;
         Statement statement   = null;
         PreparedStatement preparedStatement;
@@ -72,7 +74,7 @@ public class ProjectDaoImp extends DBConnection implements ProjectDao {
             statement = connection.createStatement();
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
-            preparedStatement = connection.prepareStatement("select * from travel");
+            preparedStatement = connection.prepareStatement("SELECT * FROM travel");
             ResultSet resultSet = preparedStatement.executeQuery();
 
             System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
@@ -116,12 +118,14 @@ public class ProjectDaoImp extends DBConnection implements ProjectDao {
 
     @Override
     public boolean update(Project project) {
+
         boolean updated = false;
+
         System.out.println("--- UPDATE project " +
                 "SET id="+project.getId()+", name="+project.getName()+", destination="+project.getDestination()+", " +
                 "departure="+project.getEta()+", deadline="+project.getDeadline()+", price="+project.getPrice()+", " +
                 "payments="+project.getPaymentSchedule()+" " +
-                "WHERE id=? ---");
+                "WHERE id="+project.getId()+" ---");
         Connection connection = null;
         Statement statement   = null;
         PreparedStatement preparedStatement;
@@ -162,6 +166,7 @@ public class ProjectDaoImp extends DBConnection implements ProjectDao {
     public boolean delete(Project project) {
 
         boolean deleted = false;
+
         System.out.println("--- DELETE FROM project WHERE id="+project.getId()+" ---");
         Connection connection = null;
         Statement statement   = null;

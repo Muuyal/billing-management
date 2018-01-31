@@ -9,7 +9,7 @@ public class Contract {
 
     private String id;
     private String customer_id;
-    private String project_id;
+    private Integer project_id;
     private Integer discount;
     private Date createdOn;
     private Date terminatedOn;
@@ -33,11 +33,11 @@ public class Contract {
         this.customer_id = customer_id;
     }
 
-    public String getProject_id() {
+    public Integer getProject_id() {
         return project_id;
     }
 
-    public void setProject_id(String project_id) {
+    public void setProject_id(Integer project_id) {
         this.project_id = project_id;
     }
 
