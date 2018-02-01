@@ -6,7 +6,6 @@ import com.muuyal.escala.billingmanagement.dao.interfaces.CustomerDao;
 import com.muuyal.escala.billingmanagement.entities.Customer;
 import com.muuyal.escala.billingmanagement.entities.Project;
 import com.muuyal.escala.billingmanagement.entities.Staff;
-import com.muuyal.escala.billingmanagement.services.PassengerService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +16,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
@@ -52,11 +50,8 @@ public class ContractController implements Initializable {
     @FXML
     private Label   message;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
-    PassengerService passengerService;
+//       @Autowired
+//    private UserDetailsService userDetailsService;
 
     private Customer customer = new Customer();
 

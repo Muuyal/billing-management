@@ -34,7 +34,7 @@ public class ProjectDaoImp extends DBConnection implements ProjectDao {
             statement = connection.createStatement();
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
-            preparedStatement = connection.prepareStatement("INSERT INTO travel" +
+            preparedStatement = connection.prepareStatement("INSERT INTO project" +
                     "(name, destination, price, payments, departure, deadline) " +
                     "VALUES(?,?,?,?,?,?)");
             preparedStatement.setString(1, project.getName());
@@ -72,7 +72,7 @@ public class ProjectDaoImp extends DBConnection implements ProjectDao {
             statement = connection.createStatement();
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
-            preparedStatement = connection.prepareStatement("SELECT * FROM travel");
+            preparedStatement = connection.prepareStatement("SELECT * FROM project");
             ResultSet resultSet = preparedStatement.executeQuery();
 
             System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
@@ -122,7 +122,7 @@ public class ProjectDaoImp extends DBConnection implements ProjectDao {
             statement = connection.createStatement();
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
-            preparedStatement = connection.prepareStatement("UPDATE travel " +
+            preparedStatement = connection.prepareStatement("UPDATE project " +
                     "SET id=?, name=?, destination=?, departure=?, price=? " +
                     "WHERE id=?");
             preparedStatement.setInt(1, project.getId());
@@ -162,7 +162,7 @@ public class ProjectDaoImp extends DBConnection implements ProjectDao {
             statement = connection.createStatement();
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
-            preparedStatement = connection.prepareStatement("DELETE FROM travel WHERE id=?");
+            preparedStatement = connection.prepareStatement("DELETE FROM project WHERE id=?");
             preparedStatement.setInt(1, project.getId());
             preparedStatement.executeUpdate();
 

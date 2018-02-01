@@ -23,15 +23,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 
 
 @Controller
 public class ProjectController implements Initializable {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+
 
     private Button buttonUpdate;
 
@@ -67,6 +65,10 @@ public class ProjectController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        if (!projectDao.findAll().isEmpty()){
+
+
 
         final ObservableList<Project> projectItems = FXCollections.observableArrayList(
                 projectDao.findAll()
@@ -105,7 +107,7 @@ public class ProjectController implements Initializable {
         customerDetails.getColumns().addAll(columnI,columnE, columnF, columnG, columnH );
 
         projectList.setItems(projectItems);
-
+        }
     }
 
     @FXML
@@ -164,14 +166,12 @@ public class ProjectController implements Initializable {
     public void save(ActionEvent actionEvent) throws IOException {
 
         LocalDate localEta = eta.getValue();
-        LocalDate localDeadline = deadline.getValue();
+//        LocalDate localDeadline = deadline.getValue();
         System.out.println("-- " + this.getClass().getName() + ": save project with name: " + name.getText() + "price: "+ price.getText() +"--");
         project.setName(name.getText());
         project.setDestination(destination.getText());
         project.setPrice(Integer.valueOf(price.getText()));
-        project.setPaymentSchedule(paymentSchedule.getText());
         project.setEta(Date.valueOf(localEta));
-        project.setDeadline(Date.valueOf(localDeadline));
         project.setId(1);
 
 
@@ -232,9 +232,7 @@ public class ProjectController implements Initializable {
         project.setName(name.getText());
         project.setDestination(destination.getText());
         project.setPrice(Integer.valueOf(price.getText()));
-        project.setPaymentSchedule(paymentSchedule.getText());
         project.setEta(Date.valueOf(localEta));
-        project.setDeadline(Date.valueOf(localDeadline));
         project.setId(1);
 
 
@@ -261,9 +259,7 @@ public class ProjectController implements Initializable {
         project.setName(name.getText());
         project.setDestination(destination.getText());
         project.setPrice(Integer.valueOf(price.getText()));
-        project.setPaymentSchedule(paymentSchedule.getText());
         project.setEta(Date.valueOf(localEta));
-        project.setDeadline(Date.valueOf(localDeadline));
         project.setId(1);
 
 

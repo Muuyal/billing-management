@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class User{
 
     private Integer id;
+    @Column(name="username")
     private String userName;
     private String password;
     private String rol;

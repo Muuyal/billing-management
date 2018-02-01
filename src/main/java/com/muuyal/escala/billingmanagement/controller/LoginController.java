@@ -12,7 +12,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,9 +23,6 @@ import java.util.ResourceBundle;
 
 @Controller
 public class LoginController implements Initializable {
-
-    @Autowired
-    private UserDetailsService userDetailsService;
 
     @Autowired
     LoginDao loginDao;

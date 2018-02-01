@@ -6,7 +6,6 @@ import com.muuyal.escala.billingmanagement.dao.interfaces.CustomerDao;
 import com.muuyal.escala.billingmanagement.entities.Customer;
 import com.muuyal.escala.billingmanagement.entities.Project;
 import com.muuyal.escala.billingmanagement.entities.Staff;
-import com.muuyal.escala.billingmanagement.services.PassengerService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -23,7 +22,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 
 @Controller
@@ -53,12 +51,6 @@ public class PassengerController implements Initializable {
     private TextArea notes;
     @FXML
     private Label   message;
-
-    @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
-    PassengerService passengerService;
 
     private Customer customer = new Customer();
 
