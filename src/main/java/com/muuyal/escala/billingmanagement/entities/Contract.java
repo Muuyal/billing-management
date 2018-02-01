@@ -12,7 +12,7 @@ public class Contract {
     private String project_id;
     private Integer discount;
     private Date createdOn;
-    private Date terminatedOn;
+    private Date deadline;
 
 
     @Id
@@ -57,11 +57,11 @@ public class Contract {
         this.createdOn = createdOn;
     }
 
-    public Date getTerminatedOn() {
-        return terminatedOn;
+    public Date getDeadline() {
+        return deadline;
     }
 
-    public void setTerminatedOn(Date terminatedOn) {
-        this.terminatedOn = terminatedOn;
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
     }
 }
