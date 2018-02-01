@@ -1,7 +1,12 @@
 package com.muuyal.escala.billingmanagement.entities;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="user")
 public class User{
 
+    private Integer id;
     private String userName;
     private String password;
     private String rol;
@@ -9,6 +14,16 @@ public class User{
     public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getUserName() {
@@ -34,7 +49,5 @@ public class User{
     public void setRol(String rol) {
         this.rol = rol;
     }
-    
-    
 
 }

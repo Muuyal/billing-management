@@ -1,24 +1,39 @@
 package com.muuyal.escala.billingmanagement.entities;
 
 
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+
+@Entity
+@Table(name="staff")
 public class Staff {
 
+    private Integer id;
     private String name;
+    private String phone;
     private String eMail;
-    private char phone;
-    private String address;
-    private String area;
-    private int salary;
-    private char user;
-    private char password;
+    private String addressStreet;
+    private String addressCity;
+    private String addressColony;
+    private String addressPC;
+    private String rol;
+    private Double salary;
 
-    Staff (String name, String eMail, int salary){
+    Staff (String name, String eMail, Double salary){
         this.name = name;
         this.eMail = eMail;
         this.salary = salary;
     }
 
-    //Metodos
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -26,6 +41,14 @@ public class Staff {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String geteMail() {
@@ -36,51 +59,51 @@ public class Staff {
         this.eMail = eMail;
     }
 
-    public char getPhone() {
-        return phone;
+    public String getAddressStreet() {
+        return addressStreet;
     }
 
-    public void setPhone(char phone) {
-        this.phone = phone;
+    public void setAddressStreet(String addressStreet) {
+        this.addressStreet = addressStreet;
     }
 
-    public String getAddress() {
-        return address;
+    public String getAddressCity() {
+        return addressCity;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddressCity(String addressCity) {
+        this.addressCity = addressCity;
     }
 
-    public String getArea() {
-        return area;
+    public String getAddressColony() {
+        return addressColony;
     }
 
-    public void setArea(String area) {
-        this.area = area;
+    public void setAddressColony(String addressColony) {
+        this.addressColony = addressColony;
     }
 
-    public int getSalary() {
+    public String getAddressPC() {
+        return addressPC;
+    }
+
+    public void setAddressPC(String addressPC) {
+        this.addressPC = addressPC;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public Double getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(Double salary) {
         this.salary = salary;
-    }
-
-    public char getUser() {
-        return user;
-    }
-
-    public void setUser(char user) {
-        this.user = user;
-    }
-
-    public char getPassword() {
-        return password;
-    }
-
-    public void setPassword(char password) {
-        this.password = password;
     }
 }

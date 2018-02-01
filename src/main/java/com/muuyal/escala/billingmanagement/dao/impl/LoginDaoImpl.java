@@ -17,7 +17,7 @@ public class LoginDaoImpl extends DBConnection implements LoginDao {
     public boolean isValidCredentals(TextField username, TextField password){
 
         boolean let_in = false;
-        System.out.println("--- select * from users where username = " + "'"+ username.getText() + "'" + " and password = "
+        System.out.println("--- select * from user where username = " + "'"+ username.getText() + "'" + " and password = "
                 + "'" + password.getText() + "' ---");
         Connection connection = null;
         Statement statement   = null;
@@ -28,7 +28,7 @@ public class LoginDaoImpl extends DBConnection implements LoginDao {
             statement = connection.createStatement();
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
-            ResultSet resultSet = statement.executeQuery("select * from users where username = " + "'"+ username.getText() + "'" + " and password = " + "'" + password.getText() + "'");
+            ResultSet resultSet = statement.executeQuery("select * from user where username = " + "'"+ username.getText() + "'" + " and password = " + "'" + password.getText() + "'");
             System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
 
             while (resultSet.next()){

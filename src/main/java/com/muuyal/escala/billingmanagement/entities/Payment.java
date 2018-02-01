@@ -1,74 +1,64 @@
 package com.muuyal.escala.billingmanagement.entities;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name="payment")
 public class Payment {
 
-    private String user;
-    private String travel;
-    private Integer paymentAmount ;
-    private Integer total;
-    private Integer amountLeft;
-    private Date date;
+    private Integer id;
+    private Integer customerId;
+    private Integer contractId;
+    private Double paymentAmount;
+    private Date paymentDate;
     
     //Constructor
-    public Payment(String user, String travel, Integer total, Date date) {
-        this.user = user;
-        this.travel = travel;
-        this.total = total;
-        this.date = date;
-    }
-    
-    //getters
-    public String getUser() {
-        return user;
+    public Payment(Integer customerId, Integer projectId,  Date date) {
+        this.customerId = customerId;
+        this.contractId = projectId;
+        this.paymentDate = date;
     }
 
-    public String getTravel() {
-        return travel;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Integer getId() {
+        return id;
     }
 
-    public Integer getPaymentAmount() {
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
+
+    public Integer getContractId() {
+        return contractId;
+    }
+
+    public void setContractId(Integer contractId) {
+        this.contractId = contractId;
+    }
+
+    public Double getPaymentAmount() {
         return paymentAmount;
     }
 
-    public Integer getTotal() {
-        return total;
-    }
-
-    public Integer getAmountLeft() {
-        return amountLeft;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    //Setters
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public void setTravel(String travel) {
-        this.travel = travel;
-    }
-
-    public void setPaymentAmount(Integer paymentAmount) {
+    public void setPaymentAmount(Double paymentAmount) {
         this.paymentAmount = paymentAmount;
     }
 
-    public void setTotal(Integer total) {
-        this.total = total;
+    public Date getPaymentDate() {
+        return paymentDate;
     }
 
-    public void setAmountLeft(Integer amountLeft) {
-        this.amountLeft = amountLeft;
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
     }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-    
-    
-
 }

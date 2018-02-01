@@ -13,6 +13,7 @@ public class Contract {
     private Integer discount;
     private Date createdOn;
     private Date deadline;
+    private String paymentSchedule;
 
 
     @Id
@@ -63,5 +64,13 @@ public class Contract {
 
     public void setDeadline(Date deadline) {
         this.deadline = deadline;
+    }
+
+    public String getPaymentSchedule() {
+        return paymentSchedule;
+    }
+
+    public void setPaymentSchedule(String paymentSchedule) {
+        this.paymentSchedule = paymentSchedule;
     }
 }

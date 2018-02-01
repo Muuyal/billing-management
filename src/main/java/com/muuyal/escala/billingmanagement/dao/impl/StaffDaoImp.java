@@ -31,11 +31,6 @@ public class StaffDaoImp extends DBConnection implements StaffDao {
     }
 
     @Override
-    public Set<Staff> findAll(Staff staff) {
-        return null;
-    }
-
-    @Override
     public Staff findById(Integer id) {
         return null;
     }

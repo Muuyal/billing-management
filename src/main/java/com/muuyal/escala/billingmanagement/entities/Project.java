@@ -7,17 +7,15 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
-@Table (name="travel")
+@Table (name="project")
 public class Project {
 
     private Integer id;
     @NotNull(message = "Nombre no puede ir vacio")
     private String name;
     private String destination;
-    private Date eta; //depature
-    private Date deadline;
+    private Date eta;
     private Integer price;
-    private String paymentSchedule; //payment
 
     public Project(Integer id, String name, String destination, Integer price) {
         this.id = id;
@@ -74,14 +72,6 @@ public class Project {
         this.eta = eta;
     }
 
-    public Date getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(Date deadline) {
-        this.deadline = deadline;
-    }
-
     public Integer getPrice() {
         return price;
     }
@@ -89,13 +79,4 @@ public class Project {
     public void setPrice(Integer price) {
         this.price = price;
     }
-
-    public String getPaymentSchedule() {
-        return paymentSchedule;
-    }
-
-    public void setPaymentSchedule(String paymentSchedule) {
-        this.paymentSchedule = paymentSchedule;
-    }
-
 }
