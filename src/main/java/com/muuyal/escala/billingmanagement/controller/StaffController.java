@@ -100,12 +100,17 @@ public class StaffController implements Initializable {
     }
 
     @FXML
-    public void update(ActionEvent actionEvent){
+    public void update(ActionEvent actionEvent) throws IOException {
         System.out.println("-- " + this.getClass().getName() + ": go to found list --");
 
         buttonUpdate.setDisable(false);
+    }
 
+    @FXML
+    public void delete(ActionEvent actionEvent) throws IOException {
+        System.out.println("-- " + this.getClass().getName() + ": go to found list --");
 
+        buttonUpdate.setDisable(false);
     }
 
 }
