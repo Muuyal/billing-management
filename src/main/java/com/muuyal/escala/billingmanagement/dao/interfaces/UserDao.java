@@ -13,7 +13,7 @@ public interface UserDao {
 
     User findOne(User user);
 
-    void update(User user);
+    boolean update(User user);
 
-    void delete(User user);
+    boolean delete(User user);
 }

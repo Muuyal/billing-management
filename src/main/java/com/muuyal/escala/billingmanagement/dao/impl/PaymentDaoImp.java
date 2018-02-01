@@ -47,11 +47,78 @@ public class PaymentDaoImp extends DBConnection implements PaymentDao {
 
     @Override
     public boolean update(Payment payment) {
-        return false;
+
+        boolean updated = false;
+
+        System.out.println("--- UPDATE payment " +
+                "SET id = '"+ payment.getId() +"', customerId = '"+ payment.getCustomerId() +"', " +
+                "contractId = '"+ payment.getContractId() +"', paymentAmount = '"+ payment.getPaymentAmount() +"', " +
+                "paymentDate = '"+ payment.getPaymentDate() +"' " +
+                "WHERE id = '"+ payment.getId() +"' ---");
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        try {
+
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("UPDATE payment " +
+                            "SET id = ?, customerId = ?, contractId = ?, paymentAmount = ?, paymentDate = ? " +
+                            "WHERE id = ?");
+            preparedStatement.setInt(1, payment.getId());
+            preparedStatement.setInt(2, payment.getCustomerId());
+            preparedStatement.setInt(3, payment.getContractId());
+            preparedStatement.setDouble(4, payment.getPaymentAmount());
+            preparedStatement.setString(5, payment.getPaymentDate().toString());
+            preparedStatement.setInt(6, payment.getId());
+            preparedStatement.executeUpdate();
+
+            connection.commit();
+            statement.close();
+
+        } catch (SQLException e){
+            System.err.println(e.getMessage());
+        } finally {
+            updated = true;
+            this.closeConnection();
+        }
+        return updated;
     }
 
     @Override
     public boolean delete(Payment payment) {
-        return false;
+
+        boolean deleted = false;
+
+        System.out.println("--- DELETE FROM payment WHERE id="+payment.getId()+" ---");
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        try {
+
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("DELETE FROM payment WHERE id=?");
+            preparedStatement.setInt(1, payment.getId());
+            preparedStatement.executeUpdate();
+
+            connection.commit();
+            statement.close();
+
+        } catch (SQLException e){
+            System.err.println(e.getMessage());
+        } finally {
+            deleted = true;
+            this.closeConnection();
+        }
+        return deleted;
     }
 }

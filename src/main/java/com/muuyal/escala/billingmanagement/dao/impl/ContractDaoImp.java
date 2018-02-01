@@ -251,6 +251,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
 
     @Override
     public boolean delete(Contract contract) {
+
         boolean deleted = false;
 
         System.out.println("--- DELETE FROM contract WHERE id="+contract.getId()+" ---");

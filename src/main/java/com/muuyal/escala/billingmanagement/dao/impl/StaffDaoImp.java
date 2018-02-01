@@ -37,11 +37,85 @@ public class StaffDaoImp extends DBConnection implements StaffDao {
 
     @Override
     public boolean update(Staff staff) {
-        return false;
+
+        boolean updated = false;
+
+        System.out.println("--- UPDATE staff " +
+                "SET id = '"+ staff.getId() +"', name = '"+ staff.getName() +"', phone = '"+ staff.getPhone() +"', " +
+                "eMail = '"+ staff.geteMail() +"', addressStreet = '"+ staff.getAddressStreet() +"', " +
+                "addressCity = '"+ staff.getAddressCity() +"', addressColony = '"+ staff.getAddressColony() +"', " +
+                "addressPC = '"+ staff.getAddressPC() +"', rol = '"+ staff.getRol() +"', salary = '"+ staff.getSalary() +"' " +
+                "WHERE id = '"+ staff.getId() +"' ---");
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        try {
+
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("UPDATE staff " +
+                    "SET id = ?, name = ?, phone = ?, eMail = ?, addressStreet = ?, addressCity = ?, addressColony = ?, " +
+                    "addressPC = ?, rol = ?, salary = ? " +
+                    "WHERE id = ?");
+            preparedStatement.setInt(1, staff.getId());
+            preparedStatement.setString(2, staff.getName());
+            preparedStatement.setString(3, staff.getPhone());
+            preparedStatement.setString(4, staff.geteMail());
+            preparedStatement.setString(5, staff.getAddressStreet());
+            preparedStatement.setString(6, staff.getAddressCity());
+            preparedStatement.setString(7, staff.getAddressColony());
+            preparedStatement.setString(8, staff.getAddressPC());
+            preparedStatement.setString(9, staff.getRol());
+            preparedStatement.setDouble(10, staff.getSalary());
+            preparedStatement.setInt(11, staff.getId());
+            preparedStatement.executeUpdate();
+
+            connection.commit();
+            statement.close();
+
+        } catch (SQLException e){
+            System.err.println(e.getMessage());
+        } finally {
+            updated = true;
+            this.closeConnection();
+        }
+        return updated;
     }
 
     @Override
     public boolean delete(Staff staff) {
-        return false;
+
+        boolean deleted = false;
+
+        System.out.println("--- DELETE FROM staff WHERE id="+staff.getId()+" ---");
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        try {
+
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("DELETE FROM staff WHERE id=?");
+            preparedStatement.setInt(1, staff.getId());
+            preparedStatement.executeUpdate();
+
+            connection.commit();
+            statement.close();
+
+        } catch (SQLException e){
+            System.err.println(e.getMessage());
+        } finally {
+            deleted = true;
+            this.closeConnection();
+        }
+        return deleted;
     }
 }
