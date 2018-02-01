@@ -224,12 +224,60 @@ public class ProjectController implements Initializable {
     }
 
     @FXML
-    public void update(ActionEvent actionEvent){
-        System.out.println("-- " + this.getClass().getName() + ": go to found list --");
+    public void update(ActionEvent actionEvent) throws IOException{
 
-        buttonUpdate.setDisable(false);
+        LocalDate localEta = eta.getValue();
+        LocalDate localDeadline = deadline.getValue();
+        System.out.println("-- " + this.getClass().getName() + ": update project with name: " + name.getText() + "price: "+ price.getText() +"--");
+        project.setName(name.getText());
+        project.setDestination(destination.getText());
+        project.setPrice(Integer.valueOf(price.getText()));
+        project.setPaymentSchedule(paymentSchedule.getText());
+        project.setEta(Date.valueOf(localEta));
+        project.setDeadline(Date.valueOf(localDeadline));
+        project.setId(1);
 
 
+        System.out.println("-- " + this.getClass().getName() + ": updated clicked --");
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/common/success.fxml"));
+        Scene homePageScene = new Scene(homePageParent);
+        Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+        if  (projectDao.update(project)){
+            appStage.hide();
+            appStage.setScene(homePageScene);
+            appStage.show();
+        } else {
+            message.setText("Error updating" + name.getText() + "project");
+        }
     }
 
+    @FXML
+    public void delete(ActionEvent actionEvent) throws IOException{
+
+        LocalDate localEta = eta.getValue();
+        LocalDate localDeadline = deadline.getValue();
+        System.out.println("-- " + this.getClass().getName() + ": delete project with name: " + name.getText() + "price: "+ price.getText() +"--");
+        project.setName(name.getText());
+        project.setDestination(destination.getText());
+        project.setPrice(Integer.valueOf(price.getText()));
+        project.setPaymentSchedule(paymentSchedule.getText());
+        project.setEta(Date.valueOf(localEta));
+        project.setDeadline(Date.valueOf(localDeadline));
+        project.setId(1);
+
+
+        System.out.println("-- " + this.getClass().getName() + ": deleted clicked --");
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/common/success.fxml"));
+        Scene homePageScene = new Scene(homePageParent);
+        Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+        if  (projectDao.delete(project)){
+            appStage.hide();
+            appStage.setScene(homePageScene);
+            appStage.show();
+        } else {
+            message.setText("Error deleting" + name.getText() + "project");
+        }
+    }
 }

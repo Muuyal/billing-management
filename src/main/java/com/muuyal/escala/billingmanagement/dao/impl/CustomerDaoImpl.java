@@ -4,11 +4,8 @@ import com.muuyal.escala.billingmanagement.dao.DBConnection;
 import com.muuyal.escala.billingmanagement.dao.interfaces.CustomerDao;
 import com.muuyal.escala.billingmanagement.entities.Customer;
 import org.springframework.stereotype.Repository;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Repository
@@ -20,7 +17,8 @@ public class CustomerDaoImpl extends DBConnection implements CustomerDao {
 
         boolean saved = false;
 
-        System.out.println("--- insert into project(name, phone, email, address_street,  address_city,  address_colony,  address_pc, notes) values" +
+        System.out.println("--- INSERT INTO " +
+                "customer(name, phone, email, address_street,  address_city,  address_colony,  address_pc, notes) VALUES" +
                 " ('" + customer.getName() + "','" + customer.getPhone() + "','" + customer.geteMail() +
                 "','" + customer.getAddressStreet() + "','" + customer.getAddressCity() + "','" + customer.getAddressColony() +
                 "','" + customer.getAddressPC() + "','" + customer.getNotes() +
@@ -37,7 +35,9 @@ public class CustomerDaoImpl extends DBConnection implements CustomerDao {
             statement = connection.createStatement();
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
-            preparedStatement = connection.prepareStatement("insert into customer(name, phone, email, address_street,  address_city,  address_colony,  address_pc, notes) values(?,?,?,?,?,?,?,?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO customer" +
+                    "(name, phone, email, address_street,  address_city,  address_colony,  address_pc, notes) " +
+                    "VALUES(?,?,?,?,?,?,?,?)");
             preparedStatement.setString(1, customer.getName());
             preparedStatement.setString(2, customer.getPhone() );
             preparedStatement.setString(3, customer.geteMail());
@@ -63,24 +63,185 @@ public class CustomerDaoImpl extends DBConnection implements CustomerDao {
     @Override
     public Set<Customer> findAll() {
 
-        return null;
+        System.out.println("---" + this.getClass().getName() +  " findAll clicked. ---");
+        System.out.println("--- SELECT * FROM customer; ---");
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        Set<Customer> result =  new HashSet<Customer>();
+        try {
+
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("SELECT * FROM customer");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
+
+            while (resultSet.next()){
+                Customer temp = new Customer();
+                temp.setId(resultSet.getString("id"));
+                temp.setName(resultSet.getString("name"));
+                temp.setPhone(resultSet.getString("phone"));
+                temp.seteMail(resultSet.getString("eMail"));
+                temp.setAddressStreet(resultSet.getString("AddressStreet"));
+                temp.setAddressCity(resultSet.getString("AddressCity"));
+                temp.setAddressColony(resultSet.getString("AddressColony"));
+                temp.setAddressPC(resultSet.getString("AddressPC"));
+                temp.setNotes(resultSet.getString("notes"));
+                result.add(temp);
+            }
+
+            resultSet.close();
+//            statement.close();
+//            connection.close();
+            this.closeConnection();
+
+
+        } catch (Exception e){
+            System.err.println("--- Error found " + e.getClass().getName() + ":" + e.getMessage());
+//            System.exit(0);
+        }
+        return result;
 
     }
 
     @Override
-    public Customer findById(Integer id) {
+    public Set<Customer> findById(Customer customer) {
 
-        return null;
+        System.out.println("---" + this.getClass().getName() +  " findById clicked. ---");
+        System.out.println("--- SELECT * FROM customer WHERE id="+ customer.getId() +"; ---");
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        Set<Customer> result =  new HashSet<Customer>();
+        try {
+
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("SELECT * FROM customer WHERE id=?");
+            preparedStatement.setString(1, customer.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
+
+            while (resultSet.next()){
+                Customer temp = new Customer();
+                temp.setId(resultSet.getString("id"));
+                temp.setName(resultSet.getString("name"));
+                temp.setPhone(resultSet.getString("phone"));
+                temp.seteMail(resultSet.getString("eMail"));
+                temp.setAddressStreet(resultSet.getString("AddressStreet"));
+                temp.setAddressCity(resultSet.getString("AddressCity"));
+                temp.setAddressColony(resultSet.getString("AddressColony"));
+                temp.setAddressPC(resultSet.getString("AddressPC"));
+                temp.setNotes(resultSet.getString("notes"));
+                result.add(temp);
+            }
+
+            resultSet.close();
+//            statement.close();
+//            connection.close();
+            this.closeConnection();
+
+        } catch (Exception e){
+            System.err.println("--- Error found " + e.getClass().getName() + ":" + e.getMessage());
+//            System.exit(0);
+        }
+        return result;
 
     }
 
     @Override
     public boolean update(Customer customer) {
-        return false;
+
+        boolean updated = false;
+
+        System.out.println("--- UPDATE customer " +
+                "SET id="+ customer.getId() +", name="+ customer.getName() +", phone="+ customer.getPhone() +", " +
+                "email="+ customer.geteMail() +", address_street="+ customer.getAddressStreet() +", " +
+                "address_city="+ customer.getAddressCity() +",  address_colony="+ customer.getAddressColony() +", " +
+                "address_pc="+ customer.getAddressPC() +", notes="+ customer.getNotes() +" " +
+                "WHERE id="+ customer.getId() +" ---");
+
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        try {
+
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("UPDATE customer " +
+                    "SET id=?, name=?, phone=?, email=?, address_street=?, address_city=?, " +
+                    "address_colony=?, address_pc=?, notes=? " +
+                    "WHERE id=?");
+            preparedStatement.setString(1, customer.getId());
+            preparedStatement.setString(2, customer.getName());
+            preparedStatement.setString(3, customer.getPhone() );
+            preparedStatement.setString(4, customer.geteMail());
+            preparedStatement.setString(5, customer.getAddressStreet());
+            preparedStatement.setString(6, customer.getAddressCity());
+            preparedStatement.setString(7, customer.getAddressColony());
+            preparedStatement.setString(8, customer.getAddressPC());
+            preparedStatement.setString(9, customer.getNotes());
+            preparedStatement.setString(10, customer.getId());
+            preparedStatement.executeUpdate();
+
+            connection.commit();
+            updated = true;
+//            statement.close();
+
+        } catch (SQLException e){
+            System.err.println(e.getMessage());
+        } finally {
+            this.closeConnection();
+        }
+        return updated;
     }
 
     @Override
     public boolean delete(Customer customer) {
-        return false;
+
+        boolean deleted = false;
+
+        System.out.println("--- DELETE FROM customer WHERE id="+ customer.getId() +" ---");
+
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        try {
+
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("DELETE FROM customer WHERE id=?");
+            preparedStatement.setString(1, customer.getId());
+            preparedStatement.executeUpdate();
+
+            connection.commit();
+            deleted = true;
+//            statement.close();
+
+        } catch (SQLException e){
+            System.err.println(e.getMessage());
+        } finally {
+            this.closeConnection();
+        }
+        return deleted;
     }
 }

@@ -9,13 +9,11 @@ public interface ContractDao {
 
     Set<Contract> findAll();
 
-    Set <Contract> findAll(Contract contract);
-
     Set<Contract> findByProject(Integer projectId);
 
     Set<Contract> findByCustomer(Integer customerId);
 
-    Contract findById(Integer id);
+    Contract findById(Integer Id);
 
     boolean update(Contract contract);
 

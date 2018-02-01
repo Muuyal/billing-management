@@ -9,7 +9,7 @@ public interface CustomerDao {
 
     Set<Customer> findAll();
 
-    Customer findById(Integer id);
+    Set<Customer> findById(Customer customer);
 
     boolean update(Customer customer);
 
