@@ -61,11 +61,10 @@
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
             <TextField fx:id="name" layoutX="263.0" layoutY="45.0" promptText="Nombre del proyecto" />
-            <TextField fx:id="destination" layoutX="263.0" layoutY="82.0" promptText="producto" />
-            <DatePicker fx:id="eta" layoutX="263.0" layoutY="126.0" promptText="Fecha de salida" />
+            <TextField fx:id="description" layoutX="263.0" layoutY="82.0" promptText="Descripción" />
+            <DatePicker fx:id="eta" layoutX="263.0" layoutY="126.0" promptText="Fecha de entrega" />
             <DatePicker fx:id="deadline" layoutX="263.0" layoutY="161.0" promptText="Fecha limite de pago" />
             <TextField fx:id="price" layoutX="263.0" layoutY="200.0" promptText="Precio" />
-            <TextField fx:id="paymentSchedule" layoutX="263.0" layoutY="235.0" promptText="Semana, quincenal.." />
         <Label alignment="CENTER" graphicTextGap="5.0" layoutX="256.0" layoutY="14.0" style="&#10;" text="Crear Proyecto" textAlignment="CENTER" textFill="#2c0404" wrapText="false">
           <font>
             <Font size="18.0" />
@@ -74,7 +73,7 @@
                   <Bloom threshold="0.95" />
                </effect>
         </Label>
-            <Label alignment="CENTER" layoutX="31.0" layoutY="128.0" style="&#10;" text="Fecha de partida" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+            <Label alignment="CENTER" layoutX="31.0" layoutY="128.0" style="&#10;" text="Fecha de entrega" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
                <font>
                   <Font size="18.0" />
                </font>
@@ -89,17 +88,12 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="33.0" layoutY="84.0" style="&#10;" text="Producto" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+            <Label alignment="CENTER" layoutX="33.0" layoutY="84.0" style="&#10;" text="Descripción" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
             <Label alignment="CENTER" layoutX="33.0" layoutY="202.0" style="&#10;" text="Precio" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" layoutX="33.0" layoutY="237.0" style="&#10;" text="Periodo de pagos" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
                <font>
                   <Font size="18.0" />
                </font>

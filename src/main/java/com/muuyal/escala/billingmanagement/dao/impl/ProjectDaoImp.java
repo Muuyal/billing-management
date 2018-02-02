@@ -20,9 +20,9 @@ public class ProjectDaoImp extends DBConnection implements ProjectDao {
 
         boolean saved = false;
 
-        System.out.println("--- INSERT INTO project(name, destination, price, departure) VALUES" +
-                " ('" + project.getName() + "','" + project.getDestination() + "','" + project.getPrice() +
-                 "','" + project.getEta() +  "')" + " ---");
+        System.out.println("--- INSERT INTO project(name, description, price, eta, deadline) VALUES" +
+                " ('" + project.getName() + "','" + project.getDescription() + "','" + project.getPrice() +
+                 "','" + project.getEta() + project.getDeadline() +  "')" + " ---");
         Connection connection = null;
         Statement statement   = null;
         PreparedStatement preparedStatement;
@@ -35,12 +35,13 @@ public class ProjectDaoImp extends DBConnection implements ProjectDao {
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
             preparedStatement = connection.prepareStatement("INSERT INTO project" +
-                    "(name, destination, price, payments, departure, deadline) " +
-                    "VALUES(?,?,?,?,?,?)");
+                    "(name, description, price, eta, deadline) " +
+                    "VALUES(?,?,?,?,?)");
             preparedStatement.setString(1, project.getName());
-            preparedStatement.setString(2, project.getDestination());
+            preparedStatement.setString(2, project.getDescription());
             preparedStatement.setInt(3, project.getPrice());
-            preparedStatement.setString(5, project.getEta().toString());
+            preparedStatement.setString(4, project.getEta().toString());
+            preparedStatement.setString(5, project.getDeadline().toString());
             preparedStatement.executeUpdate();
 
             connection.commit();
@@ -81,9 +82,9 @@ public class ProjectDaoImp extends DBConnection implements ProjectDao {
                 Project temp = new Project();
                 temp.setId(resultSet.getInt("id"));
                 temp.setName(resultSet.getString("name"));
-                temp.setDestination(resultSet.getString("destination"));
+                temp.setDescription(resultSet.getString("description"));
                 temp.setPrice(resultSet.getInt("price"));
-                temp.setEta(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("departure")));
+                temp.setEta(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("eta")));
                 result.add(temp);
             }
 
@@ -108,8 +109,8 @@ public class ProjectDaoImp extends DBConnection implements ProjectDao {
         boolean updated = false;
 
         System.out.println("--- UPDATE project " +
-                "SET id="+project.getId()+", name="+project.getName()+", destination="+project.getDestination()+", " +
-                "departure="+project.getEta()+", price="+project.getPrice()+", " +
+                "SET id="+project.getId()+", name="+project.getName()+", description="+project.getDescription()+", " +
+                "eta="+project.getEta()+", price="+project.getPrice()+", deadline=" + project.getDeadline() +
                 "WHERE id="+project.getId()+" ---");
         Connection connection = null;
         Statement statement   = null;
@@ -123,13 +124,14 @@ public class ProjectDaoImp extends DBConnection implements ProjectDao {
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
             preparedStatement = connection.prepareStatement("UPDATE project " +
-                    "SET id=?, name=?, destination=?, departure=?, price=? " +
+                    "SET id=?, name=?, description=?, price=?, eta=?, deadline=? " +
                     "WHERE id=?");
             preparedStatement.setInt(1, project.getId());
             preparedStatement.setString(2, project.getName());
-            preparedStatement.setString(3, project.getDestination());
-            preparedStatement.setString(4, project.getEta().toString());
-            preparedStatement.setInt(6, project.getPrice());
+            preparedStatement.setString(3, project.getDescription());
+            preparedStatement.setInt(4, project.getPrice());
+            preparedStatement.setString(5, project.getEta().toString());
+            preparedStatement.setString(6, project.getDeadline().toString());
             preparedStatement.setInt(8, project.getId());
             preparedStatement.executeUpdate();
 

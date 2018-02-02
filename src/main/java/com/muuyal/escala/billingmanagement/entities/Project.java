@@ -13,25 +13,26 @@ public class Project {
     private Integer id;
     @NotNull(message = "Nombre no puede ir vacio")
     private String name;
-    private String destination;
+    private String description;
     private Date eta;
+    private Date deadline;
     private Integer price;
 
-    public Project(Integer id, String name, String destination, Integer price) {
+    public Project(Integer id, String name, String description, Integer price) {
         this.id = id;
         this.name = name;
-        this.destination = destination;
+        this.description = description;
         this.price = price;
     }
 
-    public Project(String name, String destination, Integer price, Date eta) {
+    public Project(String name, String description, Integer price, Date eta) {
         this.name = name;
-        this.destination = destination;
+        this.description = description;
         this.price = price;
         this.eta = eta;
     }
 
-    public Project(String name, String destination, Date eta, Date deadline, Integer price, String paymentSchedule){
+    public Project(String name, String description, Date eta, Date deadline, Integer price, String paymentSchedule){
 
     }
 
@@ -56,12 +57,12 @@ public class Project {
         this.name = name;
     }
 
-    public String getDestination() {
-        return destination;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDestination(String destination) {
-        this.destination = destination;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getEta() {
@@ -78,5 +79,13 @@ public class Project {
 
     public void setPrice(Integer price) {
         this.price = price;
+    }
+
+    public Date getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
     }
 }
