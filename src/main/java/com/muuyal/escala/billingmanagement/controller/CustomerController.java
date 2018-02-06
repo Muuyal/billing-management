@@ -6,26 +6,26 @@ import com.muuyal.escala.billingmanagement.dao.interfaces.CustomerDao;
 import com.muuyal.escala.billingmanagement.entities.Customer;
 import com.muuyal.escala.billingmanagement.entities.Project;
 import com.muuyal.escala.billingmanagement.entities.Staff;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class PassengerController implements Initializable {
+public class CustomerController implements Initializable {
 
     public Button buttonUpdate;
 
@@ -46,7 +46,7 @@ public class PassengerController implements Initializable {
     @FXML
     private TextField addressPC;
     @FXML
-    private ChoiceBox<Staff> staff;
+    private TableView<Customer> customerList;
     @FXML
     private TextArea notes;
     @FXML
@@ -58,6 +58,41 @@ public class PassengerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        initCustomerList();
+
+    }
+
+    private void initCustomerList(){
+
+
+        if (!customerDao.findAll().isEmpty()){
+
+            final ObservableList<Customer> customerItems = FXCollections.observableArrayList(
+                    customerDao.findAll()
+            );
+            System.out.println("------- " + customerItems.toString() + " ----------");
+
+            customerList.setEditable(false);
+
+            TableColumn columnA = new TableColumn("Nombre"); // customer name
+            TableColumn columnB = new TableColumn("Telefono"); //custome phone
+            TableColumn columnC = new TableColumn("eMail"); //customer email
+
+            columnA.setCellValueFactory(
+                    new PropertyValueFactory<Customer,String>("name")
+            );
+            columnB.setCellValueFactory(
+                    new PropertyValueFactory<Customer,String>("phone")
+            );
+            columnC.setCellValueFactory(
+                    new PropertyValueFactory<Customer,String>("email")
+            );
+
+
+            customerList.getColumns().addAll(columnA, columnB, columnC);
+            customerList.setItems(customerItems);
+        }
 
     }
 
@@ -77,7 +112,7 @@ public class PassengerController implements Initializable {
     public void goToFindPassenger(ActionEvent actionEvent) throws IOException{
 
         System.out.println("-- " + this.getClass().getName() + ": go to find customer --");
-        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/customer/passengerFind.fxml"));
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/customer/customerFind.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         appStage.setScene(homePageScene);
@@ -90,7 +125,7 @@ public class PassengerController implements Initializable {
     public void goToDetails(ActionEvent actionEvent) throws IOException {
 
         System.out.println("-- " + this.getClass().getName() + ": go to customer details --");
-        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/customer/passengerDetails.fxml"));
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/customer/customerDetails.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         appStage.setScene(homePageScene);
@@ -103,7 +138,13 @@ public class PassengerController implements Initializable {
         System.out.println("-- " + this.getClass().getName() + ": save customer --");
 
         customer.setName(name.getText());
-
+        customer.setPhone(phone.getText());
+        customer.setEmail(email.getText());
+        customer.setAddressStreet(addressStreet.getText());
+        customer.setAddressColony(addressColony.getText());
+        customer.setAddressCity(addressCity.getText());
+        customer.setAddressPC(addressPC.getText());
+        customer.setNotes(notes.getText());
 
         System.out.println("-- " + this.getClass().getName() + ": saved clicked --");
         Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/common/success.fxml"));

@@ -1,7 +1,12 @@
 package com.muuyal.escala.billingmanagement.controller;
 
+import com.muuyal.escala.billingmanagement.dao.impl.ContractDaoImp;
+import com.muuyal.escala.billingmanagement.dao.impl.CustomerDaoImpl;
 import com.muuyal.escala.billingmanagement.dao.impl.ProjectDaoImp;
+import com.muuyal.escala.billingmanagement.dao.interfaces.ContractDao;
+import com.muuyal.escala.billingmanagement.dao.interfaces.CustomerDao;
 import com.muuyal.escala.billingmanagement.dao.interfaces.ProjectDao;
+import com.muuyal.escala.billingmanagement.entities.Customer;
 import com.muuyal.escala.billingmanagement.entities.Project;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +27,7 @@ import java.util.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 
@@ -61,12 +67,18 @@ public class ProjectController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        initProjectList();
+
+    }
+
+    private void initProjectList(){
+
         if (!projectDao.findAll().isEmpty()){
 
             final ObservableList<Project> projectItems = FXCollections.observableArrayList(
-                projectDao.findAll()
+                    projectDao.findAll()
             );
-            System.out.println("------- " + projectItems.get(1) + " ----------");
+//            System.out.println("------- " + projectItems.get + " ----------");
 
             projectList.setEditable(false);
             customerList.setEditable(false);
@@ -83,16 +95,16 @@ public class ProjectController implements Initializable {
             TableColumn columnI = new TableColumn("Nombre"); //customer
 
             columnA.setCellValueFactory(
-                new PropertyValueFactory<Project,String>("name")
+                    new PropertyValueFactory<Project,String>("name")
             );
             columnB.setCellValueFactory(
-                new PropertyValueFactory<Project,String>("description")
+                    new PropertyValueFactory<Project,String>("description")
             );
             columnC.setCellValueFactory(
-                new PropertyValueFactory<Project,String>("price")
+                    new PropertyValueFactory<Project,String>("price")
             );
             columnD.setCellValueFactory(
-                new PropertyValueFactory<Project,String>("eta")
+                    new PropertyValueFactory<Project,String>("eta")
             );
 
             projectList.getColumns().addAll(columnA, columnB, columnC, columnD);
@@ -101,14 +113,28 @@ public class ProjectController implements Initializable {
 
             projectList.setItems(projectItems);
         }
+
     }
 
     @FXML
     public void showCustomers(){
         System.out.println("-- " + this.getClass().getName() + ": showCustomers clicked--");
+        ContractDao contractDao = new ContractDaoImp();
+        CustomerDao customerDao = new CustomerDaoImpl();
+        Set<Customer> customers = new HashSet<>();
+
         if (projectList.getSelectionModel().getSelectedItem() != null ) {
             Project clickedProject = projectList.getSelectionModel().getSelectedItem();
             System.out.println("-- " + this.getClass().getName() + ": item selected is: " + clickedProject.getId() + "--");
+            Set<Integer> customerIds = contractDao.findCustomerIdsByProyect(clickedProject.getId());
+            for (Integer customerId : customerIds){
+             customers = customerDao.findById(customerId);
+            }
+
+            for (Customer customer : customers){
+                System.out.println(customer.getName());
+            }
+
         }
 
     }

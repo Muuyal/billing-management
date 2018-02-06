@@ -207,7 +207,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
     @Override
     public boolean update(Contract contract) {
 
-        boolean updated = false;
+        boolean updated;
 
         System.out.println("--- UPDATE contract " +
                 "SET id="+contract.getId()+", customer_id="+contract.getCustomer_id()+", " +
@@ -281,4 +281,43 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
         }
         return deleted;
     }
+
+    @Override
+    public Set<Integer> findCustomerIdsByProyect(Integer projectId){
+
+        System.out.println("---" + this.getClass().getName() +  " findCustomersByProyect clicked. ---");
+        System.out.println("--- SELECT customer_Id FROM contract WHERE project_Id = '"+ projectId +"'; ---");
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        Set<Integer> result =  new HashSet<>();
+        try {
+
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("SELECT customer_Id FROM contract WHERE project_Id = ?");
+            preparedStatement.setString(1, projectId.toString());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
+
+            while (resultSet.next()){
+                Integer temp = resultSet.getInt("customer_id(");
+                result.add(temp);
+            }
+
+            resultSet.close();
+            this.closeConnection();
+
+        } catch (Exception e){
+            System.err.println("--- Error found " + e.getClass().getName() + ":" + e.getMessage());
+        }
+        return  result;
+    }
+
 }

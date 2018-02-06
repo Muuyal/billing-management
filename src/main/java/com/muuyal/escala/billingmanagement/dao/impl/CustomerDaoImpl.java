@@ -19,7 +19,7 @@ public class CustomerDaoImpl extends DBConnection implements CustomerDao {
 
         System.out.println("--- INSERT INTO " +
                 "customer(name, phone, email, address_street,  address_city,  address_colony,  address_pc, notes) VALUES" +
-                " ('" + customer.getName() + "','" + customer.getPhone() + "','" + customer.geteMail() +
+                " ('" + customer.getName() + "','" + customer.getPhone() + "','" + customer.getEmail() +
                 "','" + customer.getAddressStreet() + "','" + customer.getAddressCity() + "','" + customer.getAddressColony() +
                 "','" + customer.getAddressPC() + "','" + customer.getNotes() +
                 "')" + " ---");
@@ -40,7 +40,7 @@ public class CustomerDaoImpl extends DBConnection implements CustomerDao {
                     "VALUES(?,?,?,?,?,?,?,?)");
             preparedStatement.setString(1, customer.getName());
             preparedStatement.setString(2, customer.getPhone() );
-            preparedStatement.setString(3, customer.geteMail());
+            preparedStatement.setString(3, customer.getEmail());
             preparedStatement.setString(4, customer.getAddressStreet());
             preparedStatement.setString(5, customer.getAddressCity());
             preparedStatement.setString(6, customer.getAddressColony());
@@ -87,11 +87,11 @@ public class CustomerDaoImpl extends DBConnection implements CustomerDao {
                 temp.setId(resultSet.getString("id"));
                 temp.setName(resultSet.getString("name"));
                 temp.setPhone(resultSet.getString("phone"));
-                temp.seteMail(resultSet.getString("eMail"));
-                temp.setAddressStreet(resultSet.getString("AddressStreet"));
-                temp.setAddressCity(resultSet.getString("AddressCity"));
-                temp.setAddressColony(resultSet.getString("AddressColony"));
-                temp.setAddressPC(resultSet.getString("AddressPC"));
+                temp.setEmail(resultSet.getString("email"));
+                temp.setAddressStreet(resultSet.getString("address_street"));
+                temp.setAddressCity(resultSet.getString("address_city"));
+                temp.setAddressColony(resultSet.getString("address_colony"));
+                temp.setAddressPC(resultSet.getString("address_pc"));
                 temp.setNotes(resultSet.getString("notes"));
                 result.add(temp);
             }
@@ -106,6 +106,7 @@ public class CustomerDaoImpl extends DBConnection implements CustomerDao {
             System.err.println("--- Error found " + e.getClass().getName() + ":" + e.getMessage());
 //            System.exit(0);
         }
+        System.out.println("---- Results: " + result.toString() + " Class: " + this.getClass() + " ----");
         return result;
 
     }
@@ -138,7 +139,7 @@ public class CustomerDaoImpl extends DBConnection implements CustomerDao {
                 temp.setId(resultSet.getString("id"));
                 temp.setName(resultSet.getString("name"));
                 temp.setPhone(resultSet.getString("phone"));
-                temp.seteMail(resultSet.getString("eMail"));
+                temp.setEmail(resultSet.getString("email"));
                 temp.setAddressStreet(resultSet.getString("AddressStreet"));
                 temp.setAddressCity(resultSet.getString("AddressCity"));
                 temp.setAddressColony(resultSet.getString("AddressColony"));
@@ -157,7 +158,52 @@ public class CustomerDaoImpl extends DBConnection implements CustomerDao {
 //            System.exit(0);
         }
         return result;
+    }
 
+    @Override
+    public Set<Customer> findById(Integer customerId) {
+
+        System.out.println("---" + this.getClass().getName() +  " findById integer clicked. ---");
+        System.out.println("--- SELECT * FROM customer WHERE id="+ customerId +"; ---");
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        Set<Customer> result =  new HashSet<Customer>();
+        try {
+
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("SELECT * FROM customer WHERE id=?");
+            preparedStatement.setString(1, customerId.toString());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
+
+            while (resultSet.next()){
+                Customer temp = new Customer();
+                temp.setId(resultSet.getString("id"));
+                temp.setName(resultSet.getString("name"));
+                temp.setPhone(resultSet.getString("phone"));
+                temp.setEmail(resultSet.getString("email"));
+                temp.setAddressStreet(resultSet.getString("AddressStreet"));
+                temp.setAddressCity(resultSet.getString("AddressCity"));
+                temp.setAddressColony(resultSet.getString("AddressColony"));
+                temp.setAddressPC(resultSet.getString("AddressPC"));
+                temp.setNotes(resultSet.getString("notes"));
+                result.add(temp);
+            }
+
+            resultSet.close();
+            this.closeConnection();
+
+        } catch (Exception e){
+            System.err.println("--- Error found " + e.getClass().getName() + ":" + e.getMessage());
+        }
+        return result;
     }
 
     @Override
@@ -167,7 +213,7 @@ public class CustomerDaoImpl extends DBConnection implements CustomerDao {
 
         System.out.println("--- UPDATE customer " +
                 "SET id="+ customer.getId() +", name="+ customer.getName() +", phone="+ customer.getPhone() +", " +
-                "email="+ customer.geteMail() +", address_street="+ customer.getAddressStreet() +", " +
+                "email="+ customer.getEmail() +", address_street="+ customer.getAddressStreet() +", " +
                 "address_city="+ customer.getAddressCity() +",  address_colony="+ customer.getAddressColony() +", " +
                 "address_pc="+ customer.getAddressPC() +", notes="+ customer.getNotes() +" " +
                 "WHERE id="+ customer.getId() +" ---");
@@ -190,7 +236,7 @@ public class CustomerDaoImpl extends DBConnection implements CustomerDao {
             preparedStatement.setString(1, customer.getId());
             preparedStatement.setString(2, customer.getName());
             preparedStatement.setString(3, customer.getPhone() );
-            preparedStatement.setString(4, customer.geteMail());
+            preparedStatement.setString(4, customer.getEmail());
             preparedStatement.setString(5, customer.getAddressStreet());
             preparedStatement.setString(6, customer.getAddressCity());
             preparedStatement.setString(7, customer.getAddressColony());

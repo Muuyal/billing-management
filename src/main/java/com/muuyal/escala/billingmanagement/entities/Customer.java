@@ -14,7 +14,7 @@ public class Customer {
     private String name;
     @NotNull
     private String phone;
-    private String eMail;
+    private String email;
     private String addressStreet;
     private String addressCity;
     private String addressColony;
@@ -24,7 +24,7 @@ public class Customer {
     public Customer(String name, String phone, String eMail) {
         this.setName(name);
         this.setPhone(phone);
-        this.seteMail(eMail);
+        this.setEmail(email);
     }
 
     public Customer(){
@@ -56,12 +56,12 @@ public class Customer {
         this.phone = phone;
     }
 
-    public String geteMail() {
-        return eMail;
+    public String getEmail() {
+        return email;
     }
 
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getAddressStreet() {

@@ -1,11 +1,18 @@
 package com.muuyal.escala.billingmanagement.controller;
 
 
+import com.muuyal.escala.billingmanagement.dao.impl.ContractDaoImp;
 import com.muuyal.escala.billingmanagement.dao.impl.CustomerDaoImpl;
+import com.muuyal.escala.billingmanagement.dao.impl.ProjectDaoImp;
+import com.muuyal.escala.billingmanagement.dao.interfaces.ContractDao;
 import com.muuyal.escala.billingmanagement.dao.interfaces.CustomerDao;
+import com.muuyal.escala.billingmanagement.dao.interfaces.ProjectDao;
+import com.muuyal.escala.billingmanagement.entities.Contract;
 import com.muuyal.escala.billingmanagement.entities.Customer;
 import com.muuyal.escala.billingmanagement.entities.Project;
 import com.muuyal.escala.billingmanagement.entities.Staff;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +27,9 @@ import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 @Controller
 public class ContractController implements Initializable {
@@ -28,45 +37,72 @@ public class ContractController implements Initializable {
     public Button buttonUpdate;
 
     @FXML
-    private TextField name;
+    private ChoiceBox<String> projectId  = new ChoiceBox<>();
     @FXML
-    private ChoiceBox<Project> project;
+    private ChoiceBox<String> customerId = new ChoiceBox<>();
     @FXML
-    private TextField phone;
+    private TextField discount;
     @FXML
-    private TextField email;
+    private DatePicker deadline;
     @FXML
-    private TextField addressStreet;
-    @FXML
-    private TextField addressColony;
-    @FXML
-    private TextField addressCity;
-    @FXML
-    private TextField addressPC;
-    @FXML
-    private ChoiceBox<Staff> staff;
-    @FXML
-    private TextArea notes;
+    private ChoiceBox<String> paymentSchedule =  new ChoiceBox<>();
     @FXML
     private Label   message;
 
-//       @Autowired
-//    private UserDetailsService userDetailsService;
+    private Contract contract = new Contract();
 
-    private Customer customer = new Customer();
-
-    CustomerDao customerDao = new CustomerDaoImpl();
+    private ContractDao contractDao = new ContractDaoImp();
+    private CustomerDao customerDao = new CustomerDaoImpl();
+    private ProjectDao projectDao   = new ProjectDaoImp();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        System.out.println("Initializing contract controller");
+        initPaymentChoiceBox();
+        initProjectChoiceBox();
+        initCustomerChoiceBox();
+
+    }
+
+    private void initPaymentChoiceBox(){
+        paymentSchedule.setItems(FXCollections.observableArrayList(
+                "Semanal", "Quincenal", "Mensual")
+        );
+    }
+
+
+    private void initProjectChoiceBox(){
+
+        Set<String> projectNames = new HashSet<>();
+        Set<Project> tempProject = projectDao.findAll();
+        System.out.println("---- Getting All Projects");
+        for (Project project : tempProject){
+            projectNames.add(project.getName());
+        }
+        System.out.println(projectNames.toString());
+        projectId.setItems( FXCollections.observableArrayList( projectNames ));
+    }
+
+    private void initCustomerChoiceBox(){
+
+        Set<String> customerNames = new HashSet<>();
+        Set<Customer> tempCustomer = customerDao.findAll();
+        System.out.println("---- Getting All Customers");
+        for (Customer customer :  tempCustomer) {
+            System.out.println("---- Customer founds ----");
+            customerNames.add(customer.getName());
+            System.out.println("---- " + customer.getName());
+        }
+        System.out.println(customerNames.toString());
+        customerId.setItems( FXCollections.observableArrayList(customerNames));
     }
 
     @FXML
     public void goToNew(ActionEvent actionEvent) throws IOException{
 
-        System.out.println("-- " + this.getClass().getName() + ": go to new customer --");
-        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/customer/customerNew.fxml"));
+        System.out.println("-- " + this.getClass().getName() + ": go to new contract --");
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/contract/contractNew.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         appStage.setScene(homePageScene);
@@ -77,8 +113,8 @@ public class ContractController implements Initializable {
     @FXML
     public void goToFind(ActionEvent actionEvent) throws IOException{
 
-        System.out.println("-- " + this.getClass().getName() + ": go to find customer --");
-        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/customer/passengerFind.fxml"));
+        System.out.println("-- " + this.getClass().getName() + ": go to find contract --");
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/contract/contractFind.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         appStage.setScene(homePageScene);
@@ -90,8 +126,8 @@ public class ContractController implements Initializable {
     @FXML
     public void goToDetails(ActionEvent actionEvent) throws IOException {
 
-        System.out.println("-- " + this.getClass().getName() + ": go to customer details --");
-        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/customer/passengerDetails.fxml"));
+        System.out.println("-- " + this.getClass().getName() + ": go to contract details --");
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/contract/contractDetails.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         appStage.setScene(homePageScene);
@@ -101,9 +137,9 @@ public class ContractController implements Initializable {
 
     @FXML
     public void save(ActionEvent actionEvent) throws IOException {
-        System.out.println("-- " + this.getClass().getName() + ": save customer --");
+        System.out.println("-- " + this.getClass().getName() + ": save contract --");
 
-        customer.setName(name.getText());
+        contract.setPaymentSchedule(paymentSchedule.getValue());
 
 
         System.out.println("-- " + this.getClass().getName() + ": saved clicked --");
@@ -111,7 +147,7 @@ public class ContractController implements Initializable {
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 
-        if  (customerDao.save(customer)){
+        if  (contractDao.save(contract)){
             appStage.hide();
             appStage.setScene(homePageScene);
             appStage.show();
@@ -134,8 +170,8 @@ public class ContractController implements Initializable {
 
     @FXML
     public void goToHome(ActionEvent actionEvent) throws IOException {
-        System.out.println("-- " + this.getClass().getName() + ": go to customer home --");
-        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/customer/customerHome.fxml"));
+        System.out.println("-- " + this.getClass().getName() + ": go to contract home --");
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/contract/contractHome.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         appStage.setScene(homePageScene);
@@ -144,7 +180,7 @@ public class ContractController implements Initializable {
 
     @FXML
     public void goBack(ActionEvent actionEvent) throws IOException {
-        System.out.println("-- " + this.getClass().getName() + ": go to customer home --");
+        System.out.println("-- " + this.getClass().getName() + ": go to contract home --");
         Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/home.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

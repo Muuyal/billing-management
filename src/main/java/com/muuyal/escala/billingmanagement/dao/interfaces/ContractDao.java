@@ -18,4 +18,6 @@ public interface ContractDao {
     boolean update(Contract contract);
 
     boolean delete(Contract contract);
+
+    public Set<Integer> findCustomerIdsByProyect(Integer projectId);
 }
