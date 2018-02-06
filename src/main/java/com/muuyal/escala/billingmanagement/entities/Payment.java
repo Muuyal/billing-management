@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name="payment")
+@Table (name="payment")
 public class Payment {
 
     private Integer id;
@@ -18,6 +18,10 @@ public class Payment {
         this.customerId = customerId;
         this.contractId = projectId;
         this.paymentDate = date;
+    }
+
+    public Payment() {
+
     }
 
     @Id

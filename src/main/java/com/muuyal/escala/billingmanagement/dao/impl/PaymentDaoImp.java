@@ -15,9 +15,7 @@ import java.util.Set;
 @Repository
 public class PaymentDaoImp extends DBConnection implements PaymentDao {
 
-
     public PaymentDaoImp(){
-
     }
 
     @Override
