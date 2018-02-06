@@ -222,7 +222,7 @@ public class ContractController implements Initializable {
 
         System.out.println("-- " + this.getClass().getName() + ": delete contract --");
 
-        contract.setPaymentSchedule(paymentSchedule.getValue());
+        contract.setId(paymentSchedule.getValue());
 
 
         System.out.println("-- " + this.getClass().getName() + ": deleted clicked --");
