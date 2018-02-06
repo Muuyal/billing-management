@@ -195,11 +195,45 @@ public class CustomerController implements Initializable {
     }
 
     @FXML
-    public void update(ActionEvent actionEvent){
-        System.out.println("-- " + this.getClass().getName() + ": go to found list --");
+    public void update(ActionEvent actionEvent) throws IOException {
+        System.out.println("-- " + this.getClass().getName() + ": update customer --");
 
-        buttonUpdate.setDisable(false);
+        customer.setName(name.getText());
 
+
+        System.out.println("-- " + this.getClass().getName() + ": updated clicked --");
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/common/success.fxml"));
+        Scene homePageScene = new Scene(homePageParent);
+        Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+        if  (customerDao.update(customer)){
+            appStage.hide();
+            appStage.setScene(homePageScene);
+            appStage.show();
+        } else {
+            message.setText("Error updateing project");
+        }
+    }
+
+    @FXML
+    public void delete(ActionEvent actionEvent) throws IOException {
+        System.out.println("-- " + this.getClass().getName() + ": delete customer --");
+
+        customer.setName(name.getText());
+
+
+        System.out.println("-- " + this.getClass().getName() + ": deleted clicked --");
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/common/success.fxml"));
+        Scene homePageScene = new Scene(homePageParent);
+        Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+        if  (customerDao.delete(customer)){
+            appStage.hide();
+            appStage.setScene(homePageScene);
+            appStage.show();
+        } else {
+            message.setText("Error deleting project");
+        }
 
     }
 }
