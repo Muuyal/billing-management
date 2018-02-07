@@ -25,6 +25,7 @@ import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import javax.xml.soap.Text;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashSet;
@@ -37,6 +38,8 @@ public class ContractController implements Initializable {
     public Button buttonUpdate;
 
     @FXML
+    private TextField name;
+    @FXML
     private ChoiceBox<String> projectId  = new ChoiceBox<>();
     @FXML
     private ChoiceBox<String> customerId = new ChoiceBox<>();
@@ -47,16 +50,20 @@ public class ContractController implements Initializable {
     @FXML
     private ChoiceBox<String> paymentSchedule =  new ChoiceBox<>();
     @FXML
+    private TableView<Contract> contractList = new TableView<>();
+    @FXML
     private Label   message;
 
     private Contract contract = new Contract();
-
+    private Customer customer = new Customer();
     private ContractDao contractDao = new ContractDaoImp();
     private CustomerDao customerDao = new CustomerDaoImpl();
     private ProjectDao projectDao   = new ProjectDaoImp();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+//        contractList.wi
 
         System.out.println("Initializing contract controller");
         initPaymentChoiceBox();
@@ -140,7 +147,7 @@ public class ContractController implements Initializable {
         System.out.println("-- " + this.getClass().getName() + ": save contract --");
 
         contract.setPaymentSchedule(paymentSchedule.getValue());
-
+        contract.setCustomer_id(customerId.getValue());
 
         System.out.println("-- " + this.getClass().getName() + ": saved clicked --");
         Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/common/success.fxml"));
@@ -160,12 +167,6 @@ public class ContractController implements Initializable {
     @FXML
     public void clearScreen(ActionEvent actionEvent) {
         System.out.println("-- " + this.getClass().getName() + ": clear screen --");
-//        int[] arr = {1,2,3};
-//        for (int x = 0; x == arr.length; x++){
-//            x;
-//        }
-
-
     }
 
     @FXML
