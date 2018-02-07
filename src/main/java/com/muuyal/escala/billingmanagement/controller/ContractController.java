@@ -198,9 +198,10 @@ public class ContractController implements Initializable {
 
     @FXML
     public void update(ActionEvent actionEvent) throws IOException {
+
         System.out.println("-- " + this.getClass().getName() + ": update contract --");
 
-        customer.setName(name.getText());
+        contract.setPaymentSchedule(paymentSchedule.getValue());
 
 
         System.out.println("-- " + this.getClass().getName() + ": updated clicked --");
@@ -208,20 +209,21 @@ public class ContractController implements Initializable {
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 
-        if  (customerDao.update(customer)){
+        if  (contractDao.update(contract)){
             appStage.hide();
             appStage.setScene(homePageScene);
             appStage.show();
         } else {
-            message.setText("Error updating contarct");
+            message.setText("Error updating contract");
         }
     }
 
     @FXML
     public void delete(ActionEvent actionEvent) throws IOException {
+
         System.out.println("-- " + this.getClass().getName() + ": delete contract --");
 
-        customer.setName(name.getText());
+        contract.setId(paymentSchedule.getValue());
 
 
         System.out.println("-- " + this.getClass().getName() + ": deleted clicked --");
@@ -229,7 +231,7 @@ public class ContractController implements Initializable {
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 
-        if  (customerDao.delete(customer)){
+        if  (contractDao.delete(contract)){
             appStage.hide();
             appStage.setScene(homePageScene);
             appStage.show();

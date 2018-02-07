@@ -19,10 +19,14 @@ public class Staff {
     private String rol;
     private Double salary;
 
-    Staff (String name, String eMail, Double salary){
+    public Staff (String name, String eMail, Double salary){
         this.name = name;
         this.eMail = eMail;
         this.salary = salary;
+    }
+
+    public Staff (){
+
     }
 
     @Id

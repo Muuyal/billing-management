@@ -30,17 +30,11 @@ import javafx.fxml.Initializable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-
 @Controller
 public class ProjectController implements Initializable {
 
-
-
     private Button buttonUpdate;
-
-    private Project project =  new Project();
-
-
+    private Project project = new Project();
     private ProjectDao projectDao = new ProjectDaoImp();
 
     @FXML
@@ -61,8 +55,6 @@ public class ProjectController implements Initializable {
     private TableView<String> customerList = new TableView<String>();
     @FXML
     private TableView<String> customerDetails =  new TableView<String>();;
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
