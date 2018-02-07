@@ -22,7 +22,50 @@ public class StaffDaoImp extends DBConnection implements StaffDao {
 
     @Override
     public boolean save(Staff staff) {
-        return false;
+        boolean saved = false;
+
+        System.out.println("--- insert into staff (name, phone, email, addressStreet, addressCity, addressColony, addressPC, rol, salary)" +
+                "values ('"+ staff.getName() +"','"+ staff.getPhone() +"', " +
+                "'"+ staff.getEmail() +"','"+ staff.getAddressStreet() +"', " +
+                " '"+ staff.getAddressCity() +"', '"+ staff.getAddressColony() +"', " +
+                " '"+ staff.getAddressPC() +"', '"+ staff.getRol() +"', '"+ staff.getSalary() +"' " +
+                "') ---");
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        try {
+
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("INSERT INTO staff (name, phone, email, addressStreet, addressCity, addressColony, addressPC, rol, salary) " +
+                    "values (?,?,?,?,?,?,?,?,?)");
+            preparedStatement.setInt(1, staff.getId());
+            preparedStatement.setString(2, staff.getName());
+            preparedStatement.setString(3, staff.getPhone());
+            preparedStatement.setString(4, staff.getEmail());
+            preparedStatement.setString(5, staff.getAddressStreet());
+            preparedStatement.setString(6, staff.getAddressCity());
+            preparedStatement.setString(7, staff.getAddressColony());
+            preparedStatement.setString(8, staff.getAddressPC());
+            preparedStatement.setString(9, staff.getRol());
+            preparedStatement.setDouble(10, staff.getSalary());
+            preparedStatement.setInt(11, staff.getId());
+            preparedStatement.executeUpdate();
+
+            connection.commit();
+            statement.close();
+
+        } catch (SQLException e){
+            System.err.println(e.getMessage());
+        } finally {
+            saved = true;
+            this.closeConnection();
+        }
+        return saved;
     }
 
     @Override
@@ -42,7 +85,7 @@ public class StaffDaoImp extends DBConnection implements StaffDao {
 
         System.out.println("--- UPDATE staff " +
                 "SET id = '"+ staff.getId() +"', name = '"+ staff.getName() +"', phone = '"+ staff.getPhone() +"', " +
-                "eMail = '"+ staff.geteMail() +"', addressStreet = '"+ staff.getAddressStreet() +"', " +
+                "eMail = '"+ staff.getEmail() +"', addressStreet = '"+ staff.getAddressStreet() +"', " +
                 "addressCity = '"+ staff.getAddressCity() +"', addressColony = '"+ staff.getAddressColony() +"', " +
                 "addressPC = '"+ staff.getAddressPC() +"', rol = '"+ staff.getRol() +"', salary = '"+ staff.getSalary() +"' " +
                 "WHERE id = '"+ staff.getId() +"' ---");
@@ -64,7 +107,7 @@ public class StaffDaoImp extends DBConnection implements StaffDao {
             preparedStatement.setInt(1, staff.getId());
             preparedStatement.setString(2, staff.getName());
             preparedStatement.setString(3, staff.getPhone());
-            preparedStatement.setString(4, staff.geteMail());
+            preparedStatement.setString(4, staff.getEmail());
             preparedStatement.setString(5, staff.getAddressStreet());
             preparedStatement.setString(6, staff.getAddressCity());
             preparedStatement.setString(7, staff.getAddressColony());

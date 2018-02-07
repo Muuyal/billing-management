@@ -89,6 +89,11 @@
                   </font>
                </Label>
                <TextField fx:id="salary" layoutX="248.0" layoutY="293.0" promptText="Sueldo" />
+               <Label fx:id="message" alignment="CENTER" layoutX="260.0" layoutY="381.0" style="&#10;" textAlignment="CENTER" textFill="#f20b0b" wrapText="false">
+                  <font>
+                     <Font size="18.0" />
+                  </font>
+               </Label>
             </children>
          </AnchorPane>
       </children>

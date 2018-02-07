@@ -32,8 +32,6 @@ public class CustomerController implements Initializable {
     @FXML
     private TextField name;
     @FXML
-    private ChoiceBox<Project> project;
-    @FXML
     private TextField phone;
     @FXML
     private TextField email;
@@ -46,7 +44,7 @@ public class CustomerController implements Initializable {
     @FXML
     private TextField addressPC;
     @FXML
-    private TableView<Customer> customerList;
+    private TableView<Customer> customerList = new TableView<>();
     @FXML
     private TextArea notes;
     @FXML
@@ -97,7 +95,7 @@ public class CustomerController implements Initializable {
     }
 
     @FXML
-    public void goToNewPassenger(ActionEvent actionEvent) throws IOException{
+    public void goToNew(ActionEvent actionEvent) throws IOException{
 
         System.out.println("-- " + this.getClass().getName() + ": go to new customer --");
         Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/customer/customerNew.fxml"));

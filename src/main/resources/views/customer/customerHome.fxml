@@ -47,7 +47,7 @@
                   <Bloom threshold="0.95" />
                </effect>
             </Label>
-            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToNewPassenger" prefHeight="27.0" prefWidth="33.0" text="+" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
+            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToNew" prefHeight="27.0" prefWidth="33.0" text="+" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
                <Button layoutX="269.0" layoutY="452.0" mnemonicParsing="false" onAction="#goBack" text="Regresar" AnchorPane.bottomAnchor="13.5" AnchorPane.leftAnchor="269.0" AnchorPane.rightAnchor="257.5" />
                <TextField layoutX="60.0" layoutY="15.0" onAction="#goToFindPassenger" prefHeight="27.0" prefWidth="232.0" promptText="Buscar cliente" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="15.0" />
                <GridPane layoutY="61.0" prefHeight="316.0" prefWidth="600.0">

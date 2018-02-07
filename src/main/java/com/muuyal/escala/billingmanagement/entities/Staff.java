@@ -11,7 +11,7 @@ public class Staff {
     private Integer id;
     private String name;
     private String phone;
-    private String eMail;
+    private String email;
     private String addressStreet;
     private String addressCity;
     private String addressColony;
@@ -21,7 +21,7 @@ public class Staff {
 
     public Staff (String name, String eMail, Double salary){
         this.name = name;
-        this.eMail = eMail;
+        this.email = eMail;
         this.salary = salary;
     }
 
@@ -55,12 +55,12 @@ public class Staff {
         this.phone = phone;
     }
 
-    public String geteMail() {
-        return eMail;
+    public String getEmail() {
+        return email;
     }
 
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
+    public void setEmail(String eMail) {
+        this.email = eMail;
     }
 
     public String getAddressStreet() {

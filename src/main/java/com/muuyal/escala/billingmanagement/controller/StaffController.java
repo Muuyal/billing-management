@@ -3,6 +3,7 @@ package com.muuyal.escala.billingmanagement.controller;
 import com.muuyal.escala.billingmanagement.dao.impl.StaffDaoImp;
 import com.muuyal.escala.billingmanagement.dao.interfaces.StaffDao;
 import com.muuyal.escala.billingmanagement.entities.Staff;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,16 +23,17 @@ import java.util.ResourceBundle;
 @Controller
 public class StaffController implements Initializable {
 
-    public Button buttonUpdate;
-    private Staff staff = new Staff();
+    private Button buttonUpdate;
     private StaffDao staffDao = new StaffDaoImp();
+    private Staff staff = new Staff();
+
 
     @FXML
     private TextField name;
     @FXML
     private TextField phone;
     @FXML
-    private TextField eMail;
+    private TextField email;
     @FXML
     private TextField addressStreet;
     @FXML
@@ -41,21 +43,22 @@ public class StaffController implements Initializable {
     @FXML
     private TextField addressPC;
     @FXML
-    private TextField rol;
+    private ChoiceBox<String> rol =  new ChoiceBox<>();
     @FXML
     private TextField salary;
     @FXML
     private Label message;
-    /*@FXML
-    private  TableView<Project> projectList = new TableView<Project>();
-    @FXML
-    private TableView<String> customerList = new TableView<String>();
-    @FXML
-    private TableView<String> customerDetails =  new TableView<String>();;*/
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initRolChoiceBox();
+    }
 
+    private void initRolChoiceBox(){
+        rol.setItems(FXCollections.observableArrayList(
+                "Admin", "Staff", "Ventas")
+        );
     }
 
     @FXML
@@ -96,8 +99,29 @@ public class StaffController implements Initializable {
     }
 
     @FXML
-    public void save(ActionEvent actionEvent) {
+    public void save(ActionEvent actionEvent) throws IOException {
         System.out.println("-- " + this.getClass().getName() + ": save staff --");
+        staff.setName(name.getText());
+        staff.setPhone(phone.getText());
+        staff.setEmail(email.getText());
+        staff.setAddressStreet(addressStreet.getText());
+        staff.setAddressColony(addressColony.getText());
+        staff.setAddressCity(addressCity.getText());
+        staff.setAddressPC(addressPC.getText());
+        staff.setSalary(Double.valueOf(salary.getText()));
+
+        System.out.println("-- " + this.getClass().getName() + ": saved clicked --");
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/common/success.fxml"));
+        Scene homePageScene = new Scene(homePageParent);
+        Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+        if  (staffDao.save(staff)){
+            appStage.hide();
+            appStage.setScene(homePageScene);
+            appStage.show();
+        } else {
+            message.setText("Error saving new staff");
+        }
 
     }
 
@@ -142,12 +166,12 @@ public class StaffController implements Initializable {
         staff.setId(staff.getId());
         staff.setName(name.getText());
         staff.setPhone(phone.getText());
-        staff.seteMail(eMail.getText());
+        staff.setEmail(email.getText());
         staff.setAddressStreet(addressStreet.getText());
         staff.setAddressCity(addressCity.getText());
         staff.setAddressColony(addressColony.getText());
         staff.setAddressPC(addressPC.getText());
-        staff.setRol(rol.getText());
+        staff.setRol(rol.getValue());
         staff.setSalary(Double.valueOf(salary.getText()));
 
         System.out.println("-- " + this.getClass().getName() + ": updated clicked --");

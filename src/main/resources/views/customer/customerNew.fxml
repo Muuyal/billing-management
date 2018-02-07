@@ -79,7 +79,7 @@
             <TextField fx:id="addressColony" layoutX="423.0" layoutY="220.0" promptText="Colonia" />
             <TextField fx:id="addressCity" layoutX="250.0" layoutY="273.0" promptText="Ciudad" />
             <TextField fx:id="addressPC" layoutX="423.0" layoutY="273.0" promptText="CP" />
-            <TextArea fx:id="notes" layoutX="245.0" layoutY="343.0" prefHeight="71.0" prefWidth="345.0" />
+            <TextArea fx:id="notes" layoutX="245.0" layoutY="320.0" prefHeight="71.0" prefWidth="345.0" />
             <Button layoutX="371.0" layoutY="440.0" mnemonicParsing="false" onAction="#save" text="Guardar" />
             <Button layoutX="261.0" layoutY="440.0" mnemonicParsing="false" onAction="#clearScreen" text="Limpiar" />
             <Button layoutX="146.0" layoutY="440.0" mnemonicParsing="false" onAction="#goToHome" text="Cancelar" />
