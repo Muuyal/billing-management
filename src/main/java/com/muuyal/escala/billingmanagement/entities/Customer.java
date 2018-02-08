@@ -9,7 +9,7 @@ public class Customer {
 
     @Id
     @NotNull
-    private String id;
+    private Integer id;
     @NotNull
     private String name;
     @NotNull
@@ -32,11 +32,11 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -103,5 +103,11 @@ public class Customer {
     public void setNotes(String notes) {
         this.notes = notes;
     }
+
+    @Override
+    public String toString() {
+        return this.getName();
+    }
+
 
 }

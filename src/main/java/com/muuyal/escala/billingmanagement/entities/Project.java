@@ -88,4 +88,9 @@ public class Project {
     public void setDeadline(Date deadline) {
         this.deadline = deadline;
     }
+
+    @Override
+    public String toString() {
+        return this.getName();
+    }
 }

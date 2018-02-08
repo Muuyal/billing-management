@@ -20,8 +20,8 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
 
         boolean saved = false;
 
-        System.out.println("--- INSERT INTO contract(customer_id, project_id, discount, createdOn, terminatedOn) " +
-                "VALUES ('"+ contract.getCustomer_id() +"','"+ contract.getProject_id() +"'," +
+        System.out.println("--- INSERT INTO contract(customerId, projectId, discount, createdOn, deadline) " +
+                "VALUES ('"+ contract.getCustomerId() +"','"+ contract.getProjectId() +"'," +
                 "'"+ contract.getDiscount() +"','"+ contract.getCreatedOn() +"','"+ contract.getDeadline() +"') ---");
 
         Connection connection = null;
@@ -36,10 +36,10 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
             preparedStatement = connection.prepareStatement("INSERT INTO contract(" +
-                    "customer_id, project_id, discount, createdOn, terminatedOn) " +
+                    "customerId, projectId, discount, createdOn, deadline) " +
                     "VALUES (?,?,?,?,?)");
-            preparedStatement.setString(1, contract.getCustomer_id());
-            preparedStatement.setInt(2, contract.getProject_id() );
+            preparedStatement.setInt(1, contract.getCustomerId());
+            preparedStatement.setInt(2, contract.getProjectId() );
             preparedStatement.setString(3, contract.getDiscount().toString());
             preparedStatement.setString(4, contract.getCreatedOn().toString());
             preparedStatement.setString(5, contract.getDeadline().toString());
@@ -84,8 +84,8 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             while (resultSet.next()){
                 Contract temp = new Contract();
                 temp.setId(resultSet.getString("id"));
-                temp.setCustomer_id(resultSet.getString("customer_id("));
-                temp.setProject_id(resultSet.getInt("project_id("));
+                temp.setCustomerId(resultSet.getInt("customer_id"));
+                temp.setProjectId(resultSet.getInt("project_id"));
                 temp.setDiscount(resultSet.getInt("discount"));
                 temp.setCreatedOn(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("createdOn")));
                 temp.setCreatedOn(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("terminatedOn")));
@@ -109,7 +109,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
     public Set<Contract> findByProject(Integer contractId) {
 
         System.out.println("---" + this.getClass().getName() +  " findByProject clicked. ---");
-        System.out.println("--- SELECT * FROM contract WHERE project_id = '"+ contractId +"'; ---");
+        System.out.println("--- SELECT * FROM contract WHERE projectId = '"+ contractId +"'; ---");
         Connection connection = null;
         Statement statement   = null;
         PreparedStatement preparedStatement;
@@ -122,7 +122,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             statement = connection.createStatement();
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
-            preparedStatement = connection.prepareStatement("SELECT * FROM contract WHERE project_id = ?");
+            preparedStatement = connection.prepareStatement("SELECT * FROM contract WHERE projectId = ?");
             preparedStatement.setInt(1, contractId);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -132,8 +132,8 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             while (resultSet.next()){
                 Contract temp = new Contract();
                 temp.setId(resultSet.getString("id"));
-                temp.setCustomer_id(resultSet.getString("customer_id("));
-                temp.setProject_id(resultSet.getInt("project_id("));
+                temp.setCustomerId(resultSet.getInt("customer_id"));
+                temp.setProjectId(resultSet.getInt("project_id"));
                 temp.setDiscount(resultSet.getInt("discount"));
                 temp.setCreatedOn(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("createdOn")));
                 temp.setCreatedOn(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("terminatedOn")));
@@ -159,7 +159,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
     public Set<Contract> findByCustomer(Integer customerId) {
 
         System.out.println("---" + this.getClass().getName() +  " findByCustomer clicked. ---");
-        System.out.println("--- SELECT * FROM contract WHERE customer_id = '"+ customerId +"'; ---");
+        System.out.println("--- SELECT * FROM contract WHERE customerId = '"+ customerId +"'; ---");
         Connection connection = null;
         Statement statement   = null;
         PreparedStatement preparedStatement;
@@ -172,7 +172,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             statement = connection.createStatement();
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
-            preparedStatement = connection.prepareStatement("SELECT * FROM contract WHERE customer_id = ?");
+            preparedStatement = connection.prepareStatement("SELECT * FROM contract WHERE customerId = ?");
             preparedStatement.setString(1, customerId.toString());
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -182,8 +182,8 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             while (resultSet.next()){
                 Contract temp = new Contract();
                 temp.setId(resultSet.getString("id"));
-                temp.setCustomer_id(resultSet.getString("customer_id("));
-                temp.setProject_id(resultSet.getInt("project_id("));
+                temp.setCustomerId(resultSet.getInt("customer_id"));
+                temp.setProjectId(resultSet.getInt("project_id"));
                 temp.setDiscount(resultSet.getInt("discount"));
                 temp.setCreatedOn(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("createdOn")));
                 temp.setCreatedOn(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("terminatedOn")));
@@ -210,8 +210,8 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
         boolean updated;
 
         System.out.println("--- UPDATE contract " +
-                "SET id="+contract.getId()+", customer_id="+contract.getCustomer_id()+", " +
-                "project_id="+contract.getProject_id()+", discount="+contract.getDiscount()+", " +
+                "SET id="+contract.getId()+", customerId="+contract.getCustomerId()+", " +
+                "projectId="+contract.getProjectId()+", discount="+contract.getDiscount()+", " +
                 "createdOn="+contract.getCreatedOn()+", terminatedOn="+contract.getDeadline()+" " +
                 "WHERE id="+contract.getId()+" ---");
         Connection connection = null;
@@ -226,11 +226,11 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
             preparedStatement = connection.prepareStatement("UPDATE contract " +
-                    "SET id=?, customer_id=?, project_id=?, discount=?, createdOn=?, terminatedOn=? " +
+                    "SET id=?, customerId=?, projectId=?, discount=?, createdOn=?, terminatedOn=? " +
                     "WHERE id=?");
             preparedStatement.setString(1, contract.getId());
-            preparedStatement.setString(2, contract.getCustomer_id());
-            preparedStatement.setInt(3, contract.getProject_id());
+            preparedStatement.setInt(2, contract.getCustomerId());
+            preparedStatement.setInt(3, contract.getProjectId());
             preparedStatement.setInt(4, contract.getDiscount());
             preparedStatement.setString(5, contract.getCreatedOn().toString());
             preparedStatement.setString(6, contract.getDeadline().toString());
@@ -286,7 +286,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
     public Set<Integer> findCustomerIdsByProyect(Integer projectId){
 
         System.out.println("---" + this.getClass().getName() +  " findCustomersByProyect clicked. ---");
-        System.out.println("--- SELECT customer_Id FROM contract WHERE project_Id = '"+ projectId +"'; ---");
+        System.out.println("--- SELECT customerId FROM contract WHERE projectId = '"+ projectId +"'; ---");
         Connection connection = null;
         Statement statement   = null;
         PreparedStatement preparedStatement;
@@ -299,7 +299,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             statement = connection.createStatement();
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
-            preparedStatement = connection.prepareStatement("SELECT customer_Id FROM contract WHERE project_Id = ?");
+            preparedStatement = connection.prepareStatement("SELECT customerId FROM contract WHERE projectId = ?");
             preparedStatement.setString(1, projectId.toString());
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -307,7 +307,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
 
             while (resultSet.next()){
-                Integer temp = resultSet.getInt("customer_id(");
+                Integer temp = resultSet.getInt("customerId(");
                 result.add(temp);
             }
 

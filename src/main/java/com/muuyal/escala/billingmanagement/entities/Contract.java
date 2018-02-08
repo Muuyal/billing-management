@@ -8,8 +8,8 @@ import java.util.Date;
 public class Contract {
 
     private String id;
-    private String customer_id;
-    private Integer project_id;
+    private Integer customerId;
+    private Integer projectId;
     private Integer discount;
     private Date createdOn;
     private Date deadline;
@@ -26,20 +26,20 @@ public class Contract {
         this.id = id;
     }
 
-    public String getCustomer_id() {
-        return customer_id;
+    public Integer getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer_id(String customer_id) {
-        this.customer_id = customer_id;
+    public void setCustomerId(Integer customer_id) {
+        this.customerId = customer_id;
     }
 
-    public Integer getProject_id() {
-        return project_id;
+    public Integer getProjectId() {
+        return projectId;
     }
 
-    public void setProject_id(Integer project_id) {
-        this.project_id = project_id;
+    public void setProjectId(Integer project_id) {
+        this.projectId = project_id;
     }
 
     public Integer getDiscount() {
@@ -67,7 +67,9 @@ public class Contract {
     }
 
     public String getPaymentSchedule() {
+
         return paymentSchedule;
+
     }
 
     public void setPaymentSchedule(String paymentSchedule) {

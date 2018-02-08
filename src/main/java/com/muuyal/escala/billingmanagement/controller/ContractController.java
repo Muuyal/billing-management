@@ -40,9 +40,9 @@ public class ContractController implements Initializable {
     @FXML
     private TextField name;
     @FXML
-    private ChoiceBox<String> projectId  = new ChoiceBox<>();
+    private ChoiceBox<Project> projectId  = new ChoiceBox<>();
     @FXML
-    private ChoiceBox<String> customerId = new ChoiceBox<>();
+    private ChoiceBox<Customer> customerId = new ChoiceBox<>();
     @FXML
     private TextField discount;
     @FXML
@@ -62,8 +62,6 @@ public class ContractController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-//        contractList.wi
 
         System.out.println("Initializing contract controller");
         initPaymentChoiceBox();
@@ -88,7 +86,7 @@ public class ContractController implements Initializable {
             projectNames.add(project.getName());
         }
         System.out.println(projectNames.toString());
-        projectId.setItems( FXCollections.observableArrayList( projectNames ));
+        projectId.setItems( FXCollections.observableArrayList( tempProject ));
     }
 
     private void initCustomerChoiceBox(){
@@ -102,7 +100,8 @@ public class ContractController implements Initializable {
             System.out.println("---- " + customer.getName());
         }
         System.out.println(customerNames.toString());
-        customerId.setItems( FXCollections.observableArrayList(customerNames));
+        customerId.setItems( FXCollections.observableArrayList(tempCustomer));
+        customerId.getSelectionModel().select(1);
     }
 
     @FXML
@@ -147,7 +146,8 @@ public class ContractController implements Initializable {
         System.out.println("-- " + this.getClass().getName() + ": save contract --");
 
         contract.setPaymentSchedule(paymentSchedule.getValue());
-        contract.setCustomer_id(customerId.getValue());
+        contract.setCustomerId(customerId.getValue().getId());
+        contract.setProjectId(projectId.getValue().getId());
 
         System.out.println("-- " + this.getClass().getName() + ": saved clicked --");
         Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/common/success.fxml"));

@@ -84,7 +84,7 @@ public class CustomerDaoImpl extends DBConnection implements CustomerDao {
 
             while (resultSet.next()){
                 Customer temp = new Customer();
-                temp.setId(resultSet.getString("id"));
+                temp.setId(resultSet.getInt("id"));
                 temp.setName(resultSet.getString("name"));
                 temp.setPhone(resultSet.getString("phone"));
                 temp.setEmail(resultSet.getString("email"));
@@ -129,14 +129,14 @@ public class CustomerDaoImpl extends DBConnection implements CustomerDao {
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
             preparedStatement = connection.prepareStatement("SELECT * FROM customer WHERE id=?");
-            preparedStatement.setString(1, customer.getId());
+            preparedStatement.setInt(1, customer.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
 
             System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
 
             while (resultSet.next()){
                 Customer temp = new Customer();
-                temp.setId(resultSet.getString("id"));
+                temp.setId(resultSet.getInt("id"));
                 temp.setName(resultSet.getString("name"));
                 temp.setPhone(resultSet.getString("phone"));
                 temp.setEmail(resultSet.getString("email"));
@@ -185,7 +185,7 @@ public class CustomerDaoImpl extends DBConnection implements CustomerDao {
 
             while (resultSet.next()){
                 Customer temp = new Customer();
-                temp.setId(resultSet.getString("id"));
+                temp.setId(resultSet.getInt("id"));
                 temp.setName(resultSet.getString("name"));
                 temp.setPhone(resultSet.getString("phone"));
                 temp.setEmail(resultSet.getString("email"));
@@ -233,7 +233,7 @@ public class CustomerDaoImpl extends DBConnection implements CustomerDao {
                     "SET id=?, name=?, phone=?, email=?, address_street=?, address_city=?, " +
                     "address_colony=?, address_pc=?, notes=? " +
                     "WHERE id=?");
-            preparedStatement.setString(1, customer.getId());
+            preparedStatement.setInt(1, customer.getId());
             preparedStatement.setString(2, customer.getName());
             preparedStatement.setString(3, customer.getPhone() );
             preparedStatement.setString(4, customer.getEmail());
@@ -242,7 +242,7 @@ public class CustomerDaoImpl extends DBConnection implements CustomerDao {
             preparedStatement.setString(7, customer.getAddressColony());
             preparedStatement.setString(8, customer.getAddressPC());
             preparedStatement.setString(9, customer.getNotes());
-            preparedStatement.setString(10, customer.getId());
+            preparedStatement.setInt(10, customer.getId());
             preparedStatement.executeUpdate();
 
             connection.commit();
@@ -276,7 +276,7 @@ public class CustomerDaoImpl extends DBConnection implements CustomerDao {
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
             preparedStatement = connection.prepareStatement("DELETE FROM customer WHERE id=?");
-            preparedStatement.setString(1, customer.getId());
+            preparedStatement.setInt(1, customer.getId());
             preparedStatement.executeUpdate();
 
             connection.commit();
