@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -48,12 +47,12 @@
                   <Bloom threshold="0.95" />
                </effect>
             </Label>
-            <Label alignment="CENTER" layoutX="43.0" layoutY="154.0" style="&#10;" text="Viaje" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+            <Label alignment="CENTER" layoutX="43.0" layoutY="154.0" style="&#10;" text="Contrato" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="project" layoutX="251.0" layoutY="152.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="contractId" layoutX="251.0" layoutY="152.0" prefWidth="150.0" />
             <Label alignment="CENTER" layoutX="43.0" layoutY="95.0" style="&#10;" text="Cliente" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
                <font>
                   <Font size="18.0" />
@@ -64,23 +63,12 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="51.0" layoutY="343.0" style="&#10;" text="Notas" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" layoutX="46.0" layoutY="258.0" style="&#10;" text="Equipo de venta" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <ChoiceBox fx:id="staff" layoutX="251.0" layoutY="256.0" prefWidth="150.0" />
-            <TextField fx:id="name" layoutX="251.0" layoutY="93.0" promptText="Nombre completo" />
-            <TextField fx:id="amount" layoutX="251.0" layoutY="199.0" promptText="Número de telefono" />
-            <TextArea fx:id="notes" layoutX="245.0" layoutY="343.0" prefHeight="71.0" prefWidth="345.0" />
+            <TextField fx:id="amount" layoutX="251.0" layoutY="199.0" promptText="Cantidad" />
             <Button layoutX="371.0" layoutY="440.0" mnemonicParsing="false" onAction="#save" text="Guardar" />
             <Button layoutX="261.0" layoutY="440.0" mnemonicParsing="false" onAction="#clearScreen" text="Limpiar" />
             <Button layoutX="146.0" layoutY="440.0" mnemonicParsing="false" onAction="#goToHome" text="Cancelar" />
+               <ChoiceBox fx:id="customerId" layoutX="238.0" layoutY="93.0" prefWidth="150.0" />
+               <Label fx:id="message" layoutX="276.0" layoutY="367.0" textFill="#da0808" />
          </children>
       </AnchorPane>
    </children>
