@@ -11,7 +11,7 @@ public interface CustomerDao {
 
     Set<Customer> findById(Customer customer);
 
-    Set<Customer> findById(Integer customerId);
+    Customer findById(Integer customerId);
 
     boolean update(Customer customer);
 

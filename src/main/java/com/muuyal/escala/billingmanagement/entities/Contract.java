@@ -14,6 +14,8 @@ public class Contract {
     private Date createdOn;
     private Date deadline;
     private String paymentSchedule;
+    private String customerName;
+    private String projectName;
 
 
     @Id
@@ -70,6 +72,22 @@ public class Contract {
 
         return paymentSchedule;
 
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     public void setPaymentSchedule(String paymentSchedule) {

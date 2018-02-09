@@ -161,7 +161,7 @@ public class CustomerDaoImpl extends DBConnection implements CustomerDao {
     }
 
     @Override
-    public Set<Customer> findById(Integer customerId) {
+    public Customer findById(Integer customerId) {
 
         System.out.println("---" + this.getClass().getName() +  " findById integer clicked. ---");
         System.out.println("--- SELECT * FROM customer WHERE id="+ customerId +"; ---");
@@ -169,7 +169,7 @@ public class CustomerDaoImpl extends DBConnection implements CustomerDao {
         Statement statement   = null;
         PreparedStatement preparedStatement;
 
-        Set<Customer> result =  new HashSet<Customer>();
+        Customer result = new Customer();
         try {
 
             connection = this.setConnection();
@@ -194,7 +194,7 @@ public class CustomerDaoImpl extends DBConnection implements CustomerDao {
                 temp.setAddressColony(resultSet.getString("AddressColony"));
                 temp.setAddressPC(resultSet.getString("AddressPC"));
                 temp.setNotes(resultSet.getString("notes"));
-                result.add(temp);
+                result = temp;
             }
 
             resultSet.close();

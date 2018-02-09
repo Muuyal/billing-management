@@ -9,6 +9,8 @@ public interface ContractDao {
 
     Set<Contract> findAll();
 
+    Set<Contract> findAll(String search);
+
     Set<Contract> findByProject(Integer projectId);
 
     Set<Contract> findByCustomer(Integer customerId);

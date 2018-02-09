@@ -11,6 +11,8 @@ import com.muuyal.escala.billingmanagement.entities.Contract;
 import com.muuyal.escala.billingmanagement.entities.Customer;
 import com.muuyal.escala.billingmanagement.entities.Project;
 import com.muuyal.escala.billingmanagement.entities.Staff;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,6 +23,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.springframework.stereotype.Controller;
 
@@ -44,7 +47,7 @@ public class ContractController implements Initializable {
     @FXML
     private ChoiceBox<Customer> customerId = new ChoiceBox<>();
     @FXML
-    private TextField discount;
+    private TextField discount = new TextField();
     @FXML
     private DatePicker deadline;
     @FXML
@@ -67,7 +70,60 @@ public class ContractController implements Initializable {
         initPaymentChoiceBox();
         initProjectChoiceBox();
         initCustomerChoiceBox();
+        initDiscountTextField();
+        initContractList();
 
+    }
+
+    private void initDiscountTextField(){
+        discount.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    discount.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+    }
+
+    private void initContractList(){
+        if (!contractDao.findAll().isEmpty()){
+
+            final ObservableList<Contract> contractItems = FXCollections.observableArrayList(
+                    contractDao.findAll()
+            );
+
+            Set<Customer> customers = new HashSet<>();
+
+            for (Contract tempContract : contractDao.findAll()) {
+
+                customerDao.findById(tempContract.getCustomerId());
+
+            }
+
+            contractList.setEditable(false);
+
+
+            TableColumn columnA = new TableColumn("Cliente"); // project name
+            TableColumn columnB = new TableColumn("Proyecto"); //project
+            TableColumn columnC = new TableColumn("Precio"); //project
+
+
+            columnA.setCellValueFactory(
+                    new PropertyValueFactory<Customer,String>("name")
+            );
+            columnB.setCellValueFactory(
+                    new PropertyValueFactory<Project,String>("name")
+            );
+            columnC.setCellValueFactory(
+                    new PropertyValueFactory<Project,String>("price")
+            );
+
+            contractList.getColumns().addAll(columnA, columnB, columnC);
+
+            contractList.setItems(contractItems);
+        }
     }
 
     private void initPaymentChoiceBox(){
@@ -156,6 +212,8 @@ public class ContractController implements Initializable {
         contract.setDiscount(Integer.valueOf(discount.getText()));
         contract.setDeadline(Date.valueOf(localDeadline));
         contract.setCreatedOn(Date.valueOf( LocalDate.now()));
+        contract.setCustomerName(customerId.getValue().getName());
+        contract.setProjectName(projectId.getValue().getName());
 
 
         System.out.println("-- " + this.getClass().getName() + ": saved clicked --");

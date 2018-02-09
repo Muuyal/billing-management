@@ -20,9 +20,11 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
 
         boolean saved = false;
 
-        System.out.println("--- INSERT INTO contract(customerId, projectId, discount, createdOn, deadline) " +
+        System.out.println("--- INSERT INTO contract(customerId, projectId, discount, createdOn, deadline, customer_name, project_name) " +
                 "VALUES ('"+ contract.getCustomerId() +"','"+ contract.getProjectId() +"'," +
-                "'"+ contract.getDiscount() +"','"+ contract.getCreatedOn() +"','"+ contract.getDeadline() +"') ---");
+                "'"+ contract.getDiscount() +"','"+ contract.getCreatedOn() +"','"+ contract.getDeadline() +
+                "','" + contract.getCustomerName() + "','" + contract.getProjectName() +
+                "') ---");
 
         Connection connection = null;
         Statement statement   = null;
@@ -36,14 +38,16 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
             preparedStatement = connection.prepareStatement("INSERT INTO contract(" +
-                    "customer_id, project_id, discount, createdOn, deadline, paymentSchedule) " +
-                    "VALUES (?,?,?,?,?,?)");
+                    "customer_id, project_id, discount, createdOn, deadline, paymentSchedule, customer_name, project_name) " +
+                    "VALUES (?,?,?,?,?,?,?,?)");
             preparedStatement.setInt(1, contract.getCustomerId());
             preparedStatement.setInt(2, contract.getProjectId() );
             preparedStatement.setInt(3, contract.getDiscount());
             preparedStatement.setString(4, contract.getCreatedOn().toString());
             preparedStatement.setString(5, contract.getDeadline().toString());
             preparedStatement.setString(6, contract.getPaymentSchedule());
+            preparedStatement.setString(7, contract.getCustomerName());
+            preparedStatement.setString(8, contract.getProjectName());
             preparedStatement.executeUpdate();
 
             connection.commit();
@@ -319,6 +323,21 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             System.err.println("--- Error found " + e.getClass().getName() + ":" + e.getMessage());
         }
         return  result;
+    }
+
+    @Override
+    public Set<Contract> findAll(String search){
+        Set<Contract> result = new HashSet<>();
+
+        if (search.matches("[a-zA-Z]+.?")){
+            // TODO search for string fields
+        } else {
+            Integer temp = Integer.valueOf(search);
+            // TODO search for integer fields
+
+        }
+
+        return result;
     }
 
 }
