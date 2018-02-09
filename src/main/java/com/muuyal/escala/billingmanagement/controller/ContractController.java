@@ -22,12 +22,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import javax.xml.soap.Text;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -101,7 +101,6 @@ public class ContractController implements Initializable {
         }
         System.out.println(customerNames.toString());
         customerId.setItems( FXCollections.observableArrayList(tempCustomer));
-        customerId.getSelectionModel().select(1);
     }
 
     @FXML
@@ -145,9 +144,19 @@ public class ContractController implements Initializable {
     public void save(ActionEvent actionEvent) throws IOException {
         System.out.println("-- " + this.getClass().getName() + ": save contract --");
 
-        contract.setPaymentSchedule(paymentSchedule.getValue());
+        LocalDate localDeadline = deadline.getValue();
+//        customerId.getSelectionModel().getSelectedItem().
+        System.out.println("------- selected item: " + paymentSchedule.getSelectionModel().getSelectedItem());
+        System.out.println("------- selected item: " + customerId.getValue().getName());
+        System.out.println("------- selected item: " + projectId.getValue().getName());
+
+        contract.setPaymentSchedule(paymentSchedule.getSelectionModel().getSelectedItem());
         contract.setCustomerId(customerId.getValue().getId());
         contract.setProjectId(projectId.getValue().getId());
+        contract.setDiscount(Integer.valueOf(discount.getText()));
+        contract.setDeadline(Date.valueOf(localDeadline));
+        contract.setCreatedOn(Date.valueOf( LocalDate.now()));
+
 
         System.out.println("-- " + this.getClass().getName() + ": saved clicked --");
         Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/common/success.fxml"));

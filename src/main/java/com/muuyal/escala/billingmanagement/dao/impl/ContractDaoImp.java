@@ -36,13 +36,14 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
             preparedStatement = connection.prepareStatement("INSERT INTO contract(" +
-                    "customerId, projectId, discount, createdOn, deadline) " +
-                    "VALUES (?,?,?,?,?)");
+                    "customer_id, project_id, discount, createdOn, deadline, paymentSchedule) " +
+                    "VALUES (?,?,?,?,?,?)");
             preparedStatement.setInt(1, contract.getCustomerId());
             preparedStatement.setInt(2, contract.getProjectId() );
-            preparedStatement.setString(3, contract.getDiscount().toString());
+            preparedStatement.setInt(3, contract.getDiscount());
             preparedStatement.setString(4, contract.getCreatedOn().toString());
             preparedStatement.setString(5, contract.getDeadline().toString());
+            preparedStatement.setString(6, contract.getPaymentSchedule());
             preparedStatement.executeUpdate();
 
             connection.commit();
@@ -210,8 +211,8 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
         boolean updated;
 
         System.out.println("--- UPDATE contract " +
-                "SET id="+contract.getId()+", customerId="+contract.getCustomerId()+", " +
-                "projectId="+contract.getProjectId()+", discount="+contract.getDiscount()+", " +
+                "SET id="+contract.getId()+", customer_id="+contract.getCustomerId()+", " +
+                "project_id="+contract.getProjectId()+", discount="+contract.getDiscount()+", " +
                 "createdOn="+contract.getCreatedOn()+", terminatedOn="+contract.getDeadline()+" " +
                 "WHERE id="+contract.getId()+" ---");
         Connection connection = null;
@@ -226,7 +227,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
             preparedStatement = connection.prepareStatement("UPDATE contract " +
-                    "SET id=?, customerId=?, projectId=?, discount=?, createdOn=?, terminatedOn=? " +
+                    "SET id=?, customer_id=?, project_id=?, discount=?, createdOn=?, terminatedOn=? " +
                     "WHERE id=?");
             preparedStatement.setString(1, contract.getId());
             preparedStatement.setInt(2, contract.getCustomerId());
