@@ -85,6 +85,7 @@ public class ProjectDaoImp extends DBConnection implements ProjectDao {
                 temp.setDescription(resultSet.getString("description"));
                 temp.setPrice(resultSet.getInt("price"));
                 temp.setEta(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("eta")));
+                temp.setDeadline(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("deadline")));
                 result.add(temp);
             }
 

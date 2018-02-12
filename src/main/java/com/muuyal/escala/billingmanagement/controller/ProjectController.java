@@ -1,5 +1,6 @@
 package com.muuyal.escala.billingmanagement.controller;
 
+import com.muuyal.escala.billingmanagement.Utils.CustomerHelper;
 import com.muuyal.escala.billingmanagement.dao.impl.ContractDaoImp;
 import com.muuyal.escala.billingmanagement.dao.impl.CustomerDaoImpl;
 import com.muuyal.escala.billingmanagement.dao.impl.ProjectDaoImp;
@@ -7,6 +8,7 @@ import com.muuyal.escala.billingmanagement.dao.interfaces.ContractDao;
 import com.muuyal.escala.billingmanagement.dao.interfaces.CustomerDao;
 import com.muuyal.escala.billingmanagement.dao.interfaces.ProjectDao;
 import com.muuyal.escala.billingmanagement.entities.Customer;
+import com.muuyal.escala.billingmanagement.entities.CustomerDetails;
 import com.muuyal.escala.billingmanagement.entities.Project;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -52,7 +54,7 @@ public class ProjectController implements Initializable {
     @FXML
     private  TableView<Project> projectList = new TableView<Project>();
     @FXML
-    private TableView<String> customerList = new TableView<String>();
+    private TableView<CustomerDetails> customerList = new TableView<CustomerDetails>();
     @FXML
     private TableView<String> customerDetails =  new TableView<String>();;
 
@@ -80,11 +82,10 @@ public class ProjectController implements Initializable {
             TableColumn columnB = new TableColumn("Destino"); //project
             TableColumn columnC = new TableColumn("Precio"); //project
             TableColumn columnD = new TableColumn("Salida"); //project
-            TableColumn columnE = new TableColumn("Estado"); //customer
-            TableColumn columnF = new TableColumn("Adeudo"); //customer
-            TableColumn columnG = new TableColumn("Pagado"); //customer
-            TableColumn columnH = new TableColumn("Habitación"); //customer
-            TableColumn columnI = new TableColumn("Nombre"); //customer
+
+//            TableColumn columnG = new TableColumn("Pagado"); //customer
+//            TableColumn columnH = new TableColumn("Habitación"); //customer
+//            TableColumn columnI = new TableColumn("Nombre"); //customer
 
             columnA.setCellValueFactory(
                     new PropertyValueFactory<Project,String>("name")
@@ -100,8 +101,8 @@ public class ProjectController implements Initializable {
             );
 
             projectList.getColumns().addAll(columnA, columnB, columnC, columnD);
-            customerList.getColumns().addAll(columnI, columnE, columnF);
-            customerDetails.getColumns().addAll(columnI,columnE, columnF, columnG, columnH );
+//            customerList.getColumns().addAll(columnI, columnE, columnF);
+//            customerDetails.getColumns().addAll(columnI,columnE, columnF, columnG, columnH );
 
             projectList.setItems(projectItems);
         }
@@ -110,24 +111,56 @@ public class ProjectController implements Initializable {
 
     @FXML
     public void showCustomers(){
+
         System.out.println("-- " + this.getClass().getName() + ": showCustomers clicked--");
         ContractDao contractDao = new ContractDaoImp();
         CustomerDao customerDao = new CustomerDaoImpl();
         Set<Customer> customers = new HashSet<>();
+        CustomerDetails customerDetails = new CustomerDetails();
+        Set<CustomerDetails> customerDetailsList = new HashSet<>();
+        CustomerHelper customerHelper = new CustomerHelper();
+
 
         if (projectList.getSelectionModel().getSelectedItem() != null ) {
             Project clickedProject = projectList.getSelectionModel().getSelectedItem();
             System.out.println("-- " + this.getClass().getName() + ": item selected is: " + clickedProject.getId() + "--");
             Set<Integer> customerIds = contractDao.findCustomerIdsByProyect(clickedProject.getId());
             for (Integer customerId : customerIds){
-             customers = customerDao.findById(customerId);
+                customers.add(customerDao.findById(customerId));
             }
 
             for (Customer customer : customers){
                 System.out.println(customer.getName());
-            }
+                customerDetails.setName(customer.getName());
+                customerDetails.setDebt(customerHelper.getCustomerDebt(customer));
+                customerDetails.setStatus(customerHelper.getCustomerStatus(customer));
 
+                customerDetailsList.add(customerDetails);
+            }
         }
+
+        TableColumn columnA = new TableColumn("Nombre"); // customer name
+        TableColumn columnB = new TableColumn("Estado"); // customer status
+        TableColumn columnC = new TableColumn("Adeudo"); // customer debt
+
+
+        columnA.setCellValueFactory(
+                new PropertyValueFactory<CustomerDetails,String>("name")
+        );
+        columnB.setCellValueFactory(
+                new PropertyValueFactory<CustomerDetails,String>("status")
+        );
+        columnC.setCellValueFactory(
+                new PropertyValueFactory<CustomerDetails,Integer>("debt")
+        );
+
+        final ObservableList<CustomerDetails> customerDetailsObservableList = FXCollections.observableArrayList(
+                customerDetailsList
+        );
+
+        customerList.getColumns().addAll(columnA, columnB, columnC);
+        customerList.setItems(customerDetailsObservableList);
+
 
     }
 

@@ -10,8 +10,8 @@ import com.muuyal.escala.billingmanagement.dao.interfaces.ProjectDao;
 import com.muuyal.escala.billingmanagement.entities.Contract;
 import com.muuyal.escala.billingmanagement.entities.Customer;
 import com.muuyal.escala.billingmanagement.entities.Project;
-import com.muuyal.escala.billingmanagement.entities.Staff;
 import javafx.beans.value.ChangeListener;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -49,13 +50,13 @@ public class ContractController implements Initializable {
     @FXML
     private TextField discount = new TextField();
     @FXML
-    private DatePicker deadline;
+    private DatePicker deadline =  new DatePicker();
     @FXML
     private ChoiceBox<String> paymentSchedule =  new ChoiceBox<>();
     @FXML
     private TableView<Contract> contractList = new TableView<>();
     @FXML
-    private Label   message;
+    private Label message;
 
     private Contract contract = new Contract();
     private Customer customer = new Customer();
@@ -72,6 +73,23 @@ public class ContractController implements Initializable {
         initCustomerChoiceBox();
         initDiscountTextField();
         initContractList();
+        initProjectChoiceBoxSelection();
+
+    }
+
+    private void initProjectChoiceBoxSelection(){
+
+        ZoneId defaultZoneId = ZoneId.systemDefault();
+        ChangeListener<Project> changeListener = new ChangeListener<Project>() {
+            @Override
+            public void changed(ObservableValue<? extends Project> observable, Project oldValue, Project newValue) {
+                if (newValue != null) {
+                    deadline.setValue(newValue.getDeadline().toInstant().atZone(defaultZoneId).toLocalDate());
+                }
+            }
+        };
+
+        projectId.getSelectionModel().selectedItemProperty().addListener(changeListener);
 
     }
 
@@ -88,40 +106,26 @@ public class ContractController implements Initializable {
     }
 
     private void initContractList(){
+
         if (!contractDao.findAll().isEmpty()){
 
             final ObservableList<Contract> contractItems = FXCollections.observableArrayList(
                     contractDao.findAll()
             );
 
-            Set<Customer> customers = new HashSet<>();
-
-            for (Contract tempContract : contractDao.findAll()) {
-
-                customerDao.findById(tempContract.getCustomerId());
-
-            }
-
             contractList.setEditable(false);
-
 
             TableColumn columnA = new TableColumn("Cliente"); // project name
             TableColumn columnB = new TableColumn("Proyecto"); //project
-            TableColumn columnC = new TableColumn("Precio"); //project
-
 
             columnA.setCellValueFactory(
-                    new PropertyValueFactory<Customer,String>("name")
+                    new PropertyValueFactory<Contract,String>("customerName")
             );
             columnB.setCellValueFactory(
-                    new PropertyValueFactory<Project,String>("name")
-            );
-            columnC.setCellValueFactory(
-                    new PropertyValueFactory<Project,String>("price")
+                    new PropertyValueFactory<Contract,String>("projectName")
             );
 
-            contractList.getColumns().addAll(columnA, columnB, columnC);
-
+            contractList.getColumns().addAll(columnA, columnB);
             contractList.setItems(contractItems);
         }
     }
@@ -183,7 +187,7 @@ public class ContractController implements Initializable {
 
     }
 
-    // Borrar
+
     @FXML
     public void goToDetails(ActionEvent actionEvent) throws IOException {
 
@@ -201,7 +205,6 @@ public class ContractController implements Initializable {
         System.out.println("-- " + this.getClass().getName() + ": save contract --");
 
         LocalDate localDeadline = deadline.getValue();
-//        customerId.getSelectionModel().getSelectedItem().
         System.out.println("------- selected item: " + paymentSchedule.getSelectionModel().getSelectedItem());
         System.out.println("------- selected item: " + customerId.getValue().getName());
         System.out.println("------- selected item: " + projectId.getValue().getName());
