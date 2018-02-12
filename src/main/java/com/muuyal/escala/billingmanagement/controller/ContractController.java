@@ -64,6 +64,8 @@ public class ContractController implements Initializable {
     private CustomerDao customerDao = new CustomerDaoImpl();
     private ProjectDao projectDao   = new ProjectDaoImp();
 
+    private static Double price = 0D;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -204,6 +206,8 @@ public class ContractController implements Initializable {
     public void save(ActionEvent actionEvent) throws IOException {
         System.out.println("-- " + this.getClass().getName() + ": save contract --");
 
+        ProjectDao projectDao = new ProjectDaoImp();
+
         LocalDate localDeadline = deadline.getValue();
         System.out.println("------- selected item: " + paymentSchedule.getSelectionModel().getSelectedItem());
         System.out.println("------- selected item: " + customerId.getValue().getName());
@@ -218,6 +222,11 @@ public class ContractController implements Initializable {
         contract.setCustomerName(customerId.getValue().getName());
         contract.setProjectName(projectId.getValue().getName());
 
+        Double finalPrice = 0D;
+        Double price = 0D;
+        price = projectId.getValue().getPrice() * 1.0;
+        finalPrice = price - ((price * Integer.valueOf(discount.getText())) / 100);
+        contract.setFinalPrice(finalPrice);
 
         System.out.println("-- " + this.getClass().getName() + ": saved clicked --");
         Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/common/success.fxml"));

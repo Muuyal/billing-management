@@ -2,9 +2,18 @@ package com.muuyal.escala.billingmanagement.entities;
 
 public class CustomerDetails {
 
+    private Integer customerId;
     private String name;
     private String status;
-    private Integer debt;
+    private Double debt;
+
+    public Integer getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
 
     public String getName() {
         return name;
@@ -22,11 +31,11 @@ public class CustomerDetails {
         this.status = status;
     }
 
-    public Integer getDebt() {
+    public Double getDebt() {
         return debt;
     }
 
-    public void setDebt(Integer debt) {
+    public void setDebt(Double debt) {
         this.debt = debt;
     }
 }

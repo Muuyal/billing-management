@@ -189,10 +189,10 @@ public class CustomerDaoImpl extends DBConnection implements CustomerDao {
                 temp.setName(resultSet.getString("name"));
                 temp.setPhone(resultSet.getString("phone"));
                 temp.setEmail(resultSet.getString("email"));
-                temp.setAddressStreet(resultSet.getString("AddressStreet"));
-                temp.setAddressCity(resultSet.getString("AddressCity"));
-                temp.setAddressColony(resultSet.getString("AddressColony"));
-                temp.setAddressPC(resultSet.getString("AddressPC"));
+                temp.setAddressStreet(resultSet.getString("address_street"));
+                temp.setAddressCity(resultSet.getString("address_city"));
+                temp.setAddressColony(resultSet.getString("address_colony"));
+                temp.setAddressPC(resultSet.getString("address_pc"));
                 temp.setNotes(resultSet.getString("notes"));
                 result = temp;
             }

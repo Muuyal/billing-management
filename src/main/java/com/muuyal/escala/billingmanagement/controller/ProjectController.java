@@ -56,12 +56,39 @@ public class ProjectController implements Initializable {
     @FXML
     private TableView<CustomerDetails> customerList = new TableView<CustomerDetails>();
     @FXML
-    private TableView<String> customerDetails =  new TableView<String>();;
+    private TableView<Customer> customerDetails =  new TableView<Customer>();;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         initProjectList();
+
+        TableColumn columnA = new TableColumn("Nombre"); // customer name
+        TableColumn columnB = new TableColumn("Telefono"); // customer phone
+        TableColumn columnC = new TableColumn("Correo"); // customer email
+
+
+        columnA.setCellValueFactory(
+                new PropertyValueFactory<Customer,String>("name")
+        );
+        columnB.setCellValueFactory(
+                new PropertyValueFactory<Customer,String>("phone")
+        );
+        columnC.setCellValueFactory(
+                new PropertyValueFactory<Customer,Integer>("email")
+        );
+
+        customerDetails.getColumns().addAll(columnA, columnB, columnC);
+
+        TableColumn columnD = new TableColumn("Nombre"); // customer name
+        TableColumn columnE = new TableColumn("Estado"); // customer status
+        TableColumn columnF = new TableColumn("Adeudo"); // customer debt
+
+
+        columnD.setCellValueFactory( new PropertyValueFactory<CustomerDetails,String>("name") );
+        columnE.setCellValueFactory( new PropertyValueFactory<CustomerDetails,String>("status") );
+        columnF.setCellValueFactory( new PropertyValueFactory<CustomerDetails,Integer>("debt") );
+        customerList.getColumns().addAll(columnD, columnE, columnF);
 
     }
 
@@ -69,11 +96,7 @@ public class ProjectController implements Initializable {
 
         if (!projectDao.findAll().isEmpty()){
 
-            final ObservableList<Project> projectItems = FXCollections.observableArrayList(
-                    projectDao.findAll()
-            );
-//            System.out.println("------- " + projectItems.get + " ----------");
-
+            final ObservableList<Project> projectItems = FXCollections.observableArrayList( projectDao.findAll() );
             projectList.setEditable(false);
             customerList.setEditable(false);
             customerDetails.setEditable(false);
@@ -83,30 +106,13 @@ public class ProjectController implements Initializable {
             TableColumn columnC = new TableColumn("Precio"); //project
             TableColumn columnD = new TableColumn("Salida"); //project
 
-//            TableColumn columnG = new TableColumn("Pagado"); //customer
-//            TableColumn columnH = new TableColumn("Habitación"); //customer
-//            TableColumn columnI = new TableColumn("Nombre"); //customer
-
-            columnA.setCellValueFactory(
-                    new PropertyValueFactory<Project,String>("name")
-            );
-            columnB.setCellValueFactory(
-                    new PropertyValueFactory<Project,String>("description")
-            );
-            columnC.setCellValueFactory(
-                    new PropertyValueFactory<Project,String>("price")
-            );
-            columnD.setCellValueFactory(
-                    new PropertyValueFactory<Project,String>("eta")
-            );
-
+            columnA.setCellValueFactory( new PropertyValueFactory<Project,String>("name") );
+            columnB.setCellValueFactory( new PropertyValueFactory<Project,String>("description") );
+            columnC.setCellValueFactory( new PropertyValueFactory<Project,String>("price") );
+            columnD.setCellValueFactory( new PropertyValueFactory<Project,String>("eta") );
             projectList.getColumns().addAll(columnA, columnB, columnC, columnD);
-//            customerList.getColumns().addAll(columnI, columnE, columnF);
-//            customerDetails.getColumns().addAll(columnI,columnE, columnF, columnG, columnH );
-
             projectList.setItems(projectItems);
         }
-
     }
 
     @FXML
@@ -119,7 +125,6 @@ public class ProjectController implements Initializable {
         CustomerDetails customerDetails = new CustomerDetails();
         Set<CustomerDetails> customerDetailsList = new HashSet<>();
         CustomerHelper customerHelper = new CustomerHelper();
-
 
         if (projectList.getSelectionModel().getSelectedItem() != null ) {
             Project clickedProject = projectList.getSelectionModel().getSelectedItem();
@@ -134,39 +139,33 @@ public class ProjectController implements Initializable {
                 customerDetails.setName(customer.getName());
                 customerDetails.setDebt(customerHelper.getCustomerDebt(customer));
                 customerDetails.setStatus(customerHelper.getCustomerStatus(customer));
-
+                customerDetails.setCustomerId(customer.getId());
                 customerDetailsList.add(customerDetails);
             }
         }
 
-        TableColumn columnA = new TableColumn("Nombre"); // customer name
-        TableColumn columnB = new TableColumn("Estado"); // customer status
-        TableColumn columnC = new TableColumn("Adeudo"); // customer debt
-
-
-        columnA.setCellValueFactory(
-                new PropertyValueFactory<CustomerDetails,String>("name")
-        );
-        columnB.setCellValueFactory(
-                new PropertyValueFactory<CustomerDetails,String>("status")
-        );
-        columnC.setCellValueFactory(
-                new PropertyValueFactory<CustomerDetails,Integer>("debt")
-        );
-
-        final ObservableList<CustomerDetails> customerDetailsObservableList = FXCollections.observableArrayList(
-                customerDetailsList
-        );
-
-        customerList.getColumns().addAll(columnA, columnB, columnC);
+        final ObservableList<CustomerDetails> customerDetailsObservableList = FXCollections.observableArrayList( customerDetailsList );
         customerList.setItems(customerDetailsObservableList);
-
-
     }
 
     @FXML
     public void showDetails(){
+
         System.out.println("-- " + this.getClass().getName() + ": showDetails clicked--");
+        CustomerDao customerDao = new CustomerDaoImpl();
+        Customer customer = new Customer();
+
+        if (customerList.getSelectionModel().getSelectedItem() != null ) {
+            CustomerDetails clickedCustomer = customerList.getSelectionModel().getSelectedItem();
+            System.out.println("-- " + this.getClass().getName() + ": item selected is: " + clickedCustomer.getCustomerId() + "--");
+            customer = customerDao.findById(clickedCustomer.getCustomerId());
+        }
+
+        final ObservableList<Customer> customerObservableList = FXCollections.observableArrayList(
+                customer
+        );
+
+        customerDetails.setItems(customerObservableList);
     }
 
     @FXML

@@ -16,6 +16,7 @@ public class Contract {
     private String paymentSchedule;
     private String customerName;
     private String projectName;
+    private Double finalPrice;
 
 
     @Id
@@ -92,5 +93,13 @@ public class Contract {
 
     public void setPaymentSchedule(String paymentSchedule) {
         this.paymentSchedule = paymentSchedule;
+    }
+
+    public Double getFinalPrice() {
+        return finalPrice;
+    }
+
+    public void setFinalPrice(Double finalPrice) {
+        this.finalPrice = finalPrice;
     }
 }

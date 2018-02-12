@@ -38,8 +38,8 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
             preparedStatement = connection.prepareStatement("INSERT INTO contract(" +
-                    "customer_id, project_id, discount, createdOn, deadline, paymentSchedule, customer_name, project_name) " +
-                    "VALUES (?,?,?,?,?,?,?,?)");
+                    "customer_id, project_id, discount, createdOn, deadline, paymentSchedule, customer_name, project_name, final_price) " +
+                    "VALUES (?,?,?,?,?,?,?,?,?)");
             preparedStatement.setInt(1, contract.getCustomerId());
             preparedStatement.setInt(2, contract.getProjectId() );
             preparedStatement.setInt(3, contract.getDiscount());
@@ -48,6 +48,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             preparedStatement.setString(6, contract.getPaymentSchedule());
             preparedStatement.setString(7, contract.getCustomerName());
             preparedStatement.setString(8, contract.getProjectName());
+            preparedStatement.setDouble(9, contract.getFinalPrice());
             preparedStatement.executeUpdate();
 
             connection.commit();
@@ -96,6 +97,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
                 temp.setCreatedOn(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("deadline")));
                 temp.setProjectName(resultSet.getString("project_name"));
                 temp.setCustomerName(resultSet.getString("customer_name"));
+                temp.setFinalPrice(resultSet.getDouble("final_price"));
                 result.add(temp);
             }
 
@@ -146,6 +148,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
                 temp.setCreatedOn(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("deadline")));
                 temp.setProjectName(resultSet.getString("project_name"));
                 temp.setCustomerName(resultSet.getString("customer_name"));
+                temp.setFinalPrice(resultSet.getDouble("final_price"));
                 result.add(temp);
             }
 
@@ -198,6 +201,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
                 temp.setCreatedOn(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("deadline")));
                 temp.setCustomerName(resultSet.getString("customer_name"));
                 temp.setProjectName(resultSet.getString("project_name"));
+                temp.setFinalPrice(resultSet.getDouble("final_price"));
                 result.add(temp);
             }
 
@@ -238,7 +242,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
             preparedStatement = connection.prepareStatement("UPDATE contract " +
-                    "SET id=?, customer_id=?, project_id=?, discount=?, createdOn=?, deadline=?, customer_name=?, project_name = ? " +
+                    "SET id=?, customer_id=?, project_id=?, discount=?, createdOn=?, deadline=?, customer_name=?, project_name = ?, final_price = ? " +
                     "WHERE id=?");
             preparedStatement.setString(1, contract.getId());
             preparedStatement.setInt(2, contract.getCustomerId());
@@ -249,6 +253,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             preparedStatement.setString(7, contract.getId());
             preparedStatement.setString(8, contract.getCustomerName());
             preparedStatement.setString(9, contract.getProjectName());
+            preparedStatement.setDouble(10, contract.getFinalPrice());
             preparedStatement.executeUpdate();
 
             connection.commit();
