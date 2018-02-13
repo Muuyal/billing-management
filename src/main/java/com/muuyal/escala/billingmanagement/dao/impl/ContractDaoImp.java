@@ -319,7 +319,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
             preparedStatement = connection.prepareStatement("SELECT customer_id FROM contract WHERE project_id = ?");
-            preparedStatement.setString(1, projectId.toString());
+            preparedStatement.setInt(1, projectId);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 

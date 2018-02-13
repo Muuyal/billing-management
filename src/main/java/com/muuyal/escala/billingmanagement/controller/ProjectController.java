@@ -130,7 +130,10 @@ public class ProjectController implements Initializable {
             Project clickedProject = projectList.getSelectionModel().getSelectedItem();
             System.out.println("-- " + this.getClass().getName() + ": item selected is: " + clickedProject.getId() + "--");
             Set<Integer> customerIds = contractDao.findCustomerIdsByProyect(clickedProject.getId());
+            System.out.println(" *******----- Customers: " + customerIds.toString() +" -----");
+
             for (Integer customerId : customerIds){
+                System.out.println(" ----- Customer: " + customerId +" -----");
                 customers.add(customerDao.findById(customerId));
             }
 
@@ -140,6 +143,7 @@ public class ProjectController implements Initializable {
                 customerDetails.setDebt(customerHelper.getCustomerDebt(customer));
                 customerDetails.setStatus(customerHelper.getCustomerStatus(customer));
                 customerDetails.setCustomerId(customer.getId());
+
                 customerDetailsList.add(customerDetails);
             }
         }

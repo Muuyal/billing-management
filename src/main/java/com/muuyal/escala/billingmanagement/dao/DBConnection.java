@@ -27,7 +27,7 @@ public class DBConnection {
        try {
            statement.close();
            connection.close();
-           System.out.println("--- Databse closed successfully ---");
+           System.out.println("--- Database closed successfully ---");
 
        } catch( SQLException e){
            System.err.println("--- Error found " + e.getClass().getName() + ":" + e.getMessage());
