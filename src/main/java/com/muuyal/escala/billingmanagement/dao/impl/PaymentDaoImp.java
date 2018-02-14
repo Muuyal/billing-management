@@ -22,7 +22,43 @@ public class PaymentDaoImp extends DBConnection implements PaymentDao {
 
     @Override
     public boolean save(Payment payment) {
-        return false;
+
+        boolean saved = false;
+
+        System.out.println("--- INSERT INTO payment" +
+                "(customerId, contractId, paymentAmount, paymentDate) " +
+                "VALUES ('" + payment.getCustomerId() + "','" + payment.getContractId() + "'," +
+                "'" + payment.getPaymentAmount() + "','" + payment.getPaymentDate() + "')" + " ---");
+
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        try {
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("INSERT INTO payment" +
+                    "(customerId, contractId, paymentAmount, paymentDate) " +
+                    "VALUES (?, ?, ?, ?)");
+            preparedStatement.setInt(1, payment.getCustomerId() );
+            preparedStatement.setInt(2, payment.getContractId() );
+            preparedStatement.setDouble(3, payment.getPaymentAmount() );
+            preparedStatement.setString(4, payment.getPaymentDate().toString() );
+            preparedStatement.executeUpdate();
+
+            connection.commit();
+            saved = true;
+//            statement.close();
+
+        } catch (SQLException e){
+            System.err.println(e.getMessage());
+        } finally {
+            this.closeConnection();
+        }
+        return saved;
     }
 
     @Override
