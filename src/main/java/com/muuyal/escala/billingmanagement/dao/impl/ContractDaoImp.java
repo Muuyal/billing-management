@@ -163,8 +163,52 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
     }
 
     @Override
-    public Contract findById(Integer id) {
-        return null;
+    public Set<Contract> findById(Integer id) {
+
+        System.out.println("---" + this.getClass().getName() +  " findByProject clicked. ---");
+        System.out.println("--- SELECT * FROM contract WHERE id = '"+ id +"'; ---");
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        Set<Contract> result =  new HashSet<Contract>();
+        try {
+
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("SELECT * FROM contract WHERE projectId = ?");
+            preparedStatement.setInt(1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
+
+            while (resultSet.next()){
+                Contract temp = new Contract();
+                temp.setId(resultSet.getString("id"));
+                temp.setCustomerId(resultSet.getInt("customer_id"));
+                temp.setProjectId(resultSet.getInt("project_id"));
+                temp.setDiscount(resultSet.getInt("discount"));
+                temp.setCreatedOn(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("createdOn")));
+                temp.setCreatedOn(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("deadline")));
+                temp.setProjectName(resultSet.getString("project_name"));
+                temp.setCustomerName(resultSet.getString("customer_name"));
+                temp.setFinalPrice(resultSet.getDouble("final_price"));
+                result.add(temp);
+            }
+
+            resultSet.close();
+            this.closeConnection();
+
+
+        } catch (Exception e){
+            System.err.println("--- Error found " + e.getClass().getName() + ":" + e.getMessage());
+        }
+
+        return result;
     }
 
     @Override

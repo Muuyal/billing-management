@@ -15,7 +15,7 @@ public interface ContractDao {
 
     Set<Contract> findByCustomer(Integer customerId);
 
-    Contract findById(Integer Id);
+    Set<Contract> findById(Integer Id);
 
     boolean update(Contract contract);
 
