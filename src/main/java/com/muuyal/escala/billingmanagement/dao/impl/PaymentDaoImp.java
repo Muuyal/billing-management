@@ -2,10 +2,7 @@ package com.muuyal.escala.billingmanagement.dao.impl;
 
 import com.muuyal.escala.billingmanagement.dao.DBConnection;
 import com.muuyal.escala.billingmanagement.dao.interfaces.PaymentDao;
-import com.muuyal.escala.billingmanagement.dao.interfaces.ProjectDao;
-import com.muuyal.escala.billingmanagement.entities.Customer;
 import com.muuyal.escala.billingmanagement.entities.Payment;
-import com.muuyal.escala.billingmanagement.entities.Project;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -63,7 +60,47 @@ public class PaymentDaoImp extends DBConnection implements PaymentDao {
 
     @Override
     public Set<Payment> findAll() {
-        return null;
+
+        System.out.println("--- SELECT * FROM payment ---");
+        Set<Payment> result = new HashSet<>();
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        try {
+
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("SELECT * FROM payment");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
+
+            while (resultSet.next()){
+                Payment temp = new Payment();
+                temp.setId(resultSet.getInt("id"));
+                temp.setCustomerId(resultSet.getInt("customerId"));
+                temp.setContractId(resultSet.getInt("contractId"));
+                temp.setPaymentAmount(resultSet.getDouble("paymentAmount"));
+                temp.setPaymentDate(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("paymentDate")));
+                result.add(temp);
+            }
+
+            resultSet.close();
+            this.closeConnection();
+
+        } catch (SQLException e){
+            System.err.println(e.getMessage());
+        } catch (ParseException e){
+            System.err.println(e.getMessage());
+        } finally {
+            this.closeConnection();
+        }
+
+        return result;
     }
 
     @Override
