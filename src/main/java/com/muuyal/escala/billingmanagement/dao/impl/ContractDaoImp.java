@@ -89,7 +89,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
 
             while (resultSet.next()){
                 Contract temp = new Contract();
-                temp.setId(resultSet.getString("id"));
+                temp.setId(resultSet.getInt("id"));
                 temp.setCustomerId(resultSet.getInt("customer_id"));
                 temp.setProjectId(resultSet.getInt("project_id"));
                 temp.setDiscount(resultSet.getInt("discount"));
@@ -140,7 +140,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
 
             while (resultSet.next()){
                 Contract temp = new Contract();
-                temp.setId(resultSet.getString("id"));
+                temp.setId(resultSet.getInt("id"));
                 temp.setCustomerId(resultSet.getInt("customer_id"));
                 temp.setProjectId(resultSet.getInt("project_id"));
                 temp.setDiscount(resultSet.getInt("discount"));
@@ -193,7 +193,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
 
             while (resultSet.next()){
                 Contract temp = new Contract();
-                temp.setId(resultSet.getString("id"));
+                temp.setId(resultSet.getInt("id"));
                 temp.setCustomerId(resultSet.getInt("customer_id"));
                 temp.setProjectId(resultSet.getInt("project_id"));
                 temp.setDiscount(resultSet.getInt("discount"));
@@ -244,13 +244,13 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             preparedStatement = connection.prepareStatement("UPDATE contract " +
                     "SET id=?, customer_id=?, project_id=?, discount=?, createdOn=?, deadline=?, customer_name=?, project_name = ?, final_price = ? " +
                     "WHERE id=?");
-            preparedStatement.setString(1, contract.getId());
+            preparedStatement.setInt(1, contract.getId());
             preparedStatement.setInt(2, contract.getCustomerId());
             preparedStatement.setInt(3, contract.getProjectId());
             preparedStatement.setInt(4, contract.getDiscount());
             preparedStatement.setString(5, contract.getCreatedOn().toString());
             preparedStatement.setString(6, contract.getDeadline().toString());
-            preparedStatement.setString(7, contract.getId());
+            preparedStatement.setInt(7, contract.getId());
             preparedStatement.setString(8, contract.getCustomerName());
             preparedStatement.setString(9, contract.getProjectName());
             preparedStatement.setDouble(10, contract.getFinalPrice());
@@ -286,7 +286,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
             preparedStatement = connection.prepareStatement("DELETE FROM contract WHERE id=?");
-            preparedStatement.setString(1, contract.getId());
+            preparedStatement.setInt(1, contract.getId());
             preparedStatement.executeUpdate();
 
             connection.commit();
