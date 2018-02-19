@@ -9,6 +9,8 @@ public interface StaffDao {
 
     Set<Staff> findAll();
 
+    Set<Staff> findAll(String search);
+
     Staff findById(Integer Id);
 
     boolean update(Staff staff);

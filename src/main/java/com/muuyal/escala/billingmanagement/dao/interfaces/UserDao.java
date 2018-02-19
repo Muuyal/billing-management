@@ -9,6 +9,8 @@ public interface UserDao {
 
     Set <User> findAll();
 
+    Set <User> findAll(String search);
+
     Set <User> findAll(User user);
 
     User findOne(User user);

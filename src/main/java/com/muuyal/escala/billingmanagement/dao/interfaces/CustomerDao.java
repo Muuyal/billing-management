@@ -9,6 +9,8 @@ public interface CustomerDao {
 
     Set<Customer> findAll();
 
+    Set<Customer> findAll(String search);
+
     Set<Customer> findById(Customer customer);
 
     Customer findById(Integer customerId);
