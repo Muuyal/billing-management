@@ -126,7 +126,7 @@ public class PaymentDaoImp extends DBConnection implements PaymentDao {
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
             preparedStatement = connection.prepareStatement("SELECT * FROM  payment " +
-                    "WHERE id = ?");
+                    "WHERE customerId = ?");
             preparedStatement.setInt(1, customerId);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -157,7 +157,55 @@ public class PaymentDaoImp extends DBConnection implements PaymentDao {
     }
 
     @Override
-    public Payment findById(Integer id) {
+    public Set<Payment> findById(Integer id) {
+
+        System.out.println("--- SELECT * FROM payment " +
+                "WHERE id = '"+ id +"' ---");
+        Set<Payment> result = new HashSet<>();
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        try {
+
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("SELECT * FROM  payment " +
+                    "WHERE id = ?");
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
+
+            while (resultSet.next()){
+                Payment temp = new Payment();
+                temp.setId(resultSet.getInt("id"));
+                temp.setCustomerId(resultSet.getInt("customerId"));
+                temp.setContractId(resultSet.getInt("contractId"));
+                temp.setPaymentAmount(resultSet.getDouble("paymentAmount"));
+                temp.setPaymentDate(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("paymentDate")));
+                result.add(temp);
+            }
+
+            resultSet.close();
+            this.closeConnection();
+
+        } catch (SQLException e){
+            System.err.println(e.getMessage());
+        } catch (ParseException e){
+            System.err.println(e.getMessage());
+        } finally {
+            this.closeConnection();
+        }
+
+        return result;
+    }
+
+    @Override
+    public Set<Payment> findAll(String search) {
         return null;
     }
 

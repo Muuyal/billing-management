@@ -13,7 +13,9 @@ public interface PaymentDao {
 
     Set<Payment> findByCustomer(Integer customerId);
 
-    Payment findById(Integer id);
+    Set<Payment> findById(Integer id);
+
+    Set<Payment> findAll(String search);
 
     boolean update(Payment payment);
 
