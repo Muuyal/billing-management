@@ -7,6 +7,8 @@ import com.muuyal.escala.billingmanagement.dao.interfaces.CustomerDao;
 import com.muuyal.escala.billingmanagement.entities.Contract;
 import com.muuyal.escala.billingmanagement.entities.Customer;
 import com.muuyal.escala.billingmanagement.entities.Project;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -29,6 +31,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -49,9 +52,9 @@ public class PaymentController implements Initializable {
     private ContractDao contractDao = new ContractDaoImp();
 
     @FXML
-    private ChoiceBox<String> customerId = new ChoiceBox<>();
+    private ChoiceBox<Customer> customerId = new ChoiceBox<>();
     @FXML
-    private ChoiceBox<String> contractId =  new ChoiceBox<>();
+    private ChoiceBox<Contract> contractId =  new ChoiceBox<>();
     @FXML
     private TextField amount;
     @FXML
@@ -63,30 +66,52 @@ public class PaymentController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         initCustomerChoiceBox();
         initContractChoiceBox();
+        initCustomerChoiceBoxListener();
+    }
+
+    private void initCustomerChoiceBoxListener(){
+
+
+        ZoneId defaultZoneId = ZoneId.systemDefault();
+
+        ChangeListener<Customer> changeListener =  new ChangeListener<Customer>() {
+            @Override
+            public void changed(ObservableValue<? extends Customer> observable, Customer oldValue, Customer newValue) {
+                initContractChoiceBox();
+            }
+        };
+
+        customerId.getSelectionModel().selectedItemProperty().addListener(changeListener);
+
     }
 
     private void initCustomerChoiceBox(){
 
 
-        Set<String> customerNames = new HashSet<>();
+//        Set<String> customerNames = new HashSet<>();
         Set<Customer> tempCustomer = customerDao.findAll();
-        System.out.println("---- Getting All Projects");
-        for (Customer customer : tempCustomer){
-            customerNames.add(customer.getName());
-        }
-        System.out.println(customerNames.toString());
-        customerId.setItems( FXCollections.observableArrayList( customerNames ));
+        System.out.println("---- Getting All Customers");
+//        for (Customer customer : tempCustomer){
+//            customerNames.add(customer.getName());
+//        }
+//        System.out.println(customerNames.toString());
+        customerId.setItems( FXCollections.observableArrayList( tempCustomer ));
+        customerId.selectionModelProperty().get().select(0);
     }
 
     private void initContractChoiceBox(){
-        Set<String> contractNames = new HashSet<>();
-        Set<Contract> tempContract = contractDao.findAll();
-        System.out.println("---- Getting All Projects");
-        for (Contract contract : tempContract){
-            contractNames.add(contract.getId());
+//        Set<String> contractNames = new HashSet<>();
+        Set<Contract> tempContract = new HashSet<>();
+//        tempContract = contractDao.findAll();
+        if (customerId.getValue().getId() >1) {
+            tempContract = contractDao.findByCustomer(Integer.valueOf(customerId.getValue().getId()));
         }
-        System.out.println(contractNames.toString());
-        contractId.setItems( FXCollections.observableArrayList( contractNames ));
+        System.out.println("---- Getting All Contracts");
+//        for (Contract contract : tempContract){
+//            contractNames.add(contract.getProjectName());
+//        }
+//        System.out.println(contractNames.toString());
+        contractId.setItems( FXCollections.observableArrayList( tempContract ));
     }
 
     @FXML
@@ -169,8 +194,8 @@ public class PaymentController implements Initializable {
 
         LocalDate localPaymentDate = paymentDate;
         System.out.println("-- " + this.getClass().getName() + ": update payment of " + customerId.getValue() + "--");
-        payment.setCustomerId(Integer.valueOf(customerId.getValue()));
-        payment.setContractId(Integer.valueOf(contractId.getValue()));
+        payment.setCustomerId(customerId.getValue().getId());
+        payment.setContractId(contractId.getValue().getId());
         payment.setPaymentAmount(Double.valueOf(amount.getText()));
         payment.setPaymentDate(Date.valueOf(localPaymentDate));
         payment.setId(1);
@@ -195,8 +220,8 @@ public class PaymentController implements Initializable {
 
         LocalDate localPaymentDate = paymentDate;
         System.out.println("-- " + this.getClass().getName() + ": delete payment of " + customerId.getValue() + "--");
-        payment.setCustomerId(Integer.valueOf(customerId.getValue()));
-        payment.setContractId(Integer.valueOf(contractId.getValue()));
+        payment.setCustomerId(customerId.getValue().getId());
+        payment.setContractId(contractId.getValue().getId());
         payment.setPaymentAmount(Double.valueOf(amount.getText()));
         payment.setPaymentDate(Date.valueOf(localPaymentDate));
         payment.setId(1);

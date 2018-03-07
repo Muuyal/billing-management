@@ -7,7 +7,7 @@ import java.util.Date;
 @Table(name="contract")
 public class Contract {
 
-    private String id;
+    private Integer id;
     private Integer customerId;
     private Integer projectId;
     private Integer discount;
@@ -21,11 +21,11 @@ public class Contract {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -102,4 +102,10 @@ public class Contract {
     public void setFinalPrice(Double finalPrice) {
         this.finalPrice = finalPrice;
     }
+
+    @Override
+    public String toString() {
+        return this.getProjectName();
+    }
+
 }

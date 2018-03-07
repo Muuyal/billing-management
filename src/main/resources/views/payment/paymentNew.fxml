@@ -67,7 +67,7 @@
             <Button layoutX="371.0" layoutY="440.0" mnemonicParsing="false" onAction="#save" text="Guardar" />
             <Button layoutX="261.0" layoutY="440.0" mnemonicParsing="false" onAction="#clearScreen" text="Limpiar" />
             <Button layoutX="146.0" layoutY="440.0" mnemonicParsing="false" onAction="#goToHome" text="Cancelar" />
-               <ChoiceBox fx:id="customerId" layoutX="238.0" layoutY="93.0" prefWidth="150.0" />
+               <ChoiceBox fx:id="customerId" layoutX="251.0" layoutY="93.0" prefWidth="150.0" />
                <Label fx:id="message" layoutX="276.0" layoutY="367.0" textFill="#da0808" />
          </children>
       </AnchorPane>

@@ -141,27 +141,27 @@ public class ContractController implements Initializable {
 
     private void initProjectChoiceBox(){
 
-        Set<String> projectNames = new HashSet<>();
+//        Set<String> projectNames = new HashSet<>();
         Set<Project> tempProject = projectDao.findAll();
         System.out.println("---- Getting All Projects");
-        for (Project project : tempProject){
-            projectNames.add(project.getName());
-        }
-        System.out.println(projectNames.toString());
+//        for (Project project : tempProject){
+//            projectNames.add(project.getName());
+//        }
+//        System.out.println(projectNames.toString());
         projectId.setItems( FXCollections.observableArrayList( tempProject ));
     }
 
     private void initCustomerChoiceBox(){
 
-        Set<String> customerNames = new HashSet<>();
+//        Set<String> customerNames = new HashSet<>();
         Set<Customer> tempCustomer = customerDao.findAll();
         System.out.println("---- Getting All Customers");
-        for (Customer customer :  tempCustomer) {
-            System.out.println("---- Customer founds ----");
-            customerNames.add(customer.getName());
-            System.out.println("---- " + customer.getName());
-        }
-        System.out.println(customerNames.toString());
+//        for (Customer customer :  tempCustomer) {
+//            System.out.println("---- Customer founds ----");
+//            customerNames.add(customer.getName());
+//            System.out.println("---- " + customer.getName());
+//        }
+//        System.out.println(customerNames.toString());
         customerId.setItems( FXCollections.observableArrayList(tempCustomer));
     }
 
@@ -302,8 +302,7 @@ public class ContractController implements Initializable {
 
         System.out.println("-- " + this.getClass().getName() + ": delete contract --");
 
-        contract.setId(paymentSchedule.getValue());
-
+//        contract.setId(con);
 
         System.out.println("-- " + this.getClass().getName() + ": deleted clicked --");
         Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/common/success.fxml"));

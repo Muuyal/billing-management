@@ -12,12 +12,14 @@ import com.muuyal.escala.billingmanagement.entities.CustomerDetails;
 import com.muuyal.escala.billingmanagement.entities.Project;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -93,6 +95,19 @@ public class ProjectController implements Initializable {
     }
 
     private void initProjectList(){
+
+
+        projectList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.getClickCount() == 2) {
+                    //Use ListView's getSelected Item
+                    showCustomers();
+                    //use this to do whatever you want to. Open Link etc.
+                }
+            }
+        });
+
 
         if (!projectDao.findAll().isEmpty()){
 
