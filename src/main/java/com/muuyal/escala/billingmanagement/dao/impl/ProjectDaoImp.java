@@ -180,4 +180,9 @@ public class ProjectDaoImp extends DBConnection implements ProjectDao {
         }
         return deleted;
     }
+
+    @Override
+    public Set<Project> findAll(String search) {
+        return null;
+    }
 }
