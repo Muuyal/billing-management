@@ -70,9 +70,7 @@ public class Contract {
     }
 
     public String getPaymentSchedule() {
-
         return paymentSchedule;
-
     }
 
     public String getCustomerName() {

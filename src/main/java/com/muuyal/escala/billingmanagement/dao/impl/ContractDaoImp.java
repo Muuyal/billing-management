@@ -188,7 +188,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
 
             while (resultSet.next()){
                 Contract temp = new Contract();
-                temp.setId(resultSet.getString("id"));
+                temp.setId(resultSet.getInt("id"));
                 temp.setCustomerId(resultSet.getInt("customer_id"));
                 temp.setProjectId(resultSet.getInt("project_id"));
                 temp.setDiscount(resultSet.getInt("discount"));

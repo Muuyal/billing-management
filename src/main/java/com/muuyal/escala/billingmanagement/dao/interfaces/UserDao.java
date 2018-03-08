@@ -13,7 +13,7 @@ public interface UserDao {
 
     Set <User> findAll(User user);
 
-    User findOne(User user);
+    Set <User> findOne(User user);
 
     boolean update(User user);
 

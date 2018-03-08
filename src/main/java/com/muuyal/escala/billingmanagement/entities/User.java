@@ -12,10 +12,10 @@ public class User{
     private String password;
     private String rol;
 
-    public User(String userName, String password) {
+    /*public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
-    }
+    }*/
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
