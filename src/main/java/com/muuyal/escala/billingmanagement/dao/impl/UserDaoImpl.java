@@ -107,8 +107,8 @@ public class UserDaoImpl extends DBConnection implements UserDao {
     public Set<User> findAll(String search) {
 
         System.out.println("---" + this.getClass().getName() +  " findAll clicked. ---");
-        System.out.println("--- SELECT * FROM user WHERE id = '"+ search +"', username = '"+ search +"', " +
-                "password = '"+ search +"', rol = '"+ search +"'; ---");
+        System.out.println("--- SELECT * FROM user WHERE id = '"+ search +"' OR username = '"+ search +"'OR " +
+                "password = '"+ search +"' OR rol = '"+ search +"'; ---");
         Connection connection = null;
         Statement statement   = null;
         PreparedStatement preparedStatement;
