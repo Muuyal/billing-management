@@ -15,6 +15,8 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
     public ContractDaoImp(){
     }
 
+    SimpleDateFormat DateFormat = new SimpleDateFormat("YYYY-MM-DD");
+
     @Override
     public boolean save(Contract contract) {
 
@@ -93,8 +95,8 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
                 temp.setCustomerId(resultSet.getInt("customer_id"));
                 temp.setProjectId(resultSet.getInt("project_id"));
                 temp.setDiscount(resultSet.getInt("discount"));
-                temp.setCreatedOn(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("createdOn")));
-                temp.setCreatedOn(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("deadline")));
+                temp.setCreatedOn(DateFormat.parse(resultSet.getString("createdOn")));
+                temp.setCreatedOn(DateFormat.parse(resultSet.getString("deadline")));
                 temp.setProjectName(resultSet.getString("project_name"));
                 temp.setCustomerName(resultSet.getString("customer_name"));
                 temp.setFinalPrice(resultSet.getDouble("final_price"));
@@ -110,6 +112,96 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
         } catch (Exception e){
             System.err.println("--- Error found " + e.getClass().getName() + ":" + e.getMessage());
 //            System.exit(0);
+        }
+        return result;
+    }
+
+    @Override
+    public Set<Contract> findAll(String search){
+        System.out.println("---" + this.getClass().getName() +  " findAll clicked. ---");
+        System.out.println("--- SELECT * FROM contract WHERE id = '" + search + "', customerId = '"+ search +"' OR " +
+                "projectId = '"+ search +"' OR discount = '"+ search +"' OR createdOn LIKE '%"+ search +"%' OR " +
+                "deadline LIKE '%"+ search +"%' OR paymentSchedule LIKE '%"+ search +"%' OR customerName LIKE '%"+ search +"%' OR " +
+                "projectName LIKE '%"+ search +"%' OR finalPrice = '"+ search +"'; ---");
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        Set<Contract> result =  new HashSet<Contract>();
+
+        try {
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            if (search.matches(".+[a-zA-Z]+.?")){
+                // TODO search for string fields
+
+                preparedStatement = connection.prepareStatement("SELECT * FROM contract " +
+                        "WHERE createdOn LIKE '%"+ search +"%' OR deadline LIKE '%"+ search +"%' OR " +
+                        "paymentSchedule LIKE '%"+ search +"%' OR customerName LIKE '%"+ search +"%' OR " +
+                        "projectName LIKE '%"+ search +"%';");
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
+
+                while (resultSet.next()){
+                    Contract contract = new Contract();
+                    contract.setId(resultSet.getInt("id"));
+                    contract.setCustomerId(resultSet.getInt("customer_id"));
+                    contract.setProjectId(resultSet.getInt("project_id"));
+                    contract.setDiscount(resultSet.getInt("discount"));
+                    //contract.setCreatedOn(DateFormat.parse(resultSet.getString("createdOn")));
+                    //contract.setCreatedOn(DateFormat.parse(resultSet.getString("deadline")));
+                    contract.setProjectName(resultSet.getString("project_name"));
+                    contract.setCustomerName(resultSet.getString("customer_name"));
+                    contract.setFinalPrice(resultSet.getDouble("final_price"));
+                    result.add(contract);
+                }
+
+                resultSet.close();
+//            statement.close();
+//            connection.close();
+                this.closeConnection();
+
+            } else {
+                Integer temp = Integer.valueOf(search);
+                // TODO search for integer fields
+
+                preparedStatement = connection.prepareStatement("SELECT * FROM contract " +
+                        "WHERE id = '" + temp + "', customerId = '"+ temp +"' OR projectId = '"+ temp +"' OR " +
+                        "discount = '"+ temp +"' OR createdOn LIKE '%"+ search +"%' OR deadline LIKE '%"+ search +"%' OR " +
+                        "paymentSchedule LIKE '%"+ search +"%' OR customerName LIKE '%"+ search +"%' OR " +
+                        "projectName LIKE '%"+ search +"%' OR finalPrice = '"+ temp +"';");
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
+
+                while (resultSet.next()){
+                    Contract contract = new Contract();
+                    contract.setId(resultSet.getInt("id"));
+                    contract.setCustomerId(resultSet.getInt("customer_id"));
+                    contract.setProjectId(resultSet.getInt("project_id"));
+                    contract.setDiscount(resultSet.getInt("discount"));
+                    //contract.setCreatedOn(DateFormat.parse(resultSet.getString("createdOn")));
+                    //contract.setCreatedOn(DateFormat.parse(resultSet.getString("deadline")));
+                    contract.setProjectName(resultSet.getString("project_name"));
+                    contract.setCustomerName(resultSet.getString("customer_name"));
+                    contract.setFinalPrice(resultSet.getDouble("final_price"));
+                    result.add(contract);
+                }
+
+                resultSet.close();
+//            statement.close();
+//            connection.close();
+                this.closeConnection();
+
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } finally {
+            this.closeConnection();
         }
         return result;
     }
@@ -144,8 +236,8 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
                 temp.setCustomerId(resultSet.getInt("customer_id"));
                 temp.setProjectId(resultSet.getInt("project_id"));
                 temp.setDiscount(resultSet.getInt("discount"));
-                temp.setCreatedOn(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("createdOn")));
-                temp.setCreatedOn(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("deadline")));
+                temp.setCreatedOn(DateFormat.parse(resultSet.getString("createdOn")));
+                temp.setCreatedOn(DateFormat.parse(resultSet.getString("deadline")));
                 temp.setProjectName(resultSet.getString("project_name"));
                 temp.setCustomerName(resultSet.getString("customer_name"));
                 temp.setFinalPrice(resultSet.getDouble("final_price"));
@@ -192,8 +284,8 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
                 temp.setCustomerId(resultSet.getInt("customer_id"));
                 temp.setProjectId(resultSet.getInt("project_id"));
                 temp.setDiscount(resultSet.getInt("discount"));
-                temp.setCreatedOn(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("createdOn")));
-                temp.setCreatedOn(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("deadline")));
+                temp.setCreatedOn(DateFormat.parse(resultSet.getString("createdOn")));
+                temp.setCreatedOn(DateFormat.parse(resultSet.getString("deadline")));
                 temp.setProjectName(resultSet.getString("project_name"));
                 temp.setCustomerName(resultSet.getString("customer_name"));
                 temp.setFinalPrice(resultSet.getDouble("final_price"));
@@ -241,8 +333,8 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
                 temp.setCustomerId(resultSet.getInt("customer_id"));
                 temp.setProjectId(resultSet.getInt("project_id"));
                 temp.setDiscount(resultSet.getInt("discount"));
-                temp.setCreatedOn(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("createdOn")));
-                temp.setCreatedOn(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("deadline")));
+                temp.setCreatedOn(DateFormat.parse(resultSet.getString("createdOn")));
+                temp.setCreatedOn(DateFormat.parse(resultSet.getString("deadline")));
                 temp.setCustomerName(resultSet.getString("customer_name"));
                 temp.setProjectName(resultSet.getString("project_name"));
                 temp.setFinalPrice(resultSet.getDouble("final_price"));
@@ -382,20 +474,4 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
         }
         return  result;
     }
-
-    @Override
-    public Set<Contract> findAll(String search){
-        Set<Contract> result = new HashSet<>();
-
-        if (search.matches("[a-zA-Z]+.?")){
-            // TODO search for string fields
-        } else {
-            Integer temp = Integer.valueOf(search);
-            // TODO search for integer fields
-
-        }
-
-        return result;
-    }
-
 }
