@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
@@ -26,7 +27,6 @@ public class StaffController implements Initializable {
     private Button buttonUpdate;
     private StaffDao staffDao = new StaffDaoImp();
     private Staff staff = new Staff();
-
 
     @FXML
     private TextField name;

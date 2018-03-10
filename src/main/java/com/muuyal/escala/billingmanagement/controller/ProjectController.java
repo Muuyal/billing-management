@@ -132,7 +132,7 @@ public class ProjectController implements Initializable {
 
     @FXML
     public void showCustomers(){
-
+        //TODO falta revisar x.
         System.out.println("-- " + this.getClass().getName() + ": showCustomers clicked--");
         ContractDao contractDao = new ContractDaoImp();
         CustomerDao customerDao = new CustomerDaoImpl();
