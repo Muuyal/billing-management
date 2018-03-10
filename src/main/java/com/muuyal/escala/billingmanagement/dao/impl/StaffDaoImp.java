@@ -161,4 +161,9 @@ public class StaffDaoImp extends DBConnection implements StaffDao {
         }
         return deleted;
     }
+
+    @Override
+    public Set<Staff> findAll(String search) {
+        return null;
+    }
 }

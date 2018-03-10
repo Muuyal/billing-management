@@ -290,4 +290,9 @@ public class CustomerDaoImpl extends DBConnection implements CustomerDao {
         }
         return deleted;
     }
+
+    @Override
+    public Set<Customer> findAll(String search) {
+        return null;
+    }
 }
