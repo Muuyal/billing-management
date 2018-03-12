@@ -11,7 +11,6 @@ import java.util.Set;
 @Repository
 public class CustomerDaoImpl extends DBConnection implements CustomerDao {
 
-
     @Override
     public boolean save(Customer customer) {
 
@@ -293,6 +292,93 @@ public class CustomerDaoImpl extends DBConnection implements CustomerDao {
 
     @Override
     public Set<Customer> findAll(String search) {
-        return null;
+
+        System.out.println("---" + this.getClass().getName() +  " findAll clicked. ---");
+        System.out.println("--- SELECT * FROM customer " +
+                "WHERE id = '"+ search +"' OR name LIKE '%"+ search +"%' OR phone LIKE '%"+ search +"%' OR " +
+                "email LIKE '%"+ search +"%' OR addressStreet LIKE '%"+ search +"%' OR addressCity LIKE '%"+ search +"%' OR " +
+                "addressColony LIKE '%"+ search +"%' OR addressPC LIKE '%"+ search +"%' OR notes LIKE '%"+ search +"%'; ---");
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        Set<Customer> result =  new HashSet<Customer>();
+
+        try {
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            if (search.matches(".+[a-zA-Z]+.?")){
+
+                // TODO search for string fields
+                preparedStatement = connection.prepareStatement("SELECT * FROM customer " +
+                        "WHERE name LIKE '%"+ search +"%' OR phone LIKE '%"+ search +"%' OR email LIKE '%"+ search +"%' OR " +
+                        "addressStreet LIKE '%"+ search +"%' OR addressCity LIKE '%"+ search +"%' OR " +
+                        "addressColony LIKE '%"+ search +"%' OR addressPC LIKE '%"+ search +"%' OR notes LIKE '%"+ search +"%';");
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
+
+                while (resultSet.next()){
+                    Customer customer = new Customer();
+                    customer.setId(resultSet.getInt("id"));
+                    customer.setName(resultSet.getString("name"));
+                    customer.setPhone(resultSet.getString("phone"));
+                    customer.setEmail(resultSet.getString("email"));
+                    customer.setAddressStreet(resultSet.getString("addressStreet"));
+                    customer.setAddressCity(resultSet.getString("addressCity"));
+                    customer.setAddressColony(resultSet.getString("addressColony"));
+                    customer.setAddressPC(resultSet.getString("addressPC"));
+                    customer.setNotes(resultSet.getString("notes"));
+                    result.add(customer);
+                }
+
+                resultSet.close();
+//              statement.close();
+//              connection.close();
+                this.closeConnection();
+
+            } else {
+
+                Integer temp = Integer.valueOf(search);
+                // TODO search for integer fields
+                preparedStatement = connection.prepareStatement("SELECT * FROM customer " +
+                        "WHERE id = '"+ temp +"' OR name LIKE '%"+ search +"%' OR phone LIKE '%"+ temp +"%' OR " +
+                        "email LIKE '%"+ search +"%' OR addressStreet LIKE '%"+ temp +"%' OR " +
+                        "addressCity LIKE '%"+ search +"%' OR addressColony LIKE '%"+ search +"%' OR " +
+                        "addressPC LIKE '%"+ temp +"%' OR notes LIKE '%"+ search +"%';");
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
+
+                while (resultSet.next()){
+                    Customer customer = new Customer();
+                    customer.setId(resultSet.getInt("id"));
+                    customer.setName(resultSet.getString("name"));
+                    customer.setPhone(resultSet.getString("phone"));
+                    customer.setEmail(resultSet.getString("email"));
+                    customer.setAddressStreet(resultSet.getString("addressStreet"));
+                    customer.setAddressCity(resultSet.getString("addressCity"));
+                    customer.setAddressColony(resultSet.getString("addressColony"));
+                    customer.setAddressPC(resultSet.getString("addressPC"));
+                    customer.setNotes(resultSet.getString("notes"));
+                    result.add(customer);
+                }
+
+                resultSet.close();
+//              statement.close();
+//              connection.close();
+                this.closeConnection();
+
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } finally {
+            this.closeConnection();
+        }
+        return result;
+
     }
 }
