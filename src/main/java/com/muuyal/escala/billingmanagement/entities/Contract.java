@@ -18,7 +18,6 @@ public class Contract {
     private String projectName;
     private Double finalPrice;
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer getId() {

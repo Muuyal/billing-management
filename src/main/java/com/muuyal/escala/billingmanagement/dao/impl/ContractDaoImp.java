@@ -118,6 +118,9 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
 
     @Override
     public Set<Contract> findAll(String search){
+
+        //No se pude poner formato a la fecha.
+
         System.out.println("---" + this.getClass().getName() +  " findAll clicked. ---");
         System.out.println("--- SELECT * FROM contract WHERE id = '" + search + "', customerId = '"+ search +"' OR " +
                 "projectId = '"+ search +"' OR discount = '"+ search +"' OR createdOn LIKE '%"+ search +"%' OR " +
@@ -152,8 +155,8 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
                     contract.setCustomerId(resultSet.getInt("customer_id"));
                     contract.setProjectId(resultSet.getInt("project_id"));
                     contract.setDiscount(resultSet.getInt("discount"));
-                    //contract.setCreatedOn(DateFormat.parse(resultSet.getString("createdOn")));
-                    //contract.setCreatedOn(DateFormat.parse(resultSet.getString("deadline")));
+                    contract.setCreatedOn(resultSet.getDate("createdOn"));
+                    contract.setCreatedOn(resultSet.getDate("deadline"));
                     contract.setProjectName(resultSet.getString("project_name"));
                     contract.setCustomerName(resultSet.getString("customer_name"));
                     contract.setFinalPrice(resultSet.getDouble("final_price"));
@@ -184,8 +187,8 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
                     contract.setCustomerId(resultSet.getInt("customer_id"));
                     contract.setProjectId(resultSet.getInt("project_id"));
                     contract.setDiscount(resultSet.getInt("discount"));
-                    //contract.setCreatedOn(DateFormat.parse(resultSet.getString("createdOn")));
-                    //contract.setCreatedOn(DateFormat.parse(resultSet.getString("deadline")));
+                    contract.setCreatedOn(resultSet.getDate("createdOn"));
+                    contract.setCreatedOn(resultSet.getDate("deadline"));
                     contract.setProjectName(resultSet.getString("project_name"));
                     contract.setCustomerName(resultSet.getString("customer_name"));
                     contract.setFinalPrice(resultSet.getDouble("final_price"));
