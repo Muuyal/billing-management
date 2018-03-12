@@ -11,7 +11,7 @@ public interface ProjectDao {
 
     Set<Project> findAll(String search);
 
-    Project findById(Integer id);
+    Set<Project> findById(Integer id);
 
     boolean update(Project project);
 

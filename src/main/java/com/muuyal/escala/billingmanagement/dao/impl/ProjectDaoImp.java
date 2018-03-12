@@ -100,8 +100,46 @@ public class ProjectDaoImp extends DBConnection implements ProjectDao {
     }
 
     @Override
-    public Project findById(Integer id) {
-        return null;
+    public Set<Project> findById(Integer id) {
+
+        System.out.println("---" + this.getClass().getName() +  " findAll clicked. ---");
+        System.out.println("--- SELECT * FROM project WHERE id = '"+ id +"'; ---");
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        Set<Project> result =  new HashSet<Project>();
+        try {
+
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("SELECT * FROM project WHERE id = '"+ id +"';");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
+
+            while (resultSet.next()){
+                Project temp = new Project();
+                temp.setId(resultSet.getInt("id"));
+                temp.setName(resultSet.getString("name"));
+                temp.setDescription(resultSet.getString("description"));
+                temp.setPrice(resultSet.getInt("price"));
+                temp.setEta(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("eta")));
+                temp.setDeadline(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("deadline")));
+                result.add(temp);
+            }
+
+            resultSet.close();
+            this.closeConnection();
+
+
+        } catch (Exception e){
+            System.err.println("--- Error found " + e.getClass().getName() + ":" + e.getMessage());
+        }
+        return result;
     }
 
     @Override
@@ -183,6 +221,83 @@ public class ProjectDaoImp extends DBConnection implements ProjectDao {
 
     @Override
     public Set<Project> findAll(String search) {
-        return null;
+
+        System.out.println("---" + this.getClass().getName() +  " findAll clicked. ---");
+        System.out.println("--- SELECT * FROM project " +
+                "WHERE id = '"+ search +"' OR name LIKE '%"+ search +"%' description LIKE '%"+ search +"%' " +
+                "eta = LIKE '%"+ search +"%' deadline LIKE '%"+ search +"%' price = '"+ search +"'; ---");
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        Set<Project> result =  new HashSet<Project>();
+
+        try {
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            if (search.matches(".+[a-zA-Z]+.?")){
+
+                // TODO search for string fields
+                preparedStatement = connection.prepareStatement("SELECT * FROM project " +
+                        "WHERE name LIKE '%"+ search +"%' OR description LIKE '%"+ search +"%' OR " +
+                        "eta = LIKE '%"+ search +"%' OR deadline LIKE '%"+ search +"%';");
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
+
+                while (resultSet.next()){
+                    Project project = new Project();
+                    project.setId(resultSet.getInt("id"));
+                    project.setName(resultSet.getString("name"));
+                    project.setDescription(resultSet.getString("description"));
+                    project.setEta(resultSet.getDate("eta"));
+                    project.setDeadline(resultSet.getDate("deadline"));
+                    project.setPrice(resultSet.getInt("price"));
+                    result.add(project);
+                }
+
+                resultSet.close();
+//            statement.close();
+//            connection.close();
+                this.closeConnection();
+
+            } else {
+
+                Integer temp = Integer.valueOf(search);
+                // TODO search for integer fields
+                preparedStatement = connection.prepareStatement("SELECT * FROM project " +
+                        "WHERE id = '"+ temp +"' OR  description LIKE '%"+ temp +"%' OR eta = LIKE '%"+ temp +"%' OR " +
+                        "deadline LIKE '%"+ temp +"%' OR price = '"+ temp +"';");
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
+
+                while (resultSet.next()){
+                    Project project = new Project();
+                    project.setId(resultSet.getInt("id"));
+                    project.setName(resultSet.getString("name"));
+                    project.setDescription(resultSet.getString("description"));
+                    project.setEta(resultSet.getDate("eta"));
+                    project.setDeadline(resultSet.getDate("deadline"));
+                    project.setPrice(resultSet.getInt("price"));
+                    result.add(project);
+                }
+
+                resultSet.close();
+//            statement.close();
+//            connection.close();
+                this.closeConnection();
+
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } finally {
+            this.closeConnection();
+        }
+        return result;
+
     }
 }
