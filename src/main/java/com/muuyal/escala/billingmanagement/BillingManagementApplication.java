@@ -49,7 +49,6 @@ public class BillingManagementApplication extends Application {
 	public static void main(String[] args) {
 
 		launch(BillingManagementApplication.class, args);
-
 	}
 
 }
