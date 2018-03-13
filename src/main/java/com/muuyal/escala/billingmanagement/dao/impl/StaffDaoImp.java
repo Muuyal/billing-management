@@ -17,14 +17,14 @@ public class StaffDaoImp extends DBConnection implements StaffDao {
 
 
     public StaffDaoImp(){
-
     }
 
     @Override
     public boolean save(Staff staff) {
         boolean saved = false;
 
-        System.out.println("--- insert into staff (name, phone, email, addressStreet, addressCity, addressColony, addressPC, rol, salary)" +
+        System.out.println("--- insert into staff " +
+                "(name, phone, email, addressStreet, addressCity, addressColony, addressPC, rol, salary)" +
                 "values ('"+ staff.getName() +"','"+ staff.getPhone() +"', " +
                 "'"+ staff.getEmail() +"','"+ staff.getAddressStreet() +"', " +
                 " '"+ staff.getAddressCity() +"', '"+ staff.getAddressColony() +"', " +
@@ -41,7 +41,8 @@ public class StaffDaoImp extends DBConnection implements StaffDao {
             statement = connection.createStatement();
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
-            preparedStatement = connection.prepareStatement("INSERT INTO staff (name, phone, email, addressStreet, addressCity, addressColony, addressPC, rol, salary) " +
+            preparedStatement = connection.prepareStatement("INSERT INTO staff (" +
+                    "name, phone, email, addressStreet, addressCity, addressColony, addressPC, rol, salary) " +
                     "values (?,?,?,?,?,?,?,?,?)");
             preparedStatement.setInt(1, staff.getId());
             preparedStatement.setString(2, staff.getName());
@@ -70,12 +71,102 @@ public class StaffDaoImp extends DBConnection implements StaffDao {
 
     @Override
     public Set<Staff> findAll() {
-        return null;
+
+        System.out.println("---" + this.getClass().getName() +  " findAll clicked. ---");
+        System.out.println("--- SELECT * FROM staff ---");
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        Set<Staff> result =  new HashSet<Staff>();
+        try {
+
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("SELECT * FROM staff");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
+
+            while (resultSet.next()){
+                Staff staff = new Staff();
+                staff.setId(resultSet.getInt("id"));
+                staff.setName(resultSet.getString("name"));
+                staff.setPhone(resultSet.getString("phone"));
+                staff.setEmail(resultSet.getString("email"));
+                staff.setAddressStreet(resultSet.getString("addressStreet"));
+                staff.setAddressCity(resultSet.getString("addressCity"));
+                staff.setAddressColony(resultSet.getString("addressColony"));
+                staff.setAddressPC(resultSet.getString("addressPC"));
+                staff.setRol(resultSet.getString("rol"));
+                staff.setSalary(resultSet.getDouble("salary"));
+                result.add(staff);
+            }
+
+            resultSet.close();
+//            statement.close();
+//            connection.close();
+            this.closeConnection();
+
+
+        } catch (Exception e){
+            System.err.println("--- Error found " + e.getClass().getName() + ":" + e.getMessage());
+//            System.exit(0);
+        }
+        return result;
     }
 
     @Override
-    public Staff findById(Integer id) {
-        return null;
+    public Set<Staff> findById(Integer id) {
+
+        System.out.println("---" + this.getClass().getName() +  " findAll clicked. ---");
+        System.out.println("--- SELECT * FROM staff WHERE id = '"+ id +"' ---");
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        Set<Staff> result =  new HashSet<Staff>();
+        try {
+
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("SELECT * FROM staff WHERE id = '"+ id +"';");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
+
+            while (resultSet.next()){
+                Staff staff = new Staff();
+                staff.setId(resultSet.getInt("id"));
+                staff.setName(resultSet.getString("name"));
+                staff.setPhone(resultSet.getString("phone"));
+                staff.setEmail(resultSet.getString("email"));
+                staff.setAddressStreet(resultSet.getString("addressStreet"));
+                staff.setAddressCity(resultSet.getString("addressCity"));
+                staff.setAddressColony(resultSet.getString("addressColony"));
+                staff.setAddressPC(resultSet.getString("addressPC"));
+                staff.setRol(resultSet.getString("rol"));
+                staff.setSalary(resultSet.getDouble("salary"));
+                result.add(staff);
+            }
+
+            resultSet.close();
+//            statement.close();
+//            connection.close();
+            this.closeConnection();
+
+
+        } catch (Exception e){
+            System.err.println("--- Error found " + e.getClass().getName() + ":" + e.getMessage());
+//            System.exit(0);
+        }
+        return result;
     }
 
     @Override
@@ -164,6 +255,93 @@ public class StaffDaoImp extends DBConnection implements StaffDao {
 
     @Override
     public Set<Staff> findAll(String search) {
-        return null;
+
+        System.out.println("---" + this.getClass().getName() +  " findAll clicked. ---");
+        System.out.println("--- SELECT * FROM staff " +
+                "WHERE id = '"+ search +"' OR name LIKE '"+ search +"' OR phone LIKE '"+ search +"' OR " +
+                "email LIKE '"+ search +"' OR addressStreet LIKE '"+ search +"' OR addressCity LIKE '"+ search +"' OR " +
+                "addressColony LIKE '"+ search +"' OR addressPC LIKE '"+ search +"' OR rol LIKE '"+ search +"' OR " +
+                "salary = '"+ search +"'; ---");
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        Set<Staff> result =  new HashSet<Staff>();
+
+        try {
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            if (search.matches(".+[a-zA-Z]+.?")){
+
+                // TODO search for string fields
+                preparedStatement = connection.prepareStatement("SELECT * FROM staff " +
+                        "WHERE name LIKE '"+ search +"' OR phone LIKE '"+ search +"' OR email LIKE '"+ search +"' OR " +
+                        "addressStreet LIKE '"+ search +"' OR addressCity LIKE '"+ search +"' OR addressColony LIKE '"+ search +"' OR " +
+                        "addressPC LIKE '"+ search +"' OR rol LIKE '"+ search +"';");
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
+
+                while (resultSet.next()){
+                    Staff staff = new Staff();
+                    staff.setId(resultSet.getInt("id"));
+                    staff.setName(resultSet.getString("name"));
+                    staff.setPhone(resultSet.getString("phone"));
+                    staff.setEmail(resultSet.getString("email"));
+                    staff.setAddressStreet(resultSet.getString("addressStreet"));
+                    staff.setAddressCity(resultSet.getString("addressCity"));
+                    staff.setAddressColony(resultSet.getString("addressColony"));
+                    staff.setAddressPC(resultSet.getString("addressPC"));
+                    staff.setRol(resultSet.getString("rol"));
+                    staff.setSalary(resultSet.getDouble("salary"));
+                    result.add(staff);
+                }
+
+                resultSet.close();
+//            statement.close();
+//            connection.close();
+                this.closeConnection();
+
+            } else {
+                Integer temp = Integer.valueOf(search);
+                // TODO search for integer fields
+                preparedStatement = connection.prepareStatement("SELECT * FROM staff " +
+                        "WHERE id = '"+ temp +"' OR  phone LIKE '"+ temp +"' OR email LIKE '"+ temp +"' OR " +
+                        "addressStreet LIKE '"+ temp +"' OR addressColony LIKE '"+ temp +"' OR " +
+                        "addressPC LIKE '"+ temp +"' OR rol LIKE '"+ temp +"' OR salary = '"+ temp +"';");
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
+
+                while (resultSet.next()){
+                    Staff staff = new Staff();
+                    staff.setId(resultSet.getInt("id"));
+                    staff.setName(resultSet.getString("name"));
+                    staff.setPhone(resultSet.getString("phone"));
+                    staff.setEmail(resultSet.getString("email"));
+                    staff.setAddressStreet(resultSet.getString("addressStreet"));
+                    staff.setAddressCity(resultSet.getString("addressCity"));
+                    staff.setAddressColony(resultSet.getString("addressColony"));
+                    staff.setAddressPC(resultSet.getString("addressPC"));
+                    staff.setRol(resultSet.getString("rol"));
+                    staff.setSalary(resultSet.getDouble("salary"));
+                    result.add(staff);
+                }
+
+                resultSet.close();
+//            statement.close();
+//            connection.close();
+                this.closeConnection();
+
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } finally {
+            this.closeConnection();
+        }
+        return result;
     }
 }

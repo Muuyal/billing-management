@@ -105,7 +105,50 @@ public class PaymentDaoImp extends DBConnection implements PaymentDao {
 
     @Override
     public Set<Payment> findByProject(Integer projectId) {
-        return null;
+
+        System.out.println("--- SELECT * FROM payment " +
+                "WHERE contractId = '"+ projectId +"' ---");
+        Set<Payment> result = new HashSet<>();
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        try {
+
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("SELECT * FROM  payment " +
+                    "WHERE contractId = ?");
+            preparedStatement.setInt(1, projectId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
+
+            while (resultSet.next()){
+                Payment temp = new Payment();
+                temp.setId(resultSet.getInt("id"));
+                temp.setCustomerId(resultSet.getInt("customerId"));
+                temp.setContractId(resultSet.getInt("contractId"));
+                temp.setPaymentAmount(resultSet.getDouble("paymentAmount"));
+                temp.setPaymentDate(new SimpleDateFormat("yyyy-mm-dd").parse(resultSet.getString("paymentDate")));
+                result.add(temp);
+            }
+
+            resultSet.close();
+            this.closeConnection();
+
+        } catch (SQLException e){
+            System.err.println(e.getMessage());
+        } catch (ParseException e){
+            System.err.println(e.getMessage());
+        } finally {
+            this.closeConnection();
+        }
+
+        return result;
     }
 
     @Override
@@ -206,7 +249,77 @@ public class PaymentDaoImp extends DBConnection implements PaymentDao {
 
     @Override
     public Set<Payment> findAll(String search) {
-        return null;
+
+        System.out.println("---" + this.getClass().getName() +  " findAll clicked. ---");
+        System.out.println("--- SELECT * FROM payment " +
+                "WHERE id = '"+ search +"' OR customerId LIKE '%"+ search +"%' OR contractId LIKE '%"+ search +"%' OR " +
+                "paymentAmount LIKE '%"+ search +"%' OR paymentDate LIKE '%"+ search +"%'; ---");
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        Set<Payment> result =  new HashSet<Payment>();
+
+        try {
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            if (search.matches(".+[a-zA-Z]+.?")){
+                // TODO search for string fields
+                preparedStatement = connection.prepareStatement("SELECT * FROM payment " +
+                        "WHERE paymentAmount = '"+ search +"' OR paymentDate LIKE '%"+ search +"%';");
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
+
+                while (resultSet.next()){
+                    Payment payment = new Payment();
+                    payment.setId(resultSet.getInt("id"));
+                    payment.setCustomerId(resultSet.getInt("customerId"));
+                    payment.setContractId(resultSet.getInt("contractId"));
+                    payment.setPaymentAmount(resultSet.getDouble("paymentAmount"));
+                    payment.setPaymentDate(resultSet.getDate("paymentDate"));
+                    result.add(payment);
+                }
+
+                resultSet.close();
+//              statement.close();
+//              connection.close();
+                this.closeConnection();
+
+            } else {
+                Integer temp = Integer.valueOf(search);
+                // TODO search for integer fields
+                preparedStatement = connection.prepareStatement("SELECT * FROM payment " +
+                        "WHERE id = '"+ temp +"' OR customerId = '"+ temp +"' OR contractId = '"+ temp +"' OR " +
+                        "paymentAmount = '"+ temp +"' OR paymentDate LIKE '%"+ search +"%';");
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
+
+                while (resultSet.next()){
+                    Payment payment = new Payment();
+                    payment.setId(resultSet.getInt("id"));
+                    payment.setCustomerId(resultSet.getInt("customerId"));
+                    payment.setContractId(resultSet.getInt("contractId"));
+                    payment.setPaymentAmount(resultSet.getDouble("paymentAmount"));
+                    payment.setPaymentDate(resultSet.getDate("paymentDate"));
+                    result.add(payment);
+                }
+
+                resultSet.close();
+//              statement.close();
+//              connection.close();
+                this.closeConnection();
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } finally {
+            this.closeConnection();
+        }
+        return result;
     }
 
     @Override
