@@ -42,19 +42,17 @@ public class StaffDaoImp extends DBConnection implements StaffDao {
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
             preparedStatement = connection.prepareStatement("INSERT INTO staff (" +
-                    "name, phone, email, addressStreet, addressCity, addressColony, addressPC, rol, salary) " +
+                    "name, phone, email, address_street, address_city, address_colony, address_pc, rol, salary) " +
                     "values (?,?,?,?,?,?,?,?,?)");
-            preparedStatement.setInt(1, staff.getId());
-            preparedStatement.setString(2, staff.getName());
-            preparedStatement.setString(3, staff.getPhone());
-            preparedStatement.setString(4, staff.getEmail());
-            preparedStatement.setString(5, staff.getAddressStreet());
-            preparedStatement.setString(6, staff.getAddressCity());
-            preparedStatement.setString(7, staff.getAddressColony());
-            preparedStatement.setString(8, staff.getAddressPC());
-            preparedStatement.setString(9, staff.getRol());
-            preparedStatement.setDouble(10, staff.getSalary());
-            preparedStatement.setInt(11, staff.getId());
+            preparedStatement.setString(1, staff.getName());
+            preparedStatement.setString(2, staff.getPhone());
+            preparedStatement.setString(3, staff.getEmail());
+            preparedStatement.setString(4, staff.getAddressStreet());
+            preparedStatement.setString(5, staff.getAddressCity());
+            preparedStatement.setString(6, staff.getAddressColony());
+            preparedStatement.setString(7, staff.getAddressPC());
+            preparedStatement.setString(8, staff.getRol());
+            preparedStatement.setDouble(9, staff.getSalary());
             preparedStatement.executeUpdate();
 
             connection.commit();

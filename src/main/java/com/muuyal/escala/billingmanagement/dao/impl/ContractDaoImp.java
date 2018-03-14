@@ -122,10 +122,10 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
         //No se pude poner formato a la fecha.
 
         System.out.println("---" + this.getClass().getName() +  " findAll clicked. ---");
-        System.out.println("--- SELECT * FROM contract WHERE id = '" + search + "', customerId = '"+ search +"' OR " +
+        System.out.println("--- SELECT * FROM contract WHERE id = '" + search + "', customer_id = '"+ search +"' OR " +
                 "projectId = '"+ search +"' OR discount = '"+ search +"' OR createdOn LIKE '%"+ search +"%' OR " +
-                "deadline LIKE '%"+ search +"%' OR paymentSchedule LIKE '%"+ search +"%' OR customerName LIKE '%"+ search +"%' OR " +
-                "projectName LIKE '%"+ search +"%' OR finalPrice = '"+ search +"'; ---");
+                "deadline LIKE '%"+ search +"%' OR payment_schedule LIKE '%"+ search +"%' OR customer_name LIKE '%"+ search +"%' OR " +
+                "project_name LIKE '%"+ search +"%' OR final_price = '"+ search +"'; ---");
         Connection connection = null;
         Statement statement   = null;
         PreparedStatement preparedStatement;
