@@ -10,6 +10,7 @@ import com.muuyal.escala.billingmanagement.dao.interfaces.ProjectDao;
 import com.muuyal.escala.billingmanagement.entities.Contract;
 import com.muuyal.escala.billingmanagement.entities.Customer;
 import com.muuyal.escala.billingmanagement.entities.Project;
+import com.muuyal.escala.billingmanagement.entities.Staff;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.beans.value.ObservableValue;
@@ -188,6 +189,26 @@ public class ContractController implements Initializable {
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         appStage.setScene(homePageScene);
         appStage.show();
+
+    }
+
+    @FXML
+    public void goToDelete (ActionEvent actionEvent) throws IOException{
+
+        if (contractList.getSelectionModel().getSelectedItem() == null ){
+            Alert alertNotSelected = new Alert(Alert.AlertType.CONFIRMATION, "No hay registro seleccionado?", ButtonType.CANCEL);
+            alertNotSelected.showAndWait();
+        }else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Quieres borrar registro seleccionado?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+
+                Contract contract = contractList.getSelectionModel().getSelectedItem();
+                if (contractDao.delete(contract)) {
+                    contractList.getItems().remove(contract);
+                }
+            }
+        }
 
     }
 
