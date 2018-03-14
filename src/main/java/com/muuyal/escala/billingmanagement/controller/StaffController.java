@@ -17,6 +17,7 @@ import javafx.scene.control.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -48,6 +49,8 @@ public class StaffController implements Initializable {
     private TextField salary;
     @FXML
     private Label message;
+    @FXML
+    private TableView<Staff> staffList = new TableView<>();
 
 
     @Override
@@ -125,11 +128,24 @@ public class StaffController implements Initializable {
 
     }
 
-    @FXML
-    public void clearScreen(ActionEvent actionEvent) {
-        System.out.println("-- " + this.getClass().getName() + ": clear screen --");
+   @FXML
+   public void goToDelete(ActionEvent actionEvent) throws IOException {
 
-    }
+       if (staffList.getSelectionModel().getSelectedItem() == null ){
+           Alert alertNotSelected = new Alert(Alert.AlertType.CONFIRMATION, "No hay registro seleccionado?", ButtonType.CANCEL);
+           alertNotSelected.showAndWait();
+       }else {
+           Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Quieres borrar registro seleccionado?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+           alert.showAndWait();
+           if (alert.getResult() == ButtonType.YES) {
+
+               Staff staff = staffList.getSelectionModel().getSelectedItem();
+               if (staffDao.delete(staff)) {
+                   staffList.getItems().remove(staff);
+               }
+           }
+       }
+   }
 
     @FXML
     public void goToHome(ActionEvent actionEvent) throws IOException {

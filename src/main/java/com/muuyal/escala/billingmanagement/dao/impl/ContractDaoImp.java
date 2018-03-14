@@ -173,7 +173,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
                 // TODO search for integer fields
 
                 preparedStatement = connection.prepareStatement("SELECT * FROM contract " +
-                        "WHERE id = '" + temp + "', customerId = '"+ temp +"' OR projectId = '"+ temp +"' OR " +
+                        "WHERE id = '" + temp + "', customer_id = '"+ temp +"' OR projectId = '"+ temp +"' OR " +
                         "discount = '"+ temp +"' OR createdOn LIKE '%"+ search +"%' OR deadline LIKE '%"+ search +"%' OR " +
                         "paymentSchedule LIKE '%"+ search +"%' OR customerName LIKE '%"+ search +"%' OR " +
                         "projectName LIKE '%"+ search +"%' OR finalPrice = '"+ temp +"';");

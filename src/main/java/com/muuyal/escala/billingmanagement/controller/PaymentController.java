@@ -59,6 +59,8 @@ public class PaymentController implements Initializable {
     private TextField amount;
     @FXML
     private Label message;
+    @FXML
+    private TableView<Payment> paymentList = new TableView<>();
 
     private LocalDate paymentDate;
 
@@ -149,6 +151,19 @@ public class PaymentController implements Initializable {
         appStage.setScene(homePageScene);
         appStage.show();
 
+    }
+
+    @FXML
+    public void goToDelete(ActionEvent actionEvent){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Quieres borrar registro seleccionado?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            //do stuff
+           Payment payment = paymentList.getSelectionModel().getSelectedItem();
+           paymentDao.delete(payment);
+           paymentList.getItems().remove(payment);
+        }
     }
 
     @FXML
