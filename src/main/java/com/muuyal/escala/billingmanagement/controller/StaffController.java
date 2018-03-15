@@ -106,6 +106,18 @@ public class StaffController implements Initializable {
     }
 
     @FXML
+    public void goToUpdate(ActionEvent actionEvent) throws IOException {
+
+        System.out.println("-- " + this.getClass().getName() + ": go to update staff --");
+        /*Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/staff/staffNew.fxml"));
+        Scene homePageScene = new Scene(homePageParent);
+        Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        appStage.setScene(homePageScene);
+        appStage.show();*/
+
+    }
+
+    @FXML
     public void goToFind(ActionEvent actionEvent) throws IOException{
 
         System.out.println("-- " + this.getClass().getName() + ": go to find staff --");
