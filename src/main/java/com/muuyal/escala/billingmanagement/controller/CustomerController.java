@@ -107,6 +107,18 @@ public class CustomerController implements Initializable {
     }
 
     @FXML
+    public void goToUpdate(ActionEvent actionEvent) throws IOException{
+
+        System.out.println("-- " + this.getClass().getName() + ": go to update customer --");
+        /*Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/customer/customerNew.fxml"));
+        Scene homePageScene = new Scene(homePageParent);
+        Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        appStage.setScene(homePageScene);
+        appStage.show();*/
+
+    }
+
+    @FXML
     public void goToDelete(ActionEvent actionEvent) throws  IOException{
 
         if (customerList.getSelectionModel().getSelectedItem() == null ){
