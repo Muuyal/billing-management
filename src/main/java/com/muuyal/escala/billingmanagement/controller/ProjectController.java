@@ -66,11 +66,10 @@ public class ProjectController implements Initializable {
 
         initProjectList();
 
+        //Preparing customer details
         TableColumn columnA = new TableColumn("Nombre"); // customer name
         TableColumn columnB = new TableColumn("Telefono"); // customer phone
         TableColumn columnC = new TableColumn("Correo"); // customer email
-
-
         columnA.setCellValueFactory(
                 new PropertyValueFactory<Customer,String>("name")
         );
@@ -80,14 +79,12 @@ public class ProjectController implements Initializable {
         columnC.setCellValueFactory(
                 new PropertyValueFactory<Customer,Integer>("email")
         );
-
         customerDetails.getColumns().addAll(columnA, columnB, columnC);
 
+        // Preparing customer List
         TableColumn columnD = new TableColumn("Nombre"); // customer name
         TableColumn columnE = new TableColumn("Estado"); // customer status
         TableColumn columnF = new TableColumn("Adeudo"); // customer debt
-
-
         columnD.setCellValueFactory( new PropertyValueFactory<CustomerDetails,String>("name") );
         columnE.setCellValueFactory( new PropertyValueFactory<CustomerDetails,String>("status") );
         columnF.setCellValueFactory( new PropertyValueFactory<CustomerDetails,Integer>("debt") );
@@ -115,7 +112,6 @@ public class ProjectController implements Initializable {
             final ObservableList<Project> projectItems = FXCollections.observableArrayList( projectDao.findAll() );
             projectList.setEditable(false);
             customerList.setEditable(false);
-            customerDetails.setEditable(false);
 
             TableColumn columnA = new TableColumn("Nombre"); // project name
             TableColumn columnB = new TableColumn("Destino"); //project
@@ -138,6 +134,7 @@ public class ProjectController implements Initializable {
         ContractDao contractDao = new ContractDaoImp();
         CustomerDao customerDao = new CustomerDaoImpl();
         Set<Customer> customers = new HashSet<>();
+
         CustomerDetails customerDetails = new CustomerDetails();
         Set<CustomerDetails> customerDetailsList = new HashSet<>();
         CustomerHelper customerHelper = new CustomerHelper();
@@ -169,23 +166,30 @@ public class ProjectController implements Initializable {
     }
 
     @FXML
-    public void showDetails(){
+    public void showDetails(MouseEvent actionEvent) throws IOException{
 
-        System.out.println("-- " + this.getClass().getName() + ": showDetails clicked--");
+        System.out.println("------------------ " + this.getClass().getName() + ": showDetails clicked--");
         CustomerDao customerDao = new CustomerDaoImpl();
         Customer customer = new Customer();
 
         if (customerList.getSelectionModel().getSelectedItem() != null ) {
             CustomerDetails clickedCustomer = customerList.getSelectionModel().getSelectedItem();
-            System.out.println("-- " + this.getClass().getName() + ": item selected is: " + clickedCustomer.getCustomerId() + "--");
+            System.out.println("--++++++++++++++++++++++++++++ " + this.getClass().getName() + ": item selected is: " + clickedCustomer.getCustomerId() + "--");
             customer = customerDao.findById(clickedCustomer.getCustomerId());
         }
-
         final ObservableList<Customer> customerObservableList = FXCollections.observableArrayList(
                 customer
         );
-
+        System.out.println("++++++++++++++++++++++++++++++++++" + customerObservableList);
         customerDetails.setItems(customerObservableList);
+
+        System.out.println("---------------------------------- " + this.getClass().getName() + ": go to project customer details --");
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/project/projectCustomer.fxml"));
+        Scene homePageScene = new Scene(homePageParent);
+        Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        appStage.setScene(homePageScene);
+        appStage.show();
+
     }
 
     @FXML

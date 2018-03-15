@@ -49,8 +49,7 @@
                 <RowConstraints maxHeight="277.0" minHeight="10.0" prefHeight="266.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                     <TableView fx:id="projectList" prefHeight="196.0" prefWidth="470.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
-                     <TableView fx:id="customerList" onMouseClicked="#showDetails" prefHeight="249.0" prefWidth="474.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" />
+                     <TableView fx:id="customerDetails" prefHeight="385.0" prefWidth="470.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS" />
                </children>
             </GridPane>
             <Label fx:id="label" alignment="CENTER" graphicTextGap="5.0" layoutX="643.0" layoutY="9.0" style="&#10;" text="Proyectos" textAlignment="CENTER" textFill="#225de8" textOverrun="CENTER_ELLIPSIS" wrapText="false" AnchorPane.rightAnchor="144.5" AnchorPane.topAnchor="9.0">
