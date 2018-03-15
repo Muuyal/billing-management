@@ -24,7 +24,7 @@ public class StaffDaoImp extends DBConnection implements StaffDao {
         boolean saved = false;
 
         System.out.println("--- insert into staff " +
-                "(name, phone, email, addressStreet, addressCity, addressColony, addressPC, rol, salary)" +
+                "(name, phone, email, address_street, address_city, address_colony, address_pc, rol, salary)" +
                 "values ('"+ staff.getName() +"','"+ staff.getPhone() +"', " +
                 "'"+ staff.getEmail() +"','"+ staff.getAddressStreet() +"', " +
                 " '"+ staff.getAddressCity() +"', '"+ staff.getAddressColony() +"', " +
@@ -95,10 +95,10 @@ public class StaffDaoImp extends DBConnection implements StaffDao {
                 staff.setName(resultSet.getString("name"));
                 staff.setPhone(resultSet.getString("phone"));
                 staff.setEmail(resultSet.getString("email"));
-                staff.setAddressStreet(resultSet.getString("addressStreet"));
-                staff.setAddressCity(resultSet.getString("addressCity"));
-                staff.setAddressColony(resultSet.getString("addressColony"));
-                staff.setAddressPC(resultSet.getString("addressPC"));
+                staff.setAddressStreet(resultSet.getString("address_street"));
+                staff.setAddressCity(resultSet.getString("address_city"));
+                staff.setAddressColony(resultSet.getString("address_colony"));
+                staff.setAddressPC(resultSet.getString("address_pc"));
                 staff.setRol(resultSet.getString("rol"));
                 staff.setSalary(resultSet.getDouble("salary"));
                 result.add(staff);
