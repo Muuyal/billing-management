@@ -4,6 +4,7 @@ import com.muuyal.escala.billingmanagement.dao.impl.StaffDaoImp;
 import com.muuyal.escala.billingmanagement.dao.interfaces.StaffDao;
 import com.muuyal.escala.billingmanagement.entities.Staff;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +64,33 @@ public class StaffController implements Initializable {
         rol.setItems(FXCollections.observableArrayList(
                 "Admin", "Staff", "Ventas")
         );
+
+        TableColumn columnA = new TableColumn("Nombre"); // customer name
+        TableColumn columnB = new TableColumn("Telefono"); // customer phone
+        TableColumn columnC = new TableColumn("Correo"); // customer email
+
+        columnA.setCellValueFactory(
+                new PropertyValueFactory<Staff,String>("name")
+        );
+        columnB.setCellValueFactory(
+                new PropertyValueFactory<Staff,String>("phone")
+        );
+        columnC.setCellValueFactory(
+                new PropertyValueFactory<Staff,Integer>("email")
+        );
+
+        staffList.getColumns().addAll(columnA, columnB, columnC);
+
+        if (!staffDao.findAll().isEmpty()){
+            final ObservableList<Staff> staffItems = FXCollections.observableArrayList(staffDao.findAll());
+            staffList.setEditable(false);
+            columnA.setCellValueFactory( new PropertyValueFactory<Staff,String>("name") );
+            columnB.setCellValueFactory( new PropertyValueFactory<Staff,String>("phone") );
+            columnC.setCellValueFactory( new PropertyValueFactory<Staff,String>("email") );
+            staffList.setItems(staffItems);
+
+        }
+
     }
 
     @FXML
@@ -132,9 +161,9 @@ public class StaffController implements Initializable {
    public void goToDelete(ActionEvent actionEvent) throws IOException {
 
        if (staffList.getSelectionModel().getSelectedItem() == null ){
-           Alert alertNotSelected = new Alert(Alert.AlertType.CONFIRMATION, "No hay registro seleccionado?", ButtonType.CANCEL);
+           Alert alertNotSelected = new Alert(Alert.AlertType.CONFIRMATION, "No hay registro seleccionado?", ButtonType.OK);
            alertNotSelected.showAndWait();
-       }else {
+       } else {
            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Quieres borrar registro seleccionado?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
            alert.showAndWait();
            if (alert.getResult() == ButtonType.YES) {
