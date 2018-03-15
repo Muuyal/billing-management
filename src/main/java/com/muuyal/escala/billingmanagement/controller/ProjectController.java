@@ -10,6 +10,7 @@ import com.muuyal.escala.billingmanagement.dao.interfaces.ProjectDao;
 import com.muuyal.escala.billingmanagement.entities.Customer;
 import com.muuyal.escala.billingmanagement.entities.CustomerDetails;
 import com.muuyal.escala.billingmanagement.entities.Project;
+import com.muuyal.escala.billingmanagement.entities.Staff;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -196,6 +197,26 @@ public class ProjectController implements Initializable {
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         appStage.setScene(homePageScene);
         appStage.show();
+
+    }
+
+    @FXML
+    public void goToDelete (ActionEvent actionEvent) throws IOException{
+
+        if (projectList.getSelectionModel().getSelectedItem() == null ){
+            Alert alertNotSelected = new Alert(Alert.AlertType.CONFIRMATION, "No hay registro seleccionado?", ButtonType.CANCEL);
+            alertNotSelected.showAndWait();
+        }else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Quieres borrar registro seleccionado?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+
+                Project project = projectList.getSelectionModel().getSelectedItem();
+                if (projectDao.delete(project)) {
+                    projectList.getItems().remove(project);
+                }
+            }
+        }
 
     }
 
