@@ -155,7 +155,7 @@ public class PaymentController implements Initializable {
 
     @FXML
     public void goToDelete(ActionEvent actionEvent){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Quieres borrar registro seleccionado?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "¿Quieres borrar registro seleccionado?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {

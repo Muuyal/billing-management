@@ -196,10 +196,10 @@ public class ContractController implements Initializable {
     public void goToDelete (ActionEvent actionEvent) throws IOException{
 
         if (contractList.getSelectionModel().getSelectedItem() == null ){
-            Alert alertNotSelected = new Alert(Alert.AlertType.CONFIRMATION, "No hay registro seleccionado?", ButtonType.CANCEL);
+            Alert alertNotSelected = new Alert(Alert.AlertType.CONFIRMATION, "No hay registro seleccionado", ButtonType.CANCEL);
             alertNotSelected.showAndWait();
         }else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Quieres borrar registro seleccionado?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "¿Quieres borrar registro seleccionado?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
 
