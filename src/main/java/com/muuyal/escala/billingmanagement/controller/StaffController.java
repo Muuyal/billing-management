@@ -161,10 +161,11 @@ public class StaffController implements Initializable {
    public void goToDelete(ActionEvent actionEvent) throws IOException {
 
        if (staffList.getSelectionModel().getSelectedItem() == null ){
-           Alert alertNotSelected = new Alert(Alert.AlertType.CONFIRMATION, "No hay registro seleccionado?", ButtonType.OK);
+
+           Alert alertNotSelected = new Alert(Alert.AlertType.CONFIRMATION, "No hay registro seleccionado", ButtonType.CANCEL);
            alertNotSelected.showAndWait();
-       } else {
-           Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Quieres borrar registro seleccionado?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+       }else {
+           Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "¿Quieres borrar registro seleccionado?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
            alert.showAndWait();
            if (alert.getResult() == ButtonType.YES) {
 

@@ -107,6 +107,26 @@ public class CustomerController implements Initializable {
     }
 
     @FXML
+    public void goToDelete(ActionEvent actionEvent) throws  IOException{
+
+        if (customerList.getSelectionModel().getSelectedItem() == null ){
+            Alert alertNotSelected = new Alert(Alert.AlertType.CONFIRMATION, "No hay registro seleccionado", ButtonType.CANCEL);
+            alertNotSelected.showAndWait();
+        }else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "¿Quieres borrar registro seleccionado?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+
+                Customer customer = customerList.getSelectionModel().getSelectedItem();
+                if (customerDao.delete(customer)) {
+                    customerList.getItems().remove(customer);
+                }
+            }
+        }
+
+    }
+
+    @FXML
     public void goToFindPassenger(ActionEvent actionEvent) throws IOException{
 
         System.out.println("-- " + this.getClass().getName() + ": go to find customer --");
