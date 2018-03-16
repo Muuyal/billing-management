@@ -181,6 +181,18 @@ public class ContractController implements Initializable {
     }
 
     @FXML
+    public void goToUpdate(ActionEvent actionEvent) throws IOException{
+
+        System.out.println("-- " + this.getClass().getName() + ": go to update contract --");
+        /*Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/contract/contractNew.fxml"));
+        Scene homePageScene = new Scene(homePageParent);
+        Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        appStage.setScene(homePageScene);
+        appStage.show();*/
+
+    }
+
+    @FXML
     public void goToFind(ActionEvent actionEvent) throws IOException{
 
         System.out.println("-- " + this.getClass().getName() + ": go to find contract --");
