@@ -5,7 +5,8 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="940.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.muuyal.escala.billingmanagement.controller.ProjectController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="955.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.muuyal.escala.billingmanagement.controller.ProjectCustomerController">
    <children>
       <MenuBar>
         <menus>
@@ -36,20 +37,35 @@
           </Menu>
         </menus>
       </MenuBar>
-      <AnchorPane VBox.vgrow="ALWAYS">
+      <AnchorPane prefHeight="527.0" prefWidth="940.0" VBox.vgrow="ALWAYS">
          <children>
-            <GridPane layoutY="53.0" prefHeight="476.0" prefWidth="940.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="53.0">
+            <GridPane layoutX="6.0" layoutY="75.0" prefHeight="476.0" prefWidth="940.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="75.0">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints maxHeight="189.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="386.0" minHeight="10.0" prefHeight="231.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="277.0" minHeight="10.0" prefHeight="266.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                     <TableView fx:id="customerDetails" prefHeight="385.0" prefWidth="470.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS" />
+                  <VBox prefHeight="386.0" prefWidth="910.0">
+                     <children>
+                        <TextField fx:id="customerName" prefHeight="27.0" prefWidth="368.0" promptText="Nombre" />
+                        <Separator prefWidth="200.0" />
+                        <TextField fx:id="customerPhone" prefHeight="27.0" prefWidth="368.0" promptText="Telefono" />
+                        <Separator prefWidth="200.0" />
+                        <TextField fx:id="customerEmail" prefHeight="27.0" prefWidth="368.0" promptText="eMail" />
+                        <Separator prefWidth="200.0" />
+                        <TextField fx:id="customerAddressStreet" prefHeight="27.0" prefWidth="368.0" promptText="Calle" />
+                        <Separator prefWidth="200.0" />
+                        <TextField fx:id="customerAddressColony" prefHeight="27.0" prefWidth="368.0" promptText="Colonia" />
+                        <Separator prefWidth="200.0" />
+                        <TextField fx:id="customerAddressCity" prefHeight="27.0" prefWidth="368.0" promptText="Ciudad" />
+                        <Separator prefWidth="200.0" />
+                        <TextField fx:id="customerAddressCP" prefHeight="27.0" prefWidth="368.0" promptText="Codigo Postal" />
+                        <Separator prefWidth="200.0" />
+                        <TextArea fx:id="customerNotes" prefHeight="200.0" prefWidth="200.0" promptText="Notas" />
+                     </children>
+                  </VBox>
                </children>
             </GridPane>
             <Label fx:id="label" alignment="CENTER" graphicTextGap="5.0" layoutX="643.0" layoutY="9.0" style="&#10;" text="Proyectos" textAlignment="CENTER" textFill="#225de8" textOverrun="CENTER_ELLIPSIS" wrapText="false" AnchorPane.rightAnchor="144.5" AnchorPane.topAnchor="9.0">
@@ -60,23 +76,15 @@
                   <Bloom threshold="0.95" />
                </effect>
             </Label>
-            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToNewTravel" prefHeight="28.0" prefWidth="35.0" style="-fx-background-color: #1394FC;" text="+" textFill="WHITE" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
+            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToNewProject" prefHeight="28.0" prefWidth="35.0" style="-fx-background-color: #1394FC;" text="+" textFill="WHITE" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
                   <font>
                      <Font size="14.0" />
                   </font>
                <effect>
                   <Bloom />
                </effect></Button>
-               <Button layoutX="436.0" layoutY="533.0" mnemonicParsing="false" onAction="#goBack" text="Regresar" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="436.0" AnchorPane.rightAnchor="435.0" />
-               <TextField layoutX="123.0" layoutY="16.0" onAction="#goToFindTravel" prefHeight="26.0" prefWidth="277.0" promptText="Buscar por nombre" AnchorPane.leftAnchor="123.0" AnchorPane.topAnchor="16.0" />
-            <Button layoutX="64.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToDelete" prefHeight="28.0" prefWidth="35.0" style="-fx-background-color: #1394FC;" text="-" textFill="WHITE">
-               <effect>
-                  <Bloom />
-               </effect>
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
+               <Button layoutX="418.0" layoutY="533.0" mnemonicParsing="false" onAction="#goBack" prefHeight="27.0" prefWidth="87.0" text="Regresar" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="418.0" AnchorPane.rightAnchor="435.0" />
+               <TextField layoutX="123.0" layoutY="16.0" onAction="#goToFindProject" prefHeight="26.0" prefWidth="277.0" promptText="Buscar por nombre" AnchorPane.leftAnchor="123.0" AnchorPane.topAnchor="16.0" />
          </children>
       </AnchorPane>
    </children>

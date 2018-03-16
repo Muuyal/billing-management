@@ -58,28 +58,28 @@ public class ProjectController implements Initializable {
     private  TableView<Project> projectList = new TableView<Project>();
     @FXML
     private TableView<CustomerDetails> customerList = new TableView<CustomerDetails>();
-    @FXML
-    static private TableView<Customer> customerDetails =  new TableView<Customer>();;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         initProjectList();
+       // customerName.setText("asdasdasd222");
 
         //Preparing customer details
-        TableColumn columnA = new TableColumn("Nombre"); // customer name
-        TableColumn columnB = new TableColumn("Telefono"); // customer phone
-        TableColumn columnC = new TableColumn("Correo"); // customer email
-        columnA.setCellValueFactory(
-                new PropertyValueFactory<Customer,String>("name")
-        );
-        columnB.setCellValueFactory(
-                new PropertyValueFactory<Customer,String>("phone")
-        );
-        columnC.setCellValueFactory(
-                new PropertyValueFactory<Customer,Integer>("email")
-        );
-        customerDetails.getColumns().addAll(columnA, columnB, columnC);
+//        TableColumn columnA = new TableColumn("Nombre"); // customer name
+//        TableColumn columnB = new TableColumn("Telefono"); // customer phone
+//        TableColumn columnC = new TableColumn("Correo"); // customer email
+//        columnA.setCellValueFactory(
+//                new PropertyValueFactory<Customer,String>("name")
+//        );
+//        columnB.setCellValueFactory(
+//                new PropertyValueFactory<Customer,String>("phone")
+//        );
+//        columnC.setCellValueFactory(
+//                new PropertyValueFactory<Customer,Integer>("email")
+//        );
+//        customerDetails.getColumns().addAll(columnA, columnB, columnC);
 
         // Preparing customer List
         TableColumn columnD = new TableColumn("Nombre"); // customer name
@@ -168,26 +168,34 @@ public class ProjectController implements Initializable {
     @FXML
     public void showDetails(MouseEvent actionEvent) throws IOException{
 
-        System.out.println("------------------ " + this.getClass().getName() + ": showDetails clicked--");
+//        System.out.println("------------------ " + this.getClass().getName() + ": showDetails clicked--");
         CustomerDao customerDao = new CustomerDaoImpl();
         Customer customer = new Customer();
+//
+//        if (customerList.getSelectionModel().getSelectedItem() != null ) {
+//            CustomerDetails clickedCustomer = customerList.getSelectionModel().getSelectedItem();
+//            System.out.println("--++++++++++++++++++++++++++++ " + this.getClass().getName() + ": item selected is: " + clickedCustomer.getCustomerId() + "--");
+//            customer = customerDao.findById(clickedCustomer.getCustomerId());
+//        }
+//        final ObservableList<Customer> customerObservableList = FXCollections.observableArrayList(
+//                customer
+//        );
+//        customerDetails.setItems(customerObservableList);
 
         if (customerList.getSelectionModel().getSelectedItem() != null ) {
             CustomerDetails clickedCustomer = customerList.getSelectionModel().getSelectedItem();
             System.out.println("--++++++++++++++++++++++++++++ " + this.getClass().getName() + ": item selected is: " + clickedCustomer.getCustomerId() + "--");
             customer = customerDao.findById(clickedCustomer.getCustomerId());
         }
-        final ObservableList<Customer> customerObservableList = FXCollections.observableArrayList(
-                customer
-        );
-        System.out.println("++++++++++++++++++++++++++++++++++" + customerObservableList);
-        customerDetails.setItems(customerObservableList);
+        ProjectCustomerController projectCustomerController = new ProjectCustomerController();
+        projectCustomerController.setCustomer(customer);
 
         System.out.println("---------------------------------- " + this.getClass().getName() + ": go to project customer details --");
         Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/project/projectCustomer.fxml"));
         Scene homePageScene = new Scene(homePageParent);
         Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         appStage.setScene(homePageScene);
+//        customerName.setText("asdasdasd!!!");
         appStage.show();
 
     }
