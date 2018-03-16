@@ -59,7 +59,7 @@ public class ProjectController implements Initializable {
     @FXML
     private TableView<CustomerDetails> customerList = new TableView<CustomerDetails>();
     @FXML
-    private TableView<Customer> customerDetails =  new TableView<Customer>();;
+    static private TableView<Customer> customerDetails =  new TableView<Customer>();;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
