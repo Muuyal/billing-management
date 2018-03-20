@@ -55,7 +55,7 @@ public class ProjectCustomerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        // TODO revisar x
         customerName.setText(customer.getName());
         customerPhone.setText(customer.getPhone());
         customerEmail.setText(customer.getEmail());

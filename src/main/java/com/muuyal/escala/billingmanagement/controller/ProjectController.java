@@ -158,6 +158,7 @@ public class ProjectController implements Initializable {
                 customerDetails.setCustomerId(customer.getId());
 
                 customerDetailsList.add(customerDetails);
+
             }
         }
 
