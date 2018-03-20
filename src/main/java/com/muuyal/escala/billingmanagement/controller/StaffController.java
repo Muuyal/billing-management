@@ -266,4 +266,9 @@ public class StaffController implements Initializable {
         }
     }
 
+    @FXML
+    public void clearScreen(ActionEvent actionEvent) throws IOException {
+
+    }
+
 }

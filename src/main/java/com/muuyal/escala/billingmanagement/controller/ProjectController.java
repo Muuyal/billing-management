@@ -7,10 +7,7 @@ import com.muuyal.escala.billingmanagement.dao.impl.ProjectDaoImp;
 import com.muuyal.escala.billingmanagement.dao.interfaces.ContractDao;
 import com.muuyal.escala.billingmanagement.dao.interfaces.CustomerDao;
 import com.muuyal.escala.billingmanagement.dao.interfaces.ProjectDao;
-import com.muuyal.escala.billingmanagement.entities.Customer;
-import com.muuyal.escala.billingmanagement.entities.CustomerDetails;
-import com.muuyal.escala.billingmanagement.entities.Project;
-import com.muuyal.escala.billingmanagement.entities.Staff;
+import com.muuyal.escala.billingmanagement.entities.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -125,11 +122,24 @@ public class ProjectController implements Initializable {
             projectList.getColumns().addAll(columnA, columnB, columnC, columnD);
             projectList.setItems(projectItems);
         }
+
+        Contract contract;
+        ContractDao contractDao =  new ContractDaoImp();
+        contract = contractDao.findByCustomer(customer);
+        TableRow<CallLogs> currentRow = getTableRow();
+
+        if (contract.getPaymentSchedule().equals("Semanal")) {
+            if (7 > calcularDias()) {
+                currentRow.setStyle("-fx-background-color:red");
+
+            }
+        }
+
     }
 
     @FXML
     public void showCustomers(){
-        //TODO falta revisar x.
+        //TODO falta revisar
         System.out.println("-- " + this.getClass().getName() + ": showCustomers clicked--");
         ContractDao contractDao = new ContractDaoImp();
         CustomerDao customerDao = new CustomerDaoImpl();

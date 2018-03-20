@@ -3,6 +3,8 @@ package com.muuyal.escala.billingmanagement.dao.impl;
 import com.muuyal.escala.billingmanagement.dao.DBConnection;
 import com.muuyal.escala.billingmanagement.dao.interfaces.ContractDao;
 import com.muuyal.escala.billingmanagement.entities.Contract;
+import com.muuyal.escala.billingmanagement.entities.Customer;
+import com.muuyal.escala.billingmanagement.entities.Project;
 import org.springframework.stereotype.Repository;
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -477,4 +479,9 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
         }
         return  result;
     }
+
+    public Contract findByProjectAndCustomer(Long projectId, Long customerId) {
+        return Contract;
+    }
+
 }
