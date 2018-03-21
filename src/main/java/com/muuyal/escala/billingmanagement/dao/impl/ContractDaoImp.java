@@ -478,8 +478,56 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
         return  result;
     }
 
-//    public Contract findByProjectAndCustomer(Long projectId, Long customerId) {
-//        return new Contract;
-//    }
+    public Contract findByProjectAndCustomer(Integer projectId, Integer customerId) {
 
+        System.out.println("---" + this.getClass().getName() +  " findByProjectAndCustomer clicked. ---");
+        System.out.println("--- SELECT * FROM contract " +
+                "WHERE customerId = '"+ customerId +"' AND projectId = '"+ projectId +"'; ---");
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        Set<Contract> result =  new HashSet<Contract>();
+        try {
+
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("SELECT * FROM contract " +
+                    "WHERE customerId = ? AND projectId = ?");
+            preparedStatement.setInt(1, customerId);
+            preparedStatement.setInt(2, projectId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
+
+            while (resultSet.next()){
+                Contract temp = new Contract();
+                temp.setId(resultSet.getInt("id"));
+                temp.setCustomerId(resultSet.getInt("customer_id"));
+                temp.setProjectId(resultSet.getInt("project_id"));
+                temp.setDiscount(resultSet.getInt("discount"));
+                temp.setCreatedOn(DateFormat.parse(resultSet.getString("createdOn")));
+                temp.setCreatedOn(DateFormat.parse(resultSet.getString("deadline")));
+                temp.setCustomerName(resultSet.getString("customer_name"));
+                temp.setProjectName(resultSet.getString("project_name"));
+                temp.setFinalPrice(resultSet.getDouble("final_price"));
+                result.add(temp);
+            }
+
+            resultSet.close();
+//            statement.close();
+//            connection.close();
+            this.closeConnection();
+
+
+        } catch (Exception e){
+            System.err.println("--- Error found " + e.getClass().getName() + ":" + e.getMessage());
+//            System.exit(0);
+        }
+        return result;
+    }
 }
