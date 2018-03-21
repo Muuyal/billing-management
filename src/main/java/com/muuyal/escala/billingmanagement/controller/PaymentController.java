@@ -89,30 +89,19 @@ public class PaymentController implements Initializable {
 
     private void initCustomerChoiceBox(){
 
-
-//        Set<String> customerNames = new HashSet<>();
         Set<Customer> tempCustomer = customerDao.findAll();
         System.out.println("---- Getting All Customers");
-//        for (Customer customer : tempCustomer){
-//            customerNames.add(customer.getName());
-//        }
-//        System.out.println(customerNames.toString());
         customerId.setItems( FXCollections.observableArrayList( tempCustomer ));
         customerId.selectionModelProperty().get().select(0);
     }
 
     private void initContractChoiceBox(){
-//        Set<String> contractNames = new HashSet<>();
         Set<Contract> tempContract = new HashSet<>();
-//        tempContract = contractDao.findAll();
         if (customerId.getValue().getId() >1) {
             tempContract = contractDao.findByCustomer(Integer.valueOf(customerId.getValue().getId()));
         }
-        System.out.println("---- Getting All Contracts");
-//        for (Contract contract : tempContract){
-//            contractNames.add(contract.getProjectName());
-//        }
-//        System.out.println(contractNames.toString());
+        System.out.println("---- Getting All Contracts ----");
+        System.out.println("-------------- Total contracts: " + tempContract.size() + "---------------");
         contractId.setItems( FXCollections.observableArrayList( tempContract ));
     }
 
@@ -167,8 +156,29 @@ public class PaymentController implements Initializable {
     }
 
     @FXML
-    public void save(ActionEvent actionEvent) {
+    public void save(ActionEvent actionEvent) throws  IOException {
         System.out.println("-- " + this.getClass().getName() + ": save payment --");
+        LocalDate today = LocalDate.now();
+        System.out.println("Today is: " + today);
+
+        Payment payment = new Payment();
+        payment.setPaymentDate(Date.valueOf(today));
+        payment.setPaymentAmount(Double.valueOf(amount.getText()));
+        payment.setContractId(contractId.getSelectionModel().getSelectedItem().getId());
+        payment.setCustomerId(customerId.getSelectionModel().getSelectedItem().getId());
+
+
+        Parent homePageParent = FXMLLoader.load(getClass().getResource("/views/common/success.fxml"));
+        Scene homePageScene = new Scene(homePageParent);
+        Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+        if (paymentDao.save(payment)){
+                appStage.hide();
+                appStage.setScene(homePageScene);
+                appStage.show();
+        } else {
+            message.setText("Error saving new project");
+        }
     }
 
     @FXML

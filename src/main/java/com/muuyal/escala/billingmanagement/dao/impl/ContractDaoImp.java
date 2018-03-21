@@ -312,7 +312,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
     public Set<Contract> findByCustomer(Integer customerId) {
 
         System.out.println("---" + this.getClass().getName() +  " findByCustomer clicked. ---");
-        System.out.println("--- SELECT * FROM contract WHERE customerId = '"+ customerId +"'; ---");
+        System.out.println("--- SELECT * FROM contract WHERE customer_id = '"+ customerId +"'; ---");
         Connection connection = null;
         Statement statement   = null;
         PreparedStatement preparedStatement;
@@ -325,7 +325,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             statement = connection.createStatement();
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
-            preparedStatement = connection.prepareStatement("SELECT * FROM contract WHERE customerId = ?");
+            preparedStatement = connection.prepareStatement("SELECT * FROM contract WHERE customer_id = ?");
             preparedStatement.setString(1, customerId.toString());
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -347,8 +347,6 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             }
 
             resultSet.close();
-//            statement.close();
-//            connection.close();
             this.closeConnection();
 
 
@@ -480,8 +478,8 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
         return  result;
     }
 
-    public Contract findByProjectAndCustomer(Long projectId, Long customerId) {
-        return Contract;
-    }
+//    public Contract findByProjectAndCustomer(Long projectId, Long customerId) {
+//        return new Contract;
+//    }
 
 }

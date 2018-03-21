@@ -123,18 +123,6 @@ public class ProjectController implements Initializable {
             projectList.setItems(projectItems);
         }
 
-        Contract contract;
-        ContractDao contractDao =  new ContractDaoImp();
-        contract = contractDao.findByCustomer(customer);
-        TableRow<CallLogs> currentRow = getTableRow();
-
-        if (contract.getPaymentSchedule().equals("Semanal")) {
-            if (7 > calcularDias()) {
-                currentRow.setStyle("-fx-background-color:red");
-
-            }
-        }
-
     }
 
     @FXML
