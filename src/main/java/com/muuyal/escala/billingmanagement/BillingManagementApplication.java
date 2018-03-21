@@ -17,8 +17,9 @@ public class BillingManagementApplication extends Application {
 	private ConfigurableApplicationContext springContext;
 	private Parent root;
 
-	@Autowired
-	private ProjectDao projectDao;
+	//TODO Borrar si no se usa
+//	@Autowired
+//	private ProjectDao projectDao;
 
 	Stage window;
 
