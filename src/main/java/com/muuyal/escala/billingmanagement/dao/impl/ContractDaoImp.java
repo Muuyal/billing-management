@@ -478,7 +478,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
         return  result;
     }
 
-    public Contract findByProjectAndCustomer(Integer projectId, Integer customerId) {
+    public Set<Contract> findByProjectAndCustomer(Integer projectId, Integer customerId) {
 
         System.out.println("---" + this.getClass().getName() +  " findByProjectAndCustomer clicked. ---");
         System.out.println("--- SELECT * FROM contract " +
