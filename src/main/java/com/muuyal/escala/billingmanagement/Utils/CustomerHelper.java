@@ -8,7 +8,10 @@ import com.muuyal.escala.billingmanagement.entities.Contract;
 import com.muuyal.escala.billingmanagement.entities.Customer;
 import com.muuyal.escala.billingmanagement.entities.Payment;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Set;
 
@@ -17,6 +20,8 @@ public class CustomerHelper {
     PaymentDao paymentDao = new PaymentDaoImp();
 
     ContractDao contractDao = new ContractDaoImp();
+    SimpleDateFormat DateFormat = new SimpleDateFormat("YYYY-MM-DD");
+
 
     public Double getCustomerDebt(Customer customer){
 
@@ -37,15 +42,21 @@ public class CustomerHelper {
 
     }
 
-    public String getCustomerStatus(Customer customer){
+    public String getCustomerStatus(Customer customer) throws ParseException{
 
         String result = "A tiempo";
 
         Set<Payment> payments = paymentDao.findByCustomer(customer.getId());
         for (Payment payment : payments){
 
-            payment.getPaymentDate();
-            LocalDate from = LocalDate.parse(payment.getPaymentDate().toString());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+
+//            payment.getPaymentDate();
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + payment.getPaymentDate());
+            System.out.println("--------------------!!!!!!!!!" + payment.getPaymentDate().toString());
+            System.out.println("--------------------!!!!!!!!!" +  DateFormat.parse(payment.getPaymentDate().toString()));
+
+            LocalDate from = LocalDate.parse(DateFormat.parse(payment.getPaymentDate().toString()).toString());
             LocalDate to = LocalDate.now();
 
             long days = ChronoUnit.DAYS.between(from, to);

@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -152,7 +153,11 @@ public class ProjectController implements Initializable {
                 System.out.println(customer.getName());
                 customerDetails.setName(customer.getName());
                 customerDetails.setDebt(customerHelper.getCustomerDebt(customer));
-                customerDetails.setStatus(customerHelper.getCustomerStatus(customer));
+                try {
+                    customerDetails.setStatus(customerHelper.getCustomerStatus(customer));
+                } catch (ParseException parseException){
+                    System.out.println(parseException);
+                }
                 customerDetails.setCustomerId(customer.getId());
 
                 customerDetailsList.add(customerDetails);
