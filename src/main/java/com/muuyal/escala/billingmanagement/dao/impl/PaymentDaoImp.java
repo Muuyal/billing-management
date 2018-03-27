@@ -401,7 +401,7 @@ public class PaymentDaoImp extends DBConnection implements PaymentDao {
     }
 
     @Override
-    public boolean FindStatusOk(Integer customerId, Integer contractId, Integer limit) { //limit = 7, 15 o 30
+    public boolean FindStatusOk(Integer customerId, Integer contractId, Long limit) { //limit = 7, 15 o 30
 
         boolean find = false;
 

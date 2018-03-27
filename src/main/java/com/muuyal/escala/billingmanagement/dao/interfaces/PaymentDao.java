@@ -21,5 +21,5 @@ public interface PaymentDao {
 
     boolean delete(Payment payment);
 
-    boolean FindStatusOk (Integer customerId, Integer contractId, Integer limit); //limit = 7, 15 o 30
+    boolean FindStatusOk (Integer customerId, Integer contractId, Long limit); //limit = 7, 15 o 30
 }
