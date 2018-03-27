@@ -22,4 +22,6 @@ public interface ContractDao {
     boolean delete(Contract contract);
 
     public Set<Integer> findCustomerIdsByProyect(Integer projectId);
+
+    Set<Contract> findByProjectAndCustomer (Integer projectId, Integer customerId);
 }

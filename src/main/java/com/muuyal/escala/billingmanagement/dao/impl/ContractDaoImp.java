@@ -357,7 +357,6 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
         return result;
     }
 
-
     @Override
     public boolean update(Contract contract) {
 
@@ -478,6 +477,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
         return  result;
     }
 
+    @Override
     public Set<Contract> findByProjectAndCustomer(Integer projectId, Integer customerId) {
 
         System.out.println("---" + this.getClass().getName() +  " findByProjectAndCustomer clicked. ---");

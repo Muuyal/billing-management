@@ -49,21 +49,21 @@ public class CustomerHelper {
         Set<Payment> payments = paymentDao.findByCustomer(customer.getId());
         for (Payment payment : payments){
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
 
-//            payment.getPaymentDate();
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + payment.getPaymentDate());
-            System.out.println("--------------------!!!!!!!!!" + payment.getPaymentDate().toString());
-            System.out.println("--------------------!!!!!!!!!" +  DateFormat.parse(payment.getPaymentDate().toString()));
+                //            payment.getPaymentDate();
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + payment.getPaymentDate());
+                System.out.println("--------------------!!!!!!!!!" + payment.getPaymentDate().toString());
+                System.out.println("--------------------!!!!!!!!!" + DateFormat.parse(payment.getPaymentDate().toString()));
 
-            LocalDate from = LocalDate.parse(DateFormat.parse(payment.getPaymentDate().toString()).toString());
-            LocalDate to = LocalDate.now();
+                LocalDate from = LocalDate.parse(DateFormat.parse(payment.getPaymentDate().toString()).toString());
+                LocalDate to = LocalDate.now();
 
-            long days = ChronoUnit.DAYS.between(from, to);
+                long days = ChronoUnit.DAYS.between(from, to);
 
-            if (days > 7L) {
-                result = "Atrasado";
-            }
+                if (days > 7L) {
+                    result = "Atrasado";
+                }
 
         }
         return result;

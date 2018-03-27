@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -397,5 +398,41 @@ public class PaymentDaoImp extends DBConnection implements PaymentDao {
             this.closeConnection();
         }
         return deleted;
+    }
+
+    @Override
+    public boolean FindStatusOk(Integer customerId, Integer contractId, Integer limit) { //limit = 7, 15 o 30
+
+        boolean find = false;
+
+        System.out.println("--- SELECT * FROM payment " +
+                "WHERE customerId = "+ customerId +" AND contractId = "+ contractId +" AND paymentDate < "+ limit +"---");
+        Connection connection = null;
+        Statement statement   = null;
+        PreparedStatement preparedStatement;
+
+        try {
+
+            connection = this.setConnection();
+            System.out.println("--- Database opened successfully ---");
+            statement = connection.createStatement();
+            System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
+
+            preparedStatement = connection.prepareStatement("SELECT * FROM payment " +
+                    "WHERE customerId = ? AND contractId = ? AND paymentDate < (SELECT DATETIME('now', '-"+ limit +" day')");
+            preparedStatement.setInt(1, customerId);
+            preparedStatement.setInt(2, contractId);
+            preparedStatement.executeUpdate();
+
+            connection.commit();
+            statement.close();
+
+        } catch (SQLException e){
+            System.err.println(e.getMessage());
+        } finally {
+            find = true;
+            this.closeConnection();
+        }
+        return find;
     }
 }
