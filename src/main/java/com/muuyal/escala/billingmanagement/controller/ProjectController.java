@@ -96,7 +96,7 @@ public class ProjectController implements Initializable {
         //Cambio de color
 
         if(columnE.getCellValueFactory().equals("Al dia")){
-            
+
         }else{
 
         }
