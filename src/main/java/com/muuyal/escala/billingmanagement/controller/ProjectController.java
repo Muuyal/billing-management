@@ -92,6 +92,15 @@ public class ProjectController implements Initializable {
         columnD.setCellValueFactory( new PropertyValueFactory<CustomerDetails,String>("name") );
         columnE.setCellValueFactory( new PropertyValueFactory<CustomerDetails,String>("status") );
         columnF.setCellValueFactory( new PropertyValueFactory<CustomerDetails,Integer>("debt") );
+
+        //Cambio de color
+
+        if(columnE.getCellValueFactory().equals("Al dia")){
+            
+        }else{
+
+        }
+
         customerList.getColumns().addAll(columnD, columnE, columnF);
 
     }
