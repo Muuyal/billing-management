@@ -23,7 +23,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -34,10 +33,8 @@ import java.util.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import org.springframework.beans.factory.annotation.Autowired;
+import javafx.util.Callback;
 import org.springframework.stereotype.Controller;
-
-import javax.swing.table.DefaultTableCellRenderer;
 
 @Controller
 public class ProjectController implements Initializable {
@@ -45,6 +42,7 @@ public class ProjectController implements Initializable {
     private Button buttonUpdate;
     private Project project = new Project();
     private ProjectDao projectDao = new ProjectDaoImp();
+    TableColumn columnE = new TableColumn("Estado"); // customer status
 
     @FXML
     private TextField name;
@@ -87,19 +85,11 @@ public class ProjectController implements Initializable {
 
         // Preparing customer List
         TableColumn columnD = new TableColumn("Nombre"); // customer name
-        TableColumn columnE = new TableColumn("Estado"); // customer status
+        //TableColumn columnE = new TableColumn("Estado"); // customer status
         TableColumn columnF = new TableColumn("Adeudo"); // customer debt
         columnD.setCellValueFactory( new PropertyValueFactory<CustomerDetails,String>("name") );
         columnE.setCellValueFactory( new PropertyValueFactory<CustomerDetails,String>("status") );
         columnF.setCellValueFactory( new PropertyValueFactory<CustomerDetails,Integer>("debt") );
-
-        //Cambio de color
-
-        if(columnE.getCellValueFactory().equals("Al dia")){
-
-        }else{
-
-        }
 
         customerList.getColumns().addAll(columnD, columnE, columnF);
 
@@ -176,6 +166,28 @@ public class ProjectController implements Initializable {
                 customerDetails.setCustomerId(customer.getId());
 
                 customerDetailsList.add(customerDetails);
+
+                columnE.setCellFactory(new Callback<TableColumn<Object,String>, TableCell<Object,String>>(){
+                    @Override
+                    public TableCell<Object, String> call(TableColumn<Object, String> tablecolumn) {
+                        return new TableCell<Object,String>(){
+                            @Override
+                            protected void updateItem(String item, boolean empty) {
+                                super.updateItem(item, empty);
+
+                                if (item != null){
+                                    if (item.equals("Al dia")){
+                                        setStyle("-fx-background-color: green;");
+                                    }
+                                    else if (item.equals("Atrasado")){
+                                        setStyle("-fx-background-color: red;");
+                                    }
+                                }
+
+                            }
+                        };
+                    }
+                });
 
             }
         }
