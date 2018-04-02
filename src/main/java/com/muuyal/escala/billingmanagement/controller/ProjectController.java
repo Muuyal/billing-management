@@ -8,6 +8,7 @@ import com.muuyal.escala.billingmanagement.dao.interfaces.ContractDao;
 import com.muuyal.escala.billingmanagement.dao.interfaces.CustomerDao;
 import com.muuyal.escala.billingmanagement.dao.interfaces.ProjectDao;
 import com.muuyal.escala.billingmanagement.entities.*;
+import com.sun.org.apache.xpath.internal.operations.String;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -85,7 +86,7 @@ public class ProjectController implements Initializable {
 
         // Preparing customer List
         TableColumn columnD = new TableColumn("Nombre"); // customer name
-        //TableColumn columnE = new TableColumn("Estado"); // customer status
+//        TableColumn columnE = new TableColumn("Estado"); // customer status
         TableColumn columnF = new TableColumn("Adeudo"); // customer debt
         columnD.setCellValueFactory( new PropertyValueFactory<CustomerDetails,String>("name") );
         columnE.setCellValueFactory( new PropertyValueFactory<CustomerDetails,String>("status") );
@@ -159,35 +160,42 @@ public class ProjectController implements Initializable {
                 customerDetails.setName(customer.getName());
                 customerDetails.setDebt(customerHelper.getCustomerDebt(customer));
                 try {
+
+                    //java.lang.String info = customerHelper.getCustomerStatus(customer);
+
+                    columnE.setCellFactory(new Callback<TableColumn<Object, java.lang.String>, TableCell<Object, java.lang.String>>() {
+                        @Override
+                        public TableCell<Object, java.lang.String> call(TableColumn<Object, java.lang.String> tableColumn) {
+                            return new TableCell<Object, java.lang.String>(){
+                                @Override
+                                protected void updateItem(java.lang.String item, boolean empty) {
+
+                                    if( item != null  ){
+                                        if( item.equals("A tiempo") ){
+
+                                            setStyle("-fx-background-color: green;");
+                                            this.setText(item);
+
+                                        }else if( item.equals("Atrasado") ){
+
+                                            setStyle("-fx-background-color: red;");
+                                            this.setText(item);
+
+                                        }
+                                    }
+                                }
+                            };
+                        }
+                    });
+
                     customerDetails.setStatus(customerHelper.getCustomerStatus(customer));
+
                 } catch (ParseException parseException){
                     System.out.println(parseException);
                 }
                 customerDetails.setCustomerId(customer.getId());
 
                 customerDetailsList.add(customerDetails);
-
-                columnE.setCellFactory(new Callback<TableColumn<Object,String>, TableCell<Object,String>>(){
-                    @Override
-                    public TableCell<Object, String> call(TableColumn<Object, String> tablecolumn) {
-                        return new TableCell<Object,String>(){
-                            @Override
-                            protected void updateItem(String item, boolean empty) {
-                                super.updateItem(item, empty);
-
-                                if (item != null){
-                                    if (item.equals("Al dia")){
-                                        setStyle("-fx-background-color: green;");
-                                    }
-                                    else if (item.equals("Atrasado")){
-                                        setStyle("-fx-background-color: red;");
-                                    }
-                                }
-
-                            }
-                        };
-                    }
-                });
 
             }
         }

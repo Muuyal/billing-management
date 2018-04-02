@@ -81,10 +81,8 @@ public class CustomerHelper {
                             break;
                     }
 
-                    Boolean status = paymentDao.FindStatusOk(customer.getId(), contract.getId(), limit);
-
-                    if (status == true){
-                        result = "Al dia";
+                    if (paymentDao.FindStatusOk(customer.getId(), contract.getId(), limit) == true )  {
+                        result = "A tiempo";
                     }else{
                         result = "Atrasado";
                     }
