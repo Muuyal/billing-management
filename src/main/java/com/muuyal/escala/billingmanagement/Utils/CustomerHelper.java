@@ -50,13 +50,17 @@ public class CustomerHelper {
         Set<Contract> contracts = contractDao.findByCustomer(customer.getId());
 
         for (Payment payment : payments){
-            for (Contract contract : contracts){
+
+            Set<Contract> CustomerPayment = contractDao.findByProjectAndCustomer(payment.getContractId(), payment.getCustomerId());
+            for( Contract contract : CustomerPayment ){
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
 
                 //            payment.getPaymentDate();
                 System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + payment.getPaymentDate());
                 System.out.println("--------------------!!!!!!!!!" + payment.getPaymentDate().toString());
+                System.out.println(contract.getPaymentSchedule());
+
                 try {
                     System.out.println("--------------------!!!!!!!!!" + DateFormat.parse(payment.getPaymentDate().toString()));
 
@@ -67,65 +71,47 @@ public class CustomerHelper {
 
                     Long limit = 0L;
 
-                    switch (contract.getPaymentSchedule()){
-                        case "Semanal":
-                            limit = 7L;
-                            break;
 
-                        case "Quincenal":
-                            limit = 15L;
-                            break;
 
-                        case "Mensual":
-                            limit = 30L;
-                            break;
-                    }
-
-                    if (paymentDao.FindStatusOk(customer.getId(), contract.getId(), limit) == true )  {
-                        result = "A tiempo";
-                    }else{
-                        result = "Atrasado";
-                    }
 
                 }catch (java.text.ParseException e){
                     e.getMessage();
                 }
 
-                //Long limit = 0L;
+                    //Long limit = 0L;
 
-                /*System.out.println("--------------------!!!!!!!!!" + DateFormat.parse(payment.getPaymentDate().toString()));
-                LocalDate from = LocalDate.parse(DateFormat.parse(payment.getPaymentDate().toString()).toString());
-                LocalDate to = LocalDate.now();
+                    /*System.out.println("--------------------!!!!!!!!!" + DateFormat.parse(payment.getPaymentDate().toString()));
+                    LocalDate from = LocalDate.parse(DateFormat.parse(payment.getPaymentDate().toString()).toString());
+                    LocalDate to = LocalDate.now();
 
-                long days = ChronoUnit.DAYS.between(from, to);
-                Long limit = 0L;
+                    long days = ChronoUnit.DAYS.between(from, to);
+                    Long limit = 0L;
 
-                /*if (days > 7L) {
-                    result = "Atrasado";
-                }
+                    /*if (days > 7L) {
+                        result = "Atrasado";
+                    }
 
-                switch (contract.getPaymentSchedule()){
-                    case "Semanal":
-                        limit = 7L;
-                    break;
+                    switch (contract.getPaymentSchedule()){
+                        case "Semanal":
+                            limit = 7L;
+                        break;
 
-                    case "Quincenal":
-                        limit = 15L;
-                    break;
+                        case "Quincenal":
+                            limit = 15L;
+                        break;
 
-                    case "Mensual":
-                        limit = 30L;
-                    break;
-                }
+                        case "Mensual":
+                            limit = 30L;
+                        break;
+                    }
 
-                Boolean status = paymentDao.FindStatusOk(customer.getId(), contract.getId(), limit);
+                    Boolean status = paymentDao.FindStatusOk(customer.getId(), contract.getId(), limit);
 
-                if (status == true){
-                    result = "Al dia";
-                }else{
-                    result = "Atrasado";
-                }*/
-
+                    if (status == true){
+                        result = "Al dia";
+                    }else{
+                        result = "Atrasado";
+                    }*/
             }
         }
         return result;
