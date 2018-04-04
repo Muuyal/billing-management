@@ -71,9 +71,6 @@ public class CustomerHelper {
 
                     Long limit = 0L;
 
-
-
-
                 }catch (java.text.ParseException e){
                     e.getMessage();
                 }
@@ -116,5 +113,4 @@ public class CustomerHelper {
         }
         return result;
     }
-
 }

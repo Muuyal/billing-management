@@ -496,7 +496,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
             preparedStatement = connection.prepareStatement("SELECT * FROM contract " +
-                    "WHERE customerId = ? AND projectId = ?");
+                    "WHERE customer_id = ? AND project_id = ?");
             preparedStatement.setInt(1, customerId);
             preparedStatement.setInt(2, projectId);
 
