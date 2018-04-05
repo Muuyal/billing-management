@@ -401,12 +401,12 @@ public class PaymentDaoImp extends DBConnection implements PaymentDao {
     }
 
     @Override
-    public boolean FindStatusOk(Integer customerId, Integer contractId, Long limit) { //limit = 7, 15 o 30
+    public boolean FindStatusOk(Integer customerId, Integer contractId, Long limit) {
 
-        boolean find = false;
+        boolean finded = false;
 
-        System.out.println("--- SELECT * FROM payment " +
-                "WHERE customerId = "+ customerId +" AND contractId = "+ contractId +" AND paymentDate < "+ limit +"---");
+        System.out.println("--- SELECT * FROM payment WHERE paymentDate > (SELECT DATETIME('now', '-"+limit+" day')) AND " +
+                "customerId = '"+customerId+"' AMD contractId = '"+contractId+"' ---");
         Connection connection = null;
         Statement statement   = null;
         PreparedStatement preparedStatement;
@@ -418,11 +418,19 @@ public class PaymentDaoImp extends DBConnection implements PaymentDao {
             statement = connection.createStatement();
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
-            preparedStatement = connection.prepareStatement("SELECT * FROM payment " +
-                    "WHERE customerId = ? AND contractId = ? AND paymentDate < (SELECT DATETIME('now', '-"+ limit +" day')");
+            preparedStatement = connection.prepareStatement("SELECT * FROM payment WHERE " +
+                    "paymentDate > (SELECT DATETIME('now', '-"+limit+" day')) AND customerId = ? AND contractId = ?");
             preparedStatement.setInt(1, customerId);
             preparedStatement.setInt(2, contractId);
-            preparedStatement.executeUpdate();
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            System.out.println("--- Result set: " + resultSet.getCursorName()+ " ---");
+
+            if( resultSet.getRow() == 0 ){
+                finded = false;
+            }else{
+                finded = true;
+            }
 
             connection.commit();
             statement.close();
@@ -430,9 +438,8 @@ public class PaymentDaoImp extends DBConnection implements PaymentDao {
         } catch (SQLException e){
             System.err.println(e.getMessage());
         } finally {
-            find = true;
             this.closeConnection();
         }
-        return find;
+        return finded;
     }
 }

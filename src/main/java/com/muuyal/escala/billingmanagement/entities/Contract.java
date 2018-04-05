@@ -7,16 +7,16 @@ import java.util.Date;
 @Table(name="contract")
 public class Contract {
 
-    private Integer id;
-    private Integer customerId;
-    private Integer projectId;
-    private Integer discount;
-    private Date createdOn;
-    private Date deadline;
-    private String paymentSchedule;
-    private String customerName;
-    private String projectName;
-    private Double finalPrice;
+    private Integer id;                 //1
+    private Integer customerId;         //2
+    private Integer projectId;          //3
+    private Integer discount;           //4
+    private Date createdOn;             //5
+    private Date deadline;              //6
+    private String paymentSchedule;     //7
+    private String customerName;        //8
+    private String projectName;         //9
+    private Double finalPrice;          //10
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

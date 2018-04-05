@@ -24,11 +24,11 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
 
         boolean saved = false;
 
-        System.out.println("--- INSERT INTO contract(customerId, projectId, discount, createdOn, deadline, customer_name, project_name) " +
-                "VALUES ('"+ contract.getCustomerId() +"','"+ contract.getProjectId() +"'," +
-                "'"+ contract.getDiscount() +"','"+ contract.getCreatedOn() +"','"+ contract.getDeadline() +
-                "','" + contract.getCustomerName() + "','" + contract.getProjectName() +
-                "') ---");
+        System.out.println("--- INSERT INTO contract( customer_id, project_id, discount, createdOn, " +
+                "deadline, customerName, projectName, paymentSchedule, finalPrice ) " +
+                "VALUES ("+contract.getCustomerId()+","+contract.getProjectId()+","+contract.getDiscount()+"," +
+                ""+contract.getCreatedOn()+","+contract.getDeadline()+","+contract.getCustomerName()+"," +
+                ""+contract.getProjectName()+","+contract.getPaymentSchedule()+","+contract.getFinalPrice()+") ---");
 
         Connection connection = null;
         Statement statement   = null;
@@ -99,6 +99,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
                 temp.setDiscount(resultSet.getInt("discount"));
                 temp.setCreatedOn(DateFormat.parse(resultSet.getString("createdOn")));
                 temp.setCreatedOn(DateFormat.parse(resultSet.getString("deadline")));
+                temp.setPaymentSchedule(resultSet.getString("paymentSchedule"));
                 temp.setProjectName(resultSet.getString("project_name"));
                 temp.setCustomerName(resultSet.getString("customer_name"));
                 temp.setFinalPrice(resultSet.getDouble("final_price"));
@@ -159,6 +160,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
                     contract.setDiscount(resultSet.getInt("discount"));
                     contract.setCreatedOn(resultSet.getDate("createdOn"));
                     contract.setCreatedOn(resultSet.getDate("deadline"));
+                    contract.setPaymentSchedule(resultSet.getString("paymentSchedule"));
                     contract.setProjectName(resultSet.getString("project_name"));
                     contract.setCustomerName(resultSet.getString("customer_name"));
                     contract.setFinalPrice(resultSet.getDouble("final_price"));
@@ -191,6 +193,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
                     contract.setDiscount(resultSet.getInt("discount"));
                     contract.setCreatedOn(resultSet.getDate("createdOn"));
                     contract.setCreatedOn(resultSet.getDate("deadline"));
+                    contract.setPaymentSchedule(resultSet.getString("paymentSchedule"));
                     contract.setProjectName(resultSet.getString("project_name"));
                     contract.setCustomerName(resultSet.getString("customer_name"));
                     contract.setFinalPrice(resultSet.getDouble("final_price"));
@@ -243,6 +246,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
                 temp.setDiscount(resultSet.getInt("discount"));
                 temp.setCreatedOn(DateFormat.parse(resultSet.getString("createdOn")));
                 temp.setCreatedOn(DateFormat.parse(resultSet.getString("deadline")));
+                temp.setPaymentSchedule(resultSet.getString("paymentSchedule"));
                 temp.setProjectName(resultSet.getString("project_name"));
                 temp.setCustomerName(resultSet.getString("customer_name"));
                 temp.setFinalPrice(resultSet.getDouble("final_price"));
@@ -291,6 +295,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
                 temp.setDiscount(resultSet.getInt("discount"));
                 temp.setCreatedOn(DateFormat.parse(resultSet.getString("createdOn")));
                 temp.setCreatedOn(DateFormat.parse(resultSet.getString("deadline")));
+                temp.setPaymentSchedule(resultSet.getString("paymentSchedule"));
                 temp.setProjectName(resultSet.getString("project_name"));
                 temp.setCustomerName(resultSet.getString("customer_name"));
                 temp.setFinalPrice(resultSet.getDouble("final_price"));
@@ -340,6 +345,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
                 temp.setDiscount(resultSet.getInt("discount"));
                 temp.setCreatedOn(DateFormat.parse(resultSet.getString("createdOn")));
                 temp.setCreatedOn(DateFormat.parse(resultSet.getString("deadline")));
+                temp.setPaymentSchedule(resultSet.getString("paymentSchedule"));
                 temp.setCustomerName(resultSet.getString("customer_name"));
                 temp.setProjectName(resultSet.getString("project_name"));
                 temp.setFinalPrice(resultSet.getDouble("final_price"));
@@ -363,10 +369,10 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
         boolean updated;
 
         System.out.println("--- UPDATE contract " +
-                "SET id="+contract.getId()+", customer_id="+contract.getCustomerId()+", " +
-                "project_id="+contract.getProjectId()+", discount="+contract.getDiscount()+", " +
-                "createdOn="+contract.getCreatedOn()+", deadline="+contract.getDeadline()+" " +
-                "customer_name="+contract.getCustomerName()+", project_name="+contract.getProjectName()+" " +
+                "SET id="+contract.getId()+", customer_id="+contract.getCustomerId()+", project_id="+contract.getProjectId()+", " +
+                "discount="+contract.getDiscount()+", createdOn="+contract.getCreatedOn()+", deadline="+contract.getDeadline()+", " +
+                "paymentSchedule="+contract.getPaymentSchedule()+", customer_name="+contract.getCustomerName()+", " +
+                "project_name="+contract.getProjectName()+ ", finalPrice="+ contract.getFinalPrice() +"  " +
                 "WHERE id="+contract.getId()+" ---");
         Connection connection = null;
         Statement statement   = null;
@@ -380,7 +386,8 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             System.out.println("--- Connection: " + connection.getMetaData()+ " ---");
 
             preparedStatement = connection.prepareStatement("UPDATE contract " +
-                    "SET id=?, customer_id=?, project_id=?, discount=?, createdOn=?, deadline=?, customer_name=?, project_name = ?, final_price = ? " +
+                    "SET id=?, customer_id=?, project_id=?, discount=?, createdOn=?, " +
+                    "deadline=?, paymentSchedule=?, customer_name=?, project_name=?, finalPrice=? " +
                     "WHERE id=?");
             preparedStatement.setInt(1, contract.getId());
             preparedStatement.setInt(2, contract.getCustomerId());
@@ -388,10 +395,12 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
             preparedStatement.setInt(4, contract.getDiscount());
             preparedStatement.setString(5, contract.getCreatedOn().toString());
             preparedStatement.setString(6, contract.getDeadline().toString());
-            preparedStatement.setInt(7, contract.getId());
+            preparedStatement.setString(7, contract.getPaymentSchedule());
             preparedStatement.setString(8, contract.getCustomerName());
             preparedStatement.setString(9, contract.getProjectName());
             preparedStatement.setDouble(10, contract.getFinalPrice());
+            preparedStatement.setInt(11, contract.getId());
+
             preparedStatement.executeUpdate();
 
             connection.commit();
@@ -512,6 +521,7 @@ public class ContractDaoImp extends DBConnection implements ContractDao {
                 temp.setDiscount(resultSet.getInt("discount"));
                 temp.setCreatedOn(DateFormat.parse(resultSet.getString("createdOn")));
                 temp.setCreatedOn(DateFormat.parse(resultSet.getString("deadline")));
+                temp.setPaymentSchedule(resultSet.getString("paymentSchedule"));
                 temp.setCustomerName(resultSet.getString("customer_name"));
                 temp.setProjectName(resultSet.getString("project_name"));
                 temp.setFinalPrice(resultSet.getDouble("final_price"));

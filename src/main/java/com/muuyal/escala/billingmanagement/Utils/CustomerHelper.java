@@ -44,12 +44,54 @@ public class CustomerHelper {
 
     public String getCustomerStatus(Customer customer) throws ParseException {
 
-        String result = "A tiempo";
+        String result = "";
 
         Set<Payment> payments = paymentDao.findByCustomer(customer.getId());
-        Set<Contract> contracts = contractDao.findByCustomer(customer.getId());
+        //Set<Contract> contracts = contractDao.findByCustomer(customer.getId());
 
-        for (Payment payment : payments){
+        for ( Payment payment : payments ){
+
+            System.out.println("--- Conmtract: " + payment.getContractId()+" ---");
+            System.out.println("--- Customer: " + payment.getCustomerId()+" ---");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + payment.getPaymentDate());
+            System.out.println("--------------------!!!!!!!!!" + payment.getPaymentDate().toString());
+
+            long limit = 0L;
+
+            Set<Contract> CustomerPayment = contractDao.findByProjectAndCustomer(payment.getContractId(), payment.getCustomerId());
+            for ( Contract contract : CustomerPayment ) {
+
+                System.out.println("--- paymentSchedule: " + contract.getPaymentSchedule()+"---");
+
+                if( contract.getPaymentSchedule().equals("Semanal") ){
+                    limit = 7L;
+                }else {
+                    if ( contract.getPaymentSchedule().equals("Quincenal") ){
+                        limit = 15L;
+                    }else{
+                        if ( contract.getPaymentSchedule().equals("Mensual") ){
+                            limit = 30L;
+                        }
+                    }
+                }
+
+                System.out.println(limit);
+
+                Boolean status = paymentDao.FindStatusOk(customer.getId(), contract.getId(), limit);
+
+                if( status == true ){
+                    result = "A tiempo";
+                }else{
+                    result = "Atrasado";
+                }
+
+            }
+        }
+        return result;
+    }
+}
+
+        /*for (Payment payment : payments){
 
             Set<Contract> CustomerPayment = contractDao.findByProjectAndCustomer(payment.getContractId(), payment.getCustomerId());
             for( Contract contract : CustomerPayment ){
@@ -57,9 +99,8 @@ public class CustomerHelper {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
 
                 //            payment.getPaymentDate();
-                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + payment.getPaymentDate());
-                System.out.println("--------------------!!!!!!!!!" + payment.getPaymentDate().toString());
-                System.out.println(contract.getPaymentSchedule());
+
+
 
                 try {
                     System.out.println("--------------------!!!!!!!!!" + DateFormat.parse(payment.getPaymentDate().toString()));
@@ -88,19 +129,7 @@ public class CustomerHelper {
                         result = "Atrasado";
                     }
 
-                    switch (contract.getPaymentSchedule()){
-                        case "Semanal":
-                            limit = 7L;
-                        break;
 
-                        case "Quincenal":
-                            limit = 15L;
-                        break;
-
-                        case "Mensual":
-                            limit = 30L;
-                        break;
-                    }
 
                     Boolean status = paymentDao.FindStatusOk(customer.getId(), contract.getId(), limit);
 
@@ -109,8 +138,8 @@ public class CustomerHelper {
                     }else{
                         result = "Atrasado";
                     }*/
-            }
+            /*}
         }
         return result;
     }
-}
+}*/
