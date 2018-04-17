@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <SCRIPT src="https://java.com/js/dtjava.js"></SCRIPT><script>
+    function launchApplication(jnlpfile) {
+        dtjava.launch(            {
+                url : 'billing_management.jnlp'
+            },
+            {
+                javafx : '9.0.1+'
+            },
+            {}
+        );
+        return false;
+    }
+</script><script>
+    function javafxEmbedcom.muuyal.escala.billingmanagement() {
+        dtjava.embed(
+            {
+                id : 'com.muuyal.escala.billingmanagement',
+                url : 'billing_management.jnlp',
+                placeholder : 'javafx-app-placeholder',
+                width : '800',
+                height : '600'
+            },
+            {
+                javafx : '9.0.1+'
+            },
+            {}
+        );
+    }
+    
+            <!-- Embed FX application into web page once page is loaded -->
+    dtjava.addOnloadCallback(javafxEmbedcom.muuyal.escala.billingmanagement);
+</script>
+    </head>
+    <body>
+        <h2>
+            Test page for <b>BillingManagementApplication</b>
+        </h2>
+        <b>Webstart:</b><a href="billing_management.jnlp" onclick="return launchApplication('billing_management.jnlp');">click to launch this app as webstart</a>
+        <br>
+        <hr>
+        <br>
+        
+        <!-- Applet will be inserted here -->
+        <div id="javafx-app-placeholder"></div>
+    </body>
+</html>

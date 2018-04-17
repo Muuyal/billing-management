@@ -8,7 +8,7 @@ import com.muuyal.escala.billingmanagement.dao.interfaces.ContractDao;
 import com.muuyal.escala.billingmanagement.dao.interfaces.CustomerDao;
 import com.muuyal.escala.billingmanagement.dao.interfaces.ProjectDao;
 import com.muuyal.escala.billingmanagement.entities.*;
-import com.sun.org.apache.xpath.internal.operations.String;
+//import com.sun.org.apache.xpath.internal.operations.String;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
