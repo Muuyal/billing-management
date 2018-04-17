@@ -15,7 +15,6 @@ public class DBConnection {
         System.out.println("--- Database opened successfully ---");
         statement = connection.createStatement();
 
-
     } catch (Exception e){
         System.err.println("--- Error found " + e.getClass().getName() + ":" + e.getMessage());
         System.exit(0);
